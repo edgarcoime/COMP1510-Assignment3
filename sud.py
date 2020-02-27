@@ -2,6 +2,7 @@ import random
 import copy
 import doctest
 
+
 def roll_die(number_of_rolls, number_of_sides):
     """Calculate the sum of the rolls of a die.
 
@@ -30,8 +31,24 @@ def roll_die(number_of_rolls, number_of_sides):
     return sum_of_rolls
 
 
+def movement_checker(character):
+    """Upon movement, checks if user encounters monster if not heals character.
+
+    :param character:
+    :return:
+    """
+    monster_chance = roll_die(1, 4)
+    if monster_chance == 1:
+        return True
+    else:
+        if character['HP'][1] < character['HP'][0]:
+            character['HP'][1] += 2
+        return False
+
+
 def main():
     doctest.testmod()
+
 
 if __name__ == '__main__':
     main()
