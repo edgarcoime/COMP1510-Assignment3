@@ -52,10 +52,10 @@ def move_north(character):
     :param character:
     :return:
     """
-    if character['current_location'][1] == 5:
+    if character['current_location'][1] == 1:
         print("You cannot go any more North! Turn back.")
     else:
-        new_y = character['current_location'][1] + 1
+        new_y = character['current_location'][1] - 1
         character['current_location'] = (character['current_location'][0], new_y)
 
 
@@ -65,10 +65,10 @@ def move_south(character):
     :param character:
     :return:
     """
-    if character['current_location'][1] == 1:
+    if character['current_location'][1] == 5:
         print("You cannot go any more South! Turn back.")
     else:
-        new_y = character['current_location'][1] - 1
+        new_y = character['current_location'][1] + 1
         character['current_location'] = (character['current_location'][0], new_y)
 
 
@@ -97,9 +97,39 @@ def move_west(character):
         new_x = character['current_location'][0] - 1
         character['current_location'] = (new_x, character['current_location'][1])
 
+def grid_generator(character):
+    """Generates a grid with current location and prints it to the user.
+
+    :param character:
+    :return:
+    """
+    x_coordinate = character['current_location'][0]
+    y_coordinate = character['current_location'][1]
+    for y, _ in enumerate(range(5), 1):
+        line = ""
+        for x, _ in enumerate(range(5), 1):
+            if x == x_coordinate and y == y_coordinate:
+                line += "[C]"
+            else:
+                line += "[ ]"
+        print(line)
+
 
 def main():
     doctest.testmod()
+    char = {
+        'current_location': (3, 3)
+    }
+    grid_generator(char)
+    move_north(char)
+    print("\n\n")
+    grid_generator(char)
+    move_north(char)
+    print("\n\n")
+    grid_generator(char)
+    move_north(char)
+    print("\n\n")
+    grid_generator(char)
 
 
 if __name__ == '__main__':
