@@ -46,6 +46,58 @@ def movement_checker(character):
         return False
 
 
+def move_north(character):
+    """Modifies character location to move North.
+
+    :param character:
+    :return:
+    """
+    if character['current_location'][1] == 5:
+        print("You cannot go any more North! Turn back.")
+    else:
+        new_y = character['current_location'][1] + 1
+        character['current_location'] = (character['current_location'][0], new_y)
+
+
+def move_south(character):
+    """Modifies character location to move South.
+
+    :param character:
+    :return:
+    """
+    if character['current_location'][1] == 1:
+        print("You cannot go any more South! Turn back.")
+    else:
+        new_y = character['current_location'][1] - 1
+        character['current_location'] = (character['current_location'][0], new_y)
+
+
+def move_east(character):
+    """Modifies character locaiton to move East.
+
+    :param character:
+    :return:
+    """
+    if character['current_location'][0] == 5:
+        print("You cannot go any more East! Turn back.")
+    else:
+        new_x = character['current_location'][0] + 1
+        character['current_location'] = (new_x, character['current_location'][1])
+
+
+def move_west(character):
+    """Modifies character location to move West.
+
+    :param character:
+    :return:
+    """
+    if character['current_location'][0] == 1:
+        print("You cannot go any more West! Turn back.")
+    else:
+        new_x = character['current_location'][0] - 1
+        character['current_location'] = (new_x, character['current_location'][1])
+
+
 def main():
     doctest.testmod()
 
