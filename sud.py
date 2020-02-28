@@ -127,13 +127,13 @@ def main():
         print(char['current_location'])
         grid_generator(char)
         user_movement = input("Where would you like to go? ")
-        if user_movement.lower().strip() == 'north':
+        if user_movement.lower().strip() == 'n':
             move_north(char)
-        elif user_movement.lower().strip() == 'east':
+        elif user_movement.lower().strip() == 'e':
             move_east(char)
-        elif user_movement.lower().strip() == 'south':
+        elif user_movement.lower().strip() == 's':
             move_south(char)
-        elif user_movement.lower().strip() == 'west':
+        elif user_movement.lower().strip() == 'w':
             move_west(char)
         else:
             print("That's not a valid input")
