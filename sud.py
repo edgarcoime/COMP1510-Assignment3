@@ -97,6 +97,7 @@ def move_west(character):
         new_x = character['current_location'][0] - 1
         character['current_location'] = (new_x, character['current_location'][1])
 
+
 def grid_generator(character):
     """Generates a grid with current location and prints it to the user.
 
@@ -118,18 +119,24 @@ def grid_generator(character):
 def main():
     doctest.testmod()
     char = {
-        'current_location': (3, 3)
+        'current_location': (3, 3),
+        'HP': [10, 10]
     }
-    grid_generator(char)
-    move_north(char)
-    print("\n\n")
-    grid_generator(char)
-    move_north(char)
-    print("\n\n")
-    grid_generator(char)
-    move_north(char)
-    print("\n\n")
-    grid_generator(char)
+
+    while char['HP'][1] != 0:
+        print(char['current_location'])
+        grid_generator(char)
+        user_movement = input("Where would you like to go? ")
+        if user_movement.lower().strip() == 'north':
+            move_north(char)
+        elif user_movement.lower().strip() == 'east':
+            move_east(char)
+        elif user_movement.lower().strip() == 'south':
+            move_south(char)
+        elif user_movement.lower().strip() == 'west':
+            move_west(char)
+        else:
+            print("That's not a valid input")
 
 
 if __name__ == '__main__':
