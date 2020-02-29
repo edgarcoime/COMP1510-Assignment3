@@ -56,7 +56,8 @@ def move_north(character):
     :return:
     """
     if character['current_location'][1] == 1:
-        print("You cannot go any more North! Turn back.")
+        print("The Northern wall of the colosseum towers before you.\n"
+              "You cannot go any more North! Turn back.")
     else:
         new_y = character['current_location'][1] - 1
         character['current_location'] = (character['current_location'][0], new_y)
@@ -69,7 +70,8 @@ def move_south(character):
     :return:
     """
     if character['current_location'][1] == 5:
-        print("You cannot go any more South! Turn back.")
+        print("The Southern wall of the colosseum towers before you.\n"
+              "You cannot go any more South! Turn back.")
     else:
         new_y = character['current_location'][1] + 1
         character['current_location'] = (character['current_location'][0], new_y)
@@ -82,7 +84,8 @@ def move_east(character):
     :return:
     """
     if character['current_location'][0] == 5:
-        print("You cannot go any more East! Turn back.")
+        print("The Eastern wall of the colosseum towers before you.\n"
+              "You cannot go any more East! Turn back.")
     else:
         new_x = character['current_location'][0] + 1
         character['current_location'] = (new_x, character['current_location'][1])
@@ -95,7 +98,8 @@ def move_west(character):
     :return:
     """
     if character['current_location'][0] == 1:
-        print("You cannot go any more West! Turn back.")
+        print("The Western wall of the colosseum towers before you.\n"
+              "You cannot go any more West! Turn back.")
     else:
         new_x = character['current_location'][0] - 1
         character['current_location'] = (new_x, character['current_location'][1])
@@ -151,10 +155,10 @@ def main():
     }
     char = {
         'current_location': (3, 3),
-        'HP': [10, 10]
+        'HP': [10, 1]
     }
 
-    while char['HP'][1] != 0:
+    while char['HP'][1] != 0 and GRID_EVENTS['bosses']:
         print(char['current_location'])
         grid_generator(char, GRID_EVENTS)
         move_character(char, GRID_EVENTS)
