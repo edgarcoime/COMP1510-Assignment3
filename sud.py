@@ -271,6 +271,16 @@ def select_race():
             print("That is not a valid choice adventurer. Choose a number from 1-9")
 
 
+def print_character(character):
+    print(  # basic character information
+        f"These are your character stats\n"
+        f"Name: {character['Name'].capitalize()}\n"
+        f"Hit-Points: {character['HP'][0]}/{character['HP'][1]}\n"
+        f"Class: {character['Class'].capitalize()}\n"
+        f"Race: {character['Race'].capitalize()}\n\n"
+    )
+
+
 def main():
     doctest.testmod()
     GRID_EVENTS = {
@@ -284,7 +294,8 @@ def main():
         'HP': [10, 1]
     }
 
-    print(create_character())
+    my_char = create_character()
+    print_character(my_char)
 
     while char['HP'][1] != 0 and GRID_EVENTS['bosses']:
         print(char['current_location'])
