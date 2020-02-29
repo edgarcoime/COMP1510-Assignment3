@@ -155,6 +155,61 @@ def generate_name():
     return name.lower().capitalize().strip()
 
 
+def select_class():
+    """Prompt user to choose from 12 classes.
+
+    :precondition: user input must be a positive non-zero integer that is between 1 - 12 inclusive,
+                   representing one of the twelve classes.
+    :postcondition: if user chose a positive integer returns
+                    a dictionary representing the class and attributes associated with it.
+    :return: a dictionary representing the class name and the attributes of the class
+
+    This function can be decomposed into two steps. First step being taking input from the user and the second being
+    returning the appropriate class dictionary to reflect the user's choice.
+    This process can be automated by initializing a dictionary with the key being the number associated with the class
+    and the values being a dictionary of attributes that will be used to populate the character dictionary. This
+    function returns a dictionary of values as well as the class name that can be used in create_character.
+    """
+    classes = {
+        1: {'Class': 'barbarian', 'HPRoll': 12},
+        2: {'Class': 'bard', 'HPRoll': 8},
+        3: {'Class': 'cleric', 'HPRoll': 8},
+        4: {'Class': 'druid', 'HPRoll': 8},
+        5: {'Class': 'fighter', 'HPRoll': 10},
+        6: {'Class': 'monk', 'HPRoll': 8},
+        7: {'Class': 'paladin', 'HPRoll': 10},
+        8: {'Class': 'ranger', 'HPRoll': 10},
+        9: {'Class': 'rogue', 'HPRoll': 8},
+        10: {'Class': 'sorcerer', 'HPRoll': 6},
+        11: {'Class': 'warlock', 'HPRoll': 8},
+        12: {'Class': 'wizard', 'HPRoll': 6},
+    }
+    print("\nPlease select a class by choosing a number from 1-12!\n"
+          "1. Barbarian: A fierce warrior of primitive background who can enter a battle rage.\n"
+          "2. Bard: An inspiring magician whose powers echoes the music of creation.\n"
+          "3. Cleric: A priestly champion who wields divine magic in service of a higher power.\n"
+          "4. Druid: A priest of the Old Faith, wielding the powers of nature and adopting animal forms.\n"
+          "5. Fighter: A master of martial combat, skilled with a variety of weapons and armor.\n"
+          "6. Monk: A master of martial arts, harnessing the power of the body in pursuit of physical and spriritual "
+          "perfection\n"
+          "7. Paladin: A holy warrior bound to a sacred oath.\n"
+          "8. Ranger: A warrior who combats threats on the edges of civilization.\n"
+          "9. Rogue: A scoundrel who uses stealth and trickery to overcome obstacles and enemies.\n"
+          "10. Sorcerer: A spellcaster who draws on inherent magic from a gift or bloodline.\n"
+          "11. Warlock: A wielder of magic that is derived from a bargain with an extraplanar entity.\n"
+          "12. Wizard: A scholarly magic-user capable of manipulating the structures of reality.\n")
+
+    classes_prompt = True
+    while classes_prompt:
+        user_class = int(input("What class will you be adventurer? "))
+        if user_class in classes.keys():
+            classes_prompt = False
+            return classes[user_class]
+        else:
+            print("That is not a valid input please select a number from 1-12 "
+                  "to choose a class!")
+
+
 def main():
     doctest.testmod()
     GRID_EVENTS = {
