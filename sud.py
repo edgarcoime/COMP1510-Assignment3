@@ -98,19 +98,25 @@ def move_west(character):
         character['current_location'] = (new_x, character['current_location'][1])
 
 
-def grid_generator(character):
+def grid_generator(character, grid_events):
     """Generates a grid with current location and prints it to the user.
 
+    :param grid_events:
     :param character:
     :return:
     """
-    x_coordinate = character['current_location'][0]
-    y_coordinate = character['current_location'][1]
     for y, _ in enumerate(range(5), 1):
         line = ""
         for x, _ in enumerate(range(5), 1):
-            if x == x_coordinate and y == y_coordinate:
+            if (x, y) == character['current_location']:
                 line += "[C]"
+            elif (x, y) in grid_events.keys():
+                if grid_events[(x, y)] == 'dragon':
+                    line += "[D]"
+                elif grid_events[(x, y)] == 'wolf':
+                    line += "[W]"
+                elif grid_events[(x, y)] == 'giant':
+                    line += "[G]"
             else:
                 line += "[ ]"
         print(line)
@@ -118,6 +124,11 @@ def grid_generator(character):
 
 def main():
     doctest.testmod()
+    GRID = {
+        (1, 1): 'dragon',
+        (4, 5): 'giant',
+        (3, 2): 'wolf'
+    }
     char = {
         'current_location': (3, 3),
         'HP': [10, 10]
@@ -125,7 +136,7 @@ def main():
 
     while char['HP'][1] != 0:
         print(char['current_location'])
-        grid_generator(char)
+        grid_generator(char, GRID)
         user_movement = input("Where would you like to go? ")
         if user_movement.lower().strip() == 'n':
             move_north(char)
