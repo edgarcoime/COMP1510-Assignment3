@@ -171,18 +171,18 @@ def select_class():
     function returns a dictionary of values as well as the class name that can be used in create_character.
     """
     classes = {
-        1: {'Class': 'barbarian', 'HPRoll': 12},
-        2: {'Class': 'bard', 'HPRoll': 8},
-        3: {'Class': 'cleric', 'HPRoll': 8},
-        4: {'Class': 'druid', 'HPRoll': 8},
-        5: {'Class': 'fighter', 'HPRoll': 10},
-        6: {'Class': 'monk', 'HPRoll': 8},
-        7: {'Class': 'paladin', 'HPRoll': 10},
-        8: {'Class': 'ranger', 'HPRoll': 10},
-        9: {'Class': 'rogue', 'HPRoll': 8},
-        10: {'Class': 'sorcerer', 'HPRoll': 6},
-        11: {'Class': 'warlock', 'HPRoll': 8},
-        12: {'Class': 'wizard', 'HPRoll': 6},
+        1: {'Class': 'barbarian'},
+        2: {'Class': 'bard'},
+        3: {'Class': 'cleric'},
+        4: {'Class': 'druid'},
+        5: {'Class': 'fighter'},
+        6: {'Class': 'monk'},
+        7: {'Class': 'paladin'},
+        8: {'Class': 'ranger'},
+        9: {'Class': 'rogue'},
+        10: {'Class': 'sorcerer'},
+        11: {'Class': 'warlock'},
+        12: {'Class': 'wizard'},
     }
     print("\nPlease select a class by choosing a number from 1-12!\n"
           "1. Barbarian: A fierce warrior of primitive background who can enter a battle rage.\n"
@@ -208,6 +208,58 @@ def select_class():
         else:
             print("That is not a valid input please select a number from 1-12 "
                   "to choose a class!")
+
+
+def select_race():
+    """Prompt user to choose from 9 races.
+
+    :precondition: user input must be a positive non-zero integer that is between 1 - 9 inclusive,
+                   representing one of the nine races.
+    :postcondition: returns a string representing the race of user has chosen.
+    :return: a string representing a race.
+
+    This function can be decomposed into two steps. First step being taking input from the user and the second being
+    returning the appropriate race name to reflect the user's choice.
+    This process can be automated by initializing a dictionary with the key being the number associated with the race
+    and the the value being race that has being chosen as a string. This function returns a the race name as a string
+    which can be used in create_character.
+    """
+    races = {
+        1: 'dwarf',
+        2: 'elf',
+        3: 'halfling',
+        4: 'human',
+        5: 'dragonborn',
+        6: 'gnome',
+        7: 'half-elf',
+        8: 'half-orc',
+        9: 'tiefling',
+    }
+    print("\nChoose your race by choosing a number from 1-9!\n"
+          "1. Dwarf: Bold and hardy, dwarves are known as skilled warriors, miners, and workers of stone and metal.\n"
+          "2. Elf: With their unearthly grace and fine features, elves appear hauntingly beautiful to humans and "
+          "members of many other races.\n"
+          "3. Halfling: The diminutive halflings survive in a world full of larger creatures by avoiding notice or, "
+          "barring that, avoiding offense.\n"
+          "4. Human: With their penchant for migration and conquest, humans are more physically diverse than other "
+          "common races.\n"
+          "5. Dragonborn: Dragonborn look very much like dragons standing erect in humanoid form, though they lack "
+          "wings or a tail.\n"
+          "6. Gnome: A gnome’s energy and enthusiasm for living shines through every inch of his or her tiny body.\n"
+          "7. Halfelf: To humans, half-elves look like elves, and to elves, they look human.\n"
+          "8. Halforc: Half-orcs’ grayish pigmentation, sloping foreheads, jutting jaws, prominent teeth, and towering"
+          "builds make their orcish heritage plain for all to see.\n"
+          "9. Tiefling: Tieflings are derived from human bloodlines, and in the broadest possible sense, they still "
+          "look human.\n")
+
+    race_prompt = True
+    while race_prompt:
+        user_race = int(input("What race will you be adventurer? "))
+        if user_race in races.keys():
+            race_prompt = False
+            return races[user_race]
+        else:
+            print("That is not a valid choice adventurer. Choose a number from 1-9")
 
 
 def main():
