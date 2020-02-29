@@ -150,6 +150,15 @@ def move_character(character, grid_events):
 
 
 # Character creator functions
+def create_character():
+    character = {'Name': generate_name(),
+                 'Class': select_class(),
+                 'Race': select_race(),
+                 'HP': [15, 15],
+                 'current_location': (3, 3)}
+    return character
+
+
 def generate_name():
     name = input("What is your name adventurer? ")
     return name.lower().capitalize().strip()
@@ -171,18 +180,18 @@ def select_class():
     function returns a dictionary of values as well as the class name that can be used in create_character.
     """
     classes = {
-        1: {'Class': 'barbarian'},
-        2: {'Class': 'bard'},
-        3: {'Class': 'cleric'},
-        4: {'Class': 'druid'},
-        5: {'Class': 'fighter'},
-        6: {'Class': 'monk'},
-        7: {'Class': 'paladin'},
-        8: {'Class': 'ranger'},
-        9: {'Class': 'rogue'},
-        10: {'Class': 'sorcerer'},
-        11: {'Class': 'warlock'},
-        12: {'Class': 'wizard'},
+        1: 'barbarian',
+        2: 'bard',
+        3: 'cleric',
+        4: 'druid',
+        5: 'fighter',
+        6: 'monk',
+        7: 'paladin',
+        8: 'ranger',
+        9: 'rogue',
+        10: 'sorcerer',
+        11: 'warlock',
+        12: 'wizard',
     }
     print("\nPlease select a class by choosing a number from 1-12!\n"
           "1. Barbarian: A fierce warrior of primitive background who can enter a battle rage.\n"
@@ -275,7 +284,7 @@ def main():
         'HP': [10, 1]
     }
 
-    print(generate_name())
+    print(create_character())
 
     while char['HP'][1] != 0 and GRID_EVENTS['bosses']:
         print(char['current_location'])
