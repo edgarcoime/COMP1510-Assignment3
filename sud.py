@@ -2,13 +2,8 @@ import random
 import copy
 import doctest
 
+
 # global variables to mark events
-GRID_EVENTS = {
-    'bosses': {(1, 1): 'dragon',
-               (5, 1): 'giant',
-               (5, 5): 'wolf'},
-    'events': None
-}
 
 
 def roll_die(number_of_rolls, number_of_sides):
@@ -109,7 +104,6 @@ def move_west(character):
 def grid_generator(character, grid_events):
     """Generates a grid with current location and prints it to the user.
 
-    :param grid_events:
     :param character:
     :return:
     """
@@ -118,12 +112,12 @@ def grid_generator(character, grid_events):
         for x, _ in enumerate(range(5), 1):
             if (x, y) == character['current_location']:
                 line += "[C]"
-            elif (x, y) in GRID_EVENTS['bosses'].keys():
-                if GRID_EVENTS['bosses'][(x, y)] == 'dragon':
+            elif (x, y) in grid_events['bosses'].keys():
+                if grid_events['bosses'][(x, y)] == 'dragon':
                     line += "[D]"
-                elif GRID_EVENTS['bosses'][(x, y)] == 'wolf':
+                elif grid_events['bosses'][(x, y)] == 'wolf':
                     line += "[W]"
-                elif GRID_EVENTS['bosses'][(x, y)] == 'giant':
+                elif grid_events['bosses'][(x, y)] == 'giant':
                     line += "[G]"
                 else:
                     pass
@@ -132,12 +126,27 @@ def grid_generator(character, grid_events):
         print(line)
 
 
+def move_character(character, grid_events):
+    user_movement = input('Where would you like to move?\n'
+                          'type (N or North) - (E or East) - (S or South) - (W or West)\n')
+    if user_movement.lower().strip() == 'n':
+        move_north(character)
+    elif user_movement.lower().strip() == 'e':
+        move_east(character)
+    elif user_movement.lower().strip() == 's':
+        move_south(character)
+    elif user_movement.lower().strip() == 'w':
+        move_west(character)
+    else:
+        print("That's not a valid input")
+
+
 def main():
     doctest.testmod()
-    GRID = {
+    GRID_EVENTS = {
         'bosses': {(1, 1): 'dragon',
-                   (4, 5): 'giant',
-                   (5, 2): 'wolf'},
+                   (5, 1): 'giant',
+                   (5, 5): 'wolf'},
         'events': None
     }
     char = {
@@ -147,18 +156,8 @@ def main():
 
     while char['HP'][1] != 0:
         print(char['current_location'])
-        grid_generator(char, GRID)
-        user_movement = input("Where would you like to go? ")
-        if user_movement.lower().strip() == 'n':
-            move_north(char)
-        elif user_movement.lower().strip() == 'e':
-            move_east(char)
-        elif user_movement.lower().strip() == 's':
-            move_south(char)
-        elif user_movement.lower().strip() == 'w':
-            move_west(char)
-        else:
-            print("That's not a valid input")
+        grid_generator(char, GRID_EVENTS)
+        move_character(char, GRID_EVENTS)
 
 
 if __name__ == '__main__':
