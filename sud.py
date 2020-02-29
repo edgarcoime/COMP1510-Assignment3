@@ -3,9 +3,7 @@ import copy
 import doctest
 
 
-# global variables to mark events
-
-
+# Character movement and Grid events functions
 def roll_die(number_of_rolls, number_of_sides):
     """Calculate the sum of the rolls of a die.
 
@@ -151,6 +149,12 @@ def move_character(character, grid_events):
         print("That's not a valid input")
 
 
+# Character creator functions
+def generate_name():
+    name = input("What is your name adventurer? ")
+    return name.lower().capitalize().strip()
+
+
 def main():
     doctest.testmod()
     GRID_EVENTS = {
@@ -164,15 +168,15 @@ def main():
         'HP': [10, 1]
     }
 
+    print(generate_name())
+
     while char['HP'][1] != 0 and GRID_EVENTS['bosses']:
         print(char['current_location'])
         grid_generator(char, GRID_EVENTS)
         move_character(char, GRID_EVENTS)
         monster_battle = movement_checker(char)
-        # if monster_battle:
-        #
-        # else:
-        #     print("A monster caught up to you! You stand your ground.")
+        if monster_battle:
+            print("A monster catches up to you. Get ready for battle!")
 
 
 if __name__ == '__main__':
