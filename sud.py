@@ -46,6 +46,12 @@ def movement_checker(character):
     else:
         if character['HP'][1] < character['HP'][0]:
             character['HP'][1] += 2
+            print("The monsters couldn't catch up to you. This gives you the opportunity to bandage your wounds.\n"
+                  f"You heal 2 points. You now have {character['HP'][1]}/{character['HP'][0]}HP")
+        else:
+            print("You were too fast for the onslaught of monsters. They couldn't catch you.\n"
+                  f"You are in pretty good condition and don't need bandaging. "
+                  f"You have {character['HP'][1]}/{character['HP'][0]}HP")
         return False
 
 
@@ -162,6 +168,11 @@ def main():
         print(char['current_location'])
         grid_generator(char, GRID_EVENTS)
         move_character(char, GRID_EVENTS)
+        monster_battle = movement_checker(char)
+        # if monster_battle:
+        #
+        # else:
+        #     print("A monster caught up to you! You stand your ground.")
 
 
 if __name__ == '__main__':
