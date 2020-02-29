@@ -2,6 +2,14 @@ import random
 import copy
 import doctest
 
+# global variables to mark events
+GRID_EVENTS = {
+    'bosses': {(1, 1): 'dragon',
+               (5, 1): 'giant',
+               (5, 5): 'wolf'},
+    'events': None
+}
+
 
 def roll_die(number_of_rolls, number_of_sides):
     """Calculate the sum of the rolls of a die.
@@ -110,13 +118,15 @@ def grid_generator(character, grid_events):
         for x, _ in enumerate(range(5), 1):
             if (x, y) == character['current_location']:
                 line += "[C]"
-            elif (x, y) in grid_events.keys():
-                if grid_events[(x, y)] == 'dragon':
+            elif (x, y) in GRID_EVENTS['bosses'].keys():
+                if GRID_EVENTS['bosses'][(x, y)] == 'dragon':
                     line += "[D]"
-                elif grid_events[(x, y)] == 'wolf':
+                elif GRID_EVENTS['bosses'][(x, y)] == 'wolf':
                     line += "[W]"
-                elif grid_events[(x, y)] == 'giant':
+                elif GRID_EVENTS['bosses'][(x, y)] == 'giant':
                     line += "[G]"
+                else:
+                    pass
             else:
                 line += "[ ]"
         print(line)
@@ -125,9 +135,10 @@ def grid_generator(character, grid_events):
 def main():
     doctest.testmod()
     GRID = {
-        (1, 1): 'dragon',
-        (4, 5): 'giant',
-        (3, 2): 'wolf'
+        'bosses': {(1, 1): 'dragon',
+                   (4, 5): 'giant',
+                   (5, 2): 'wolf'},
+        'events': None
     }
     char = {
         'current_location': (3, 3),
