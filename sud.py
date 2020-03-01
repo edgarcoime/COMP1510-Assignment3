@@ -1,5 +1,4 @@
 import random
-import copy
 import doctest
 
 
@@ -152,22 +151,25 @@ def grid_generator(character, grid_events):
           f"You must kill them to be free of this nightmare!\n")
 
 
-def move_character(character, grid_events):
+def move_character(character):
     while True:
-        user_movement = input('Where would you like to move?\n'
-                              'type (N or North) - (E or East) - (S or South) - (W or West)\n')
-        if user_movement.lower().strip() == 'n' or user_movement.lower().strip() == 'north':
+        user_prompt = input('Where would you like to move?\n'
+                            'type (N or North) - (E or East) - (S or South) - (W or West)\n'
+                            'To quit game type: Q or Quit\n')
+        if user_prompt.lower().strip() == 'n' or user_prompt.lower().strip() == 'north':
             move_north(character)
             break
-        elif user_movement.lower().strip() == 'e' or user_movement.lower().strip() == 'east':
+        elif user_prompt.lower().strip() == 'e' or user_prompt.lower().strip() == 'east':
             move_east(character)
             break
-        elif user_movement.lower().strip() == 's' or user_movement.lower().strip() == 'south':
+        elif user_prompt.lower().strip() == 's' or user_prompt.lower().strip() == 'south':
             move_south(character)
             break
-        elif user_movement.lower().strip() == 'w' or user_movement.lower().strip() == 'west':
+        elif user_prompt.lower().strip() == 'w' or user_prompt.lower().strip() == 'west':
             move_west(character)
             break
+        elif user_prompt.lower().strip() == 'q' or user_prompt.lower().strip() == 'quit':
+            return True
         else:
             print("That's not a valid input")
 
@@ -457,21 +459,24 @@ def main():
     while my_char['HP'][1] > 0 and GRID_EVENTS['bosses']:
         # print(my_char['current_location'])
         grid_generator(my_char, GRID_EVENTS)
-        move_character(my_char, GRID_EVENTS)
-
-        boss_fight = boss_fight_checker(my_char, GRID_EVENTS)
-        monster_battle = movement_checker(my_char)
-        if boss_fight:
-            if boss_fight == 'dragon':
-                print(boss_fight)
-            elif boss_fight == 'giant':
-                print(boss_fight)
-            else:
-                print(boss_fight)
+        quit_prompt = move_character(my_char)
+        if quit_prompt:
+            print("Thanks for playing our game! Please play again next time.")
+            break
         else:
-            if monster_battle:
-                print("A monster catches up to you. Get ready for battle!")
-                normal_battle(my_char)
+            boss_fight = boss_fight_checker(my_char, GRID_EVENTS)
+            monster_battle = movement_checker(my_char)
+            if boss_fight:
+                if boss_fight == 'dragon':
+                    print(boss_fight)
+                elif boss_fight == 'giant':
+                    print(boss_fight)
+                else:
+                    print(boss_fight)
+            else:
+                if monster_battle:
+                    print("A monster catches up to you. Get ready for battle!")
+                    normal_battle(my_char)
 
 
 if __name__ == '__main__':
