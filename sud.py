@@ -112,6 +112,7 @@ def move_west(character):
 def grid_generator(character, grid_events):
     """Generates a grid with current location and prints it to the user.
 
+    :param grid_events:
     :param character:
     :return:
     """
@@ -132,6 +133,8 @@ def grid_generator(character, grid_events):
             else:
                 line += "[ ]"
         print(line)
+    print(f"{len(grid_events['bosses'].keys())}/3 bosses are still alive!\n"
+          f"You must kill them to be free of this nightmare!\n")
 
 
 def move_character(character, grid_events):
@@ -160,7 +163,7 @@ def create_character():
 
 
 def generate_name():
-    name = input("What is your name adventurer? ")
+    name = input("What was your name again? ")
     return name.lower().capitalize().strip()
 
 
@@ -193,7 +196,7 @@ def select_class():
         11: 'warlock',
         12: 'wizard',
     }
-    print("\nPlease select a class by choosing a number from 1-12!\n"
+    print("\nTry to remember your class by choosing a number from 1-12!\n"
           "1. Barbarian: A fierce warrior of primitive background who can enter a battle rage.\n"
           "2. Bard: An inspiring magician whose powers echoes the music of creation.\n"
           "3. Cleric: A priestly champion who wields divine magic in service of a higher power.\n"
@@ -210,13 +213,14 @@ def select_class():
 
     classes_prompt = True
     while classes_prompt:
-        user_class = int(input("What class will you be adventurer? "))
+        user_class = int(input("What class did I specialize in again? "))
         if user_class in classes.keys():
+            print(f"I was a {classes[user_class].capitalize()}\n")
             classes_prompt = False
             return classes[user_class]
         else:
-            print("That is not a valid input please select a number from 1-12 "
-                  "to choose a class!")
+            print("No, That's not the class that I was.\n"
+                  "Please select a number from 1-12")
 
 
 def select_race():
@@ -244,7 +248,7 @@ def select_race():
         8: 'half-orc',
         9: 'tiefling',
     }
-    print("\nChoose your race by choosing a number from 1-9!\n"
+    print("\nTry to remember your race by choosing a number from 1-9!\n"
           "1. Dwarf: Bold and hardy, dwarves are known as skilled warriors, miners, and workers of stone and metal.\n"
           "2. Elf: With their unearthly grace and fine features, elves appear hauntingly beautiful to humans and "
           "members of many other races.\n"
@@ -263,17 +267,19 @@ def select_race():
 
     race_prompt = True
     while race_prompt:
-        user_race = int(input("What race will you be adventurer? "))
+        user_race = int(input("Where did I come from? and what was my background? "))
         if user_race in races.keys():
+            print(f"I was part of the {races[user_race].capitalize()} race.\n")
             race_prompt = False
             return races[user_race]
         else:
-            print("That is not a valid choice adventurer. Choose a number from 1-9")
+            print("No, I am not of that race. I need to remember!\n"
+                  "Please select a number from 1-9")
 
 
 def print_character(character):
     print(  # basic character information
-        f"These are your character stats\n"
+        f"These are the characteristics that you remember.\n"
         f"Name: {character['Name'].capitalize()}\n"
         f"Hit-Points: {character['HP'][0]}/{character['HP'][1]}\n"
         f"Class: {character['Class'].capitalize()}\n"
@@ -289,21 +295,75 @@ def main():
                    (5, 5): 'wolf'},
         'events': None
     }
-    char = {
-        'current_location': (3, 3),
-        'HP': [10, 1]
-    }
+
+    # GAME STARTS HERE
+
+    # INTRODUCTION AND PRELUDE TO FIGHTING IN ARENA
+    print(  # introduction upon waking up
+        "You wake up to the sound of the prison cell creaking. Your head throbs with pain as you try to regain your \n"
+        "senses and remember what happened to you. Before you can collect your thoughts, you are interrupted by the \n"
+        "laughter from behind you. \n"
+        "    Death row inmate: 'Hahaha . . . You are going into the arena tomorrow. Only death awaits you there.'\n"
+    )
+    input("You have no idea what is going on and you wonder what this ‘arena’ is, so you ask the man for more details.")
+    print(
+        "    Death row inmate: 'The arena is where the king throws inmates to fight his 3 champions. \n"
+        "                       Ajax the Giant, Fenrir the great Wolf, and Cetus the Dragon.\n"
+        "                       You stand no chance. You are going to be slaughtered!'\n"
+    )
+
+    while True:
+        print("Fear grips you, but if you are fighting tomorrow you need to know who you will be fighting. "
+              "You ask him . . .")
+        intro_q1 = input("Choose a number from 1-4 to ask the man a question.\n"
+                         "1. Who is Ajax the Giant?\n"
+                         "2. Who is Fenrir the Great Wolf?\n"
+                         "3. Who is Cetus the Dragon?\n"
+                         "4. What happens if I win against them?\n")
+        if int(intro_q1) == 1:
+            print("    Death row inmate: 'Ajax the Giant is a Troll who stands as tall as three adult men.\n"
+                  "                       He can single handedly crush you with a swing of his club.'\n")
+        elif int(intro_q1) == 2:
+            print("    Death row inmate: 'Fenrir the Great Wolf is a fierce beast whose speed is unrivaled in battle\n"
+                  "                       in the time it takes you to land a hit he would've striked you twice.'\n")
+        elif int(intro_q1) == 3:
+            print("    Death row inmate: 'Cetus the Dragon is a wyvern who has served in the king's bloodline for\n"
+                  "                       thousands of years. His ferociousness is otherworldly and his thick hide\n"
+                  "                       protects him from weapons that would pierce even walls'\n")
+        elif int(intro_q1) == 4:
+            print("    Death row inmate: 'HAHAHA You are never going to win, not even in a thousand years. But if \n"
+                  "                       you do manage to pull a miracle the king will set you free with fortunes\n"
+                  "                       that the Gods would even kill for.'\n")
+            break
+        else:
+            print("That's not a valid choice. Type a number associated with a choice.\n")
+
+    print("You end the conversation and try to get some sleep. Trying to remember who you are.\n"
+          "You ask yourself:")
 
     my_char = create_character()
     print_character(my_char)
 
-    while char['HP'][1] != 0 and GRID_EVENTS['bosses']:
-        print(char['current_location'])
-        grid_generator(char, GRID_EVENTS)
-        move_character(char, GRID_EVENTS)
-        monster_battle = movement_checker(char)
+    print("You wake up to the sound of the screaming crowd as you stagger to your feet. You are in the arena\n"
+          "and monsters surround you on all sides. You remember the What the old man said. . .\n"
+          "To get out of here I must kill the three champions of this ARENA!\n")
+
+    while my_char['HP'][1] != 0 and GRID_EVENTS['bosses']:
+        print(my_char['current_location'])
+        grid_generator(my_char, GRID_EVENTS)
+        move_character(my_char, GRID_EVENTS)
+        monster_battle = movement_checker(my_char)
         if monster_battle:
             print("A monster catches up to you. Get ready for battle!")
+
+    # char = {
+    #     'current_location': (3, 3),
+    #     'HP': [10, 1]
+    # }
+    #
+    # my_char = create_character()
+    # print_character(my_char)
+    #
 
 
 if __name__ == '__main__':
