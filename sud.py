@@ -346,6 +346,22 @@ def retreat(character):
         print("You successfully escape!\n")
 
 
+def combat_round(character, monster):
+    # Character attacks first
+    print(f"{character['Name']} draws his weapon and lunges at the beast.")
+    attack(character, monster)
+
+    if 0 < monster['HP'][1]:
+        print(f"{monster['Name']} staggers and recovers its composure. It glares at you and Retaliates!")
+        attack(monster, character)
+    else:
+        print(f"You have successfully killed the monster {monster['Name']}!\n")
+
+    # if character HP reaches 0 or lower death message shows
+    if character['HP'][1] <= 0:
+        print("You are dealt a fatal wound and everything turns black. All you hear are the monsters gathering \n"
+              "around your body and the sound of your flesh being eaten.")
+
 
 
 
