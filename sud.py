@@ -363,6 +363,24 @@ def combat_round(character, monster):
               "around your body and the sound of your flesh being eaten.")
 
 
+def attack(attacker, defender, times_attack=1, roll=1, side=6):
+    if times_attack == 1:
+        damage_roll = roll_die(roll, side)
+        defender['HP'][1] -= damage_roll
+        print(f"{attacker['Name']} attacks {defender['Name']} and deals {damage_roll} damage.\n"
+              f"Leaving {defender['Name']} with {defender['HP'][1]}/{defender['HP'][0]}HP.\n")
+    else:
+        damage_rolls = []
+        damage_string = ""
+        for _ in range(times_attack):
+            damage_roll = roll_die(roll, side)
+            damage_rolls.append(damage_roll)
+            damage_string += str(damage_roll) + ", "
+        defender['HP'][1] -= sum(damage_rolls)
+        print(
+            f"The beast attacks with tremendous speed! Allowing it to strike {defender['Name']} {times_attack} times.\n"
+            f"{attacker['Name']} rolls {damage_string}for a total of {sum(damage_rolls)} damage. "
+            f"Leaving {defender['Name']} with {defender['HP'][1]}/{defender['HP'][0]}HP.\n")
 
 
 def main():
