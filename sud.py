@@ -333,6 +333,22 @@ def create_monster():
     return monster_dictionary
 
 
+def retreat(character):
+    hit_chance_roll = roll_die(1, 10)
+    print("You have a 10% chance of being backstabbed.")
+    if hit_chance_roll == 1:
+        retreat_damage = roll_die(1, 4)
+        character['HP'][1] -= retreat_damage
+        print("While retreating you are attacked from behind!\n"
+              f"You are hit with {retreat_damage} damage, "
+              f"leaving you with {character['HP'][1]}/{character['HP'][0]}HP.\n")
+    else:
+        print("You successfully escape!\n")
+
+
+
+
+
 def main():
     doctest.testmod()
     GRID_EVENTS = {
