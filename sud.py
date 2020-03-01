@@ -301,8 +301,22 @@ def print_character(character):
         f"Name: {character['Name'].capitalize()}\n"
         f"Hit-Points: {character['HP'][0]}/{character['HP'][1]}\n"
         f"Class: {character['Class'].capitalize()}\n"
-        f"Race: {character['Race'].capitalize()}\n\n"
-    )
+        f"Race: {character['Race'].capitalize()}\n\n")
+
+
+def normal_battle(character):
+    monster = create_monster()
+    print("You meet a monster named %s" % (monster['Name']))
+    while monster['HP'][1] > 0 and character['HP'][1] > 0:
+        decision = input(f"You have {character['HP'][1]}HP and the enemy has {monster['HP'][1]}\n"
+                         "Will you fight or run? (type: fight or run): ")
+        if decision == 'fight':
+            combat_round(character, monster)
+        elif decision == 'run':
+            retreat(character)
+            break
+        else:
+            pass
 
 
 def main():
