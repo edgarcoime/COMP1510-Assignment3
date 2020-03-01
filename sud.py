@@ -45,11 +45,23 @@ def movement_checker(character):
         if character['HP'][1] < character['HP'][0]:
             character['HP'][1] += 2
             print("The monsters couldn't catch up to you. This gives you the opportunity to bandage your wounds.\n"
-                  f"You heal 2 points. You now have {character['HP'][1]}/{character['HP'][0]}HP")
+                  f"You heal 2 points. You now have {character['HP'][1]}/{character['HP'][0]}HP\n")
         else:
             print("You were too fast for the onslaught of monsters. They couldn't catch you.\n"
                   f"You are in pretty good condition and don't need bandaging. "
-                  f"You have {character['HP'][1]}/{character['HP'][0]}HP")
+                  f"You have {character['HP'][1]}/{character['HP'][0]}HP\n")
+        return False
+
+
+def boss_fight_checker(character, grid_events):
+    if character['current_location'] in grid_events['bosses'].keys():
+        if grid_events['bosses'][character['current_location']] == 'dragon':
+            return 'dragon'
+        elif grid_events['bosses'][character['current_location']] == 'giant':
+            return 'giant'
+        else:
+            return 'wolf'
+    else:
         return False
 
 
@@ -298,50 +310,56 @@ def main():
 
     # GAME STARTS HERE
 
-    # INTRODUCTION AND PRELUDE TO FIGHTING IN ARENA
-    print(  # introduction upon waking up
-        "You wake up to the sound of the prison cell creaking. Your head throbs with pain as you try to regain your \n"
-        "senses and remember what happened to you. Before you can collect your thoughts, you are interrupted by the \n"
-        "laughter from behind you. \n"
-        "    Death row inmate: 'Hahaha . . . You are going into the arena tomorrow. Only death awaits you there.'\n"
-    )
-    input("You have no idea what is going on and you wonder what this ‘arena’ is, so you ask the man for more details.")
-    print(
-        "    Death row inmate: 'The arena is where the king throws inmates to fight his 3 champions. \n"
-        "                       Ajax the Giant, Fenrir the great Wolf, and Cetus the Dragon.\n"
-        "                       You stand no chance. You are going to be slaughtered!'\n"
-    )
+    # # INTRODUCTION AND PRELUDE TO FIGHTING IN ARENA
+    # print(  # introduction upon waking up
+    #     "You wake up to the sound of the prison cell creaking. Your head throbs with pain as you try to regain your \n"
+    #     "senses and remember what happened to you. Before you can collect your thoughts, you are interrupted by the \n"
+    #     "laughter from behind you. \n"
+    #     "    Death row inmate: 'Hahaha . . . You are going into the arena tomorrow. Only death awaits you there.'\n"
+    # )
+    # input("You have no idea what is going on and you wonder what this ‘arena’ is, so you ask the man for more details.")
+    # print(
+    #     "    Death row inmate: 'The arena is where the king throws inmates to fight his 3 champions. \n"
+    #     "                       Ajax the Giant, Fenrir the great Wolf, and Cetus the Dragon.\n"
+    #     "                       You stand no chance. You are going to be slaughtered!'\n"
+    # )
+    #
+    # while True:
+    #     print("Fear grips you, but if you are fighting tomorrow you need to know who you will be fighting. "
+    #           "You ask him . . .")
+    #     intro_q1 = input("Choose a number from 1-4 to ask the man a question.\n"
+    #                      "1. Who is Ajax the Giant?\n"
+    #                      "2. Who is Fenrir the Great Wolf?\n"
+    #                      "3. Who is Cetus the Dragon?\n"
+    #                      "4. What happens if I win against them?\n")
+    #     if int(intro_q1) == 1:
+    #         print("    Death row inmate: 'Ajax the Giant is a Troll who stands as tall as three adult men.\n"
+    #               "                       He can single handedly crush you with a swing of his club.'\n")
+    #     elif int(intro_q1) == 2:
+    #         print("    Death row inmate: 'Fenrir the Great Wolf is a fierce beast whose speed is unrivaled in battle\n"
+    #               "                       in the time it takes you to land a hit he would've striked you twice.'\n")
+    #     elif int(intro_q1) == 3:
+    #         print("    Death row inmate: 'Cetus the Dragon is a wyvern who has served in the king's bloodline for\n"
+    #               "                       thousands of years. His ferociousness is otherworldly and his thick hide\n"
+    #               "                       protects him from weapons that would pierce even walls'\n")
+    #     elif int(intro_q1) == 4:
+    #         print("    Death row inmate: 'HAHAHA You are never going to win, not even in a thousand years. But if \n"
+    #               "                       you do manage to pull a miracle the king will set you free with fortunes\n"
+    #               "                       that the Gods would even kill for.'\n")
+    #         break
+    #     else:
+    #         print("That's not a valid choice. Type a number associated with a choice.\n")
+    #
+    # print("You end the conversation and try to get some sleep. Trying to remember who you are.\n"
+    #       "You ask yourself:")
 
-    while True:
-        print("Fear grips you, but if you are fighting tomorrow you need to know who you will be fighting. "
-              "You ask him . . .")
-        intro_q1 = input("Choose a number from 1-4 to ask the man a question.\n"
-                         "1. Who is Ajax the Giant?\n"
-                         "2. Who is Fenrir the Great Wolf?\n"
-                         "3. Who is Cetus the Dragon?\n"
-                         "4. What happens if I win against them?\n")
-        if int(intro_q1) == 1:
-            print("    Death row inmate: 'Ajax the Giant is a Troll who stands as tall as three adult men.\n"
-                  "                       He can single handedly crush you with a swing of his club.'\n")
-        elif int(intro_q1) == 2:
-            print("    Death row inmate: 'Fenrir the Great Wolf is a fierce beast whose speed is unrivaled in battle\n"
-                  "                       in the time it takes you to land a hit he would've striked you twice.'\n")
-        elif int(intro_q1) == 3:
-            print("    Death row inmate: 'Cetus the Dragon is a wyvern who has served in the king's bloodline for\n"
-                  "                       thousands of years. His ferociousness is otherworldly and his thick hide\n"
-                  "                       protects him from weapons that would pierce even walls'\n")
-        elif int(intro_q1) == 4:
-            print("    Death row inmate: 'HAHAHA You are never going to win, not even in a thousand years. But if \n"
-                  "                       you do manage to pull a miracle the king will set you free with fortunes\n"
-                  "                       that the Gods would even kill for.'\n")
-            break
-        else:
-            print("That's not a valid choice. Type a number associated with a choice.\n")
-
-    print("You end the conversation and try to get some sleep. Trying to remember who you are.\n"
-          "You ask yourself:")
-
-    my_char = create_character()
+    # my_char = create_character()
+    my_char = {
+        'Name': 'Edgar',
+        'Class': 'barbarian',
+        'Race': 'human',
+        'HP': [15, 15],
+        'current_location': (3, 3)}
     print_character(my_char)
 
     print("You wake up to the sound of the screaming crowd as you stagger to your feet. You are in the arena\n"
@@ -353,13 +371,16 @@ def main():
         grid_generator(my_char, GRID_EVENTS)
         move_character(my_char, GRID_EVENTS)
         monster_battle = movement_checker(my_char)
-        if monster_battle:
-            print("A monster catches up to you. Get ready for battle!")
+        boss_fight = boss_fight_checker(my_char, GRID_EVENTS)
+        if boss_fight:
+            print(boss_fight)
+        else:
+            if monster_battle:
+                print("A monster catches up to you. Get ready for battle!")
 
-    # char = {
-    #     'current_location': (3, 3),
-    #     'HP': [10, 1]
-    # }
+        # if monster_battle:
+        #     print("A monster catches up to you. Get ready for battle!")
+
     #
     # my_char = create_character()
     # print_character(my_char)
