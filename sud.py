@@ -374,16 +374,12 @@ def attack(attacker, defender, times_attack=1, roll=1, side=6):
         print(f"{attacker['Name']} attacks {defender['Name']} and deals {damage_roll} damage.\n"
               f"Leaving {defender['Name']} with {defender['HP'][1]}/{defender['HP'][0]}HP.\n")
     else:
-        damage_rolls = []
-        damage_string = ""
-        for _ in range(times_attack):
-            damage_roll = roll_die(roll, side)
-            damage_rolls.append(damage_roll)
-            damage_string += str(damage_roll) + ", "
+        damage_rolls = [roll_die(roll, side) for n in range(times_attack)]
+        damage_rolls_string = ', '.join(str(damage_roll) for damage_roll in damage_rolls)
         defender['HP'][1] -= sum(damage_rolls)
         print(
             f"The beast attacks with tremendous speed! Allowing it to strike {defender['Name']} {times_attack} times.\n"
-            f"{attacker['Name']} rolls {damage_string}for a total of {sum(damage_rolls)} damage. "
+            f"{attacker['Name']} rolls {damage_rolls_string} for a total of {sum(damage_rolls)} damage. "
             f"Leaving {defender['Name']} with {defender['HP'][1]}/{defender['HP'][0]}HP.\n")
 
 
