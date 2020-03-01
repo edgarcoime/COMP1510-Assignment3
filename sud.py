@@ -145,23 +145,29 @@ def grid_generator(character, grid_events):
             else:
                 line += "[ ]"
         print(line)
+    print(f"You have {character['HP'][1]}HP")
     print(f"{len(grid_events['bosses'].keys())}/3 bosses are still alive!\n"
           f"You must kill them to be free of this nightmare!\n")
 
 
 def move_character(character, grid_events):
-    user_movement = input('Where would you like to move?\n'
-                          'type (N or North) - (E or East) - (S or South) - (W or West)\n')
-    if user_movement.lower().strip() == 'n':
-        move_north(character)
-    elif user_movement.lower().strip() == 'e':
-        move_east(character)
-    elif user_movement.lower().strip() == 's':
-        move_south(character)
-    elif user_movement.lower().strip() == 'w':
-        move_west(character)
-    else:
-        print("That's not a valid input")
+    while True:
+        user_movement = input('Where would you like to move?\n'
+                              'type (N or North) - (E or East) - (S or South) - (W or West)\n')
+        if user_movement.lower().strip() == 'n' or user_movement.lower().strip() == 'north':
+            move_north(character)
+            break
+        elif user_movement.lower().strip() == 'e' or user_movement.lower().strip() == 'east':
+            move_east(character)
+            break
+        elif user_movement.lower().strip() == 's' or user_movement.lower().strip() == 'south':
+            move_south(character)
+            break
+        elif user_movement.lower().strip() == 'w' or user_movement.lower().strip() == 'west':
+            move_west(character)
+            break
+        else:
+            print("That's not a valid input")
 
 
 # Character creator functions
