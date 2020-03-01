@@ -1,21 +1,19 @@
 import random
 import doctest
-
+import copy
+import boss_list
 
 # Character movement and Grid events functions
 def roll_die(number_of_rolls, number_of_sides):
     """Calculate the sum of the rolls of a die.
-
     This function simulates rolling a die a set number of times specified by the user and adding the results together
     to get the sum of the rolls. Returns the sum of the rolls.
-
     :param number_of_rolls: a positive non-zero integer.
     :param number_of_sides: a positive non-zero integer.
     :precondition: both parameters must be positive non-zero integers representing
                    # of rolls and # of sides respectively.
     :postcondition: returns a positive integer representing the sum of the rolls.
     :return: a positive non-zero integer.
-
     Computational thinking:
     Decomposed this problem into a single action; randomly choose an integer from 0 to max, then, store the value
     in a variable. This pattern is repeated a set number of times depending on how many rolls the user specifies.
@@ -33,7 +31,6 @@ def roll_die(number_of_rolls, number_of_sides):
 
 def movement_checker(character):
     """Upon movement, checks if user encounters monster if not heals character.
-
     :param character:
     :return:
     """
@@ -66,7 +63,6 @@ def boss_fight_checker(character, grid_events):
 
 def move_north(character):
     """Modifies character location to move North.
-
     :param character:
     :return:
     """
@@ -80,7 +76,6 @@ def move_north(character):
 
 def move_south(character):
     """Modifies character location to move South.
-
     :param character:
     :return:
     """
@@ -94,7 +89,6 @@ def move_south(character):
 
 def move_east(character):
     """Modifies character locaiton to move East.
-
     :param character:
     :return:
     """
@@ -108,7 +102,6 @@ def move_east(character):
 
 def move_west(character):
     """Modifies character location to move West.
-
     :param character:
     :return:
     """
@@ -122,7 +115,6 @@ def move_west(character):
 
 def grid_generator(character, grid_events):
     """Generates a grid with current location and prints it to the user.
-
     :param grid_events:
     :param character:
     :return:
@@ -191,13 +183,11 @@ def generate_name():
 
 def select_class():
     """Prompt user to choose from 12 classes.
-
     :precondition: user input must be a positive non-zero integer that is between 1 - 12 inclusive,
                    representing one of the twelve classes.
     :postcondition: if user chose a positive integer returns
                     a dictionary representing the class and attributes associated with it.
     :return: a dictionary representing the class name and the attributes of the class
-
     This function can be decomposed into two steps. First step being taking input from the user and the second being
     returning the appropriate class dictionary to reflect the user's choice.
     This process can be automated by initializing a dictionary with the key being the number associated with the class
@@ -247,12 +237,10 @@ def select_class():
 
 def select_race():
     """Prompt user to choose from 9 races.
-
     :precondition: user input must be a positive non-zero integer that is between 1 - 9 inclusive,
                    representing one of the nine races.
     :postcondition: returns a string representing the race of user has chosen.
     :return: a string representing a race.
-
     This function can be decomposed into two steps. First step being taking input from the user and the second being
     returning the appropriate race name to reflect the user's choice.
     This process can be automated by initializing a dictionary with the key being the number associated with the race
@@ -386,6 +374,58 @@ def attack(attacker, defender, times_attack=1, roll=1, side=6):
             f"{attacker['Name']} rolls {damage_string}for a total of {sum(damage_rolls)} damage. "
             f"Leaving {defender['Name']} with {defender['HP'][1]}/{defender['HP'][0]}HP.\n")
 
+def boss():
+    dragon = {"Name": "dragon", "HP": [20, 20], "side": 4, "roll": 2, "times": 1}
+    giant = {"Name": "giant", "HP": [15, 15], "side": 12, "roll": 1, "times": 1}
+    wolf = {"Name": "wolf", "HP": [12, 12], "side": 6, "roll": 1, "times": 2}
+    return {'dragon': dragon, 'giant': giant, 'wolf': wolf}
+
+def dumb_question(real_boss):
+    while True:
+        final_ask = input(
+            f"This is the determining time to face it\n Are you ready to face the most dangerous {real_boss['Name']} (type Yes)?")
+        if final_ask.lower().strip() == "yes":
+            break
+        else:
+            print("You cannot regret now, you must fight")
+
+def three_boss_fight(character, boss_name):
+    real_boss = boss()[boss_name].copy().copy()
+    boss_list.call_monster(boss_name)
+    boss_speech(boss_name)
+    dumb_question(real_boss)
+    # dragon: hp 20 , fight once_a_time, hit 2d5
+    # giant: hp 15 , fight once, hit 1d12
+    # wolf: hp 12, fight twice, hit 1d6
+    while True:
+        print(f"{character['Name']} draws his weapon and lunges at {real_boss['Name']}.")
+        attack(character, real_boss)
+        if character['HP'][1] <= 0:
+            print("you are dead from the boss fighting")
+            return False
+        print(f"{real_boss['Name']} staggers and recovers its composure. It glares at you and Retaliates!")
+        attack(real_boss, character, real_boss['times'],  real_boss['roll'], real_boss['side'])
+        if real_boss['HP'][1] <= 0:
+            print(f"you finally beat one of the dangerous boss {real_boss['Name']}\n ")
+            print('now you can proceed')
+            return True
+
+def boss_speech(choice):
+    if choice == "dragon":
+        print("""Congratulations on letting the evil dragon wake up, the world will fall into darkness, 
+    his body, and the lethal flame spitting out of his mouth, approaching you step by step\n""")
+        print("""The dragon has two dragon claws to give 2d54 attack points and 20 high HP points""")
+    elif choice == "giant":
+        print("""The giant approached you slowly with terrible brute force and giant body. 
+    He seems to be telling you your insignificance, 
+    full of murderousness, not disdain your challenge\n""")
+        print("""The giant has giant fists to give 1d12 attack points and 15 semi-high HP points""")
+    else:
+        print("""The vicious wolf stares at you fiercely, he will not let go of the prey in front of him, 
+    his fangs can easily tear the prey, he also runs towards you at a very fast speed, 
+    you can only prepare your weapons to the enemy\n""")
+        print("""The wolf has incredible speed 1d6 attack points and two times attack and 12 normal HP points""")
+
 
 def main():
     doctest.testmod()
@@ -468,15 +508,26 @@ def main():
             monster_battle = movement_checker(my_char)
             if boss_fight:
                 if boss_fight == 'dragon':
-                    print(boss_fight)
+                    three_boss_fight(my_char, boss_fight)
                 elif boss_fight == 'giant':
-                    print(boss_fight)
+                    three_boss_fight(my_char, boss_fight)
                 else:
-                    print(boss_fight)
+                    three_boss_fight(my_char, boss_fight)
             else:
                 if monster_battle:
                     print("A monster catches up to you. Get ready for battle!")
                     normal_battle(my_char)
+
+    #
+    # my_char = {
+    #     'Name': 'Edgar',
+    #     'Class': 'barbarian',
+    #     'Race': 'human',
+    #     'HP': [15, 15],
+    #     'current_location': (3, 3)}
+    # # boss_fight(my_char, 'dragon')
+    # # boss_fight(my_char, 'giant')
+    # boss_fight(my_char, 'wolf')
 
 
 if __name__ == '__main__':
