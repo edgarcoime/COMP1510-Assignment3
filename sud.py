@@ -319,6 +319,20 @@ def normal_battle(character):
             pass
 
 
+def create_monster():
+    monster_names = ['Gael (Katakan)',
+                     'White Lady (Noonwraith)',
+                     'Forktail (Baby Wyvern)',
+                     'Melusine (Siren)',
+                     'Morvudd(Fiend)',
+                     'The Woods (Nightwraith)',
+                     'Mourntart (Grave Hag)',
+                     'Harrisi (Arachas)']
+    monster_name = random.choice(monster_names)
+    monster_dictionary = {'Name': monster_name, 'HP': [5, 5]}
+    return monster_dictionary
+
+
 def main():
     doctest.testmod()
     GRID_EVENTS = {
@@ -378,33 +392,32 @@ def main():
         'Name': 'Edgar',
         'Class': 'barbarian',
         'Race': 'human',
-        'HP': [15, 15],
+        'HP': [15, 1],
         'current_location': (3, 3)}
     print_character(my_char)
 
-    print("You wake up to the sound of the screaming crowd as you stagger to your feet. You are in the arena\n"
-          "and monsters surround you on all sides. You remember the What the old man said. . .\n"
-          "To get out of here I must kill the three champions of this ARENA!\n")
+    # print("You wake up to the sound of the screaming crowd as you stagger to your feet. You are in the arena\n"
+    #       "and monsters surround you on all sides. You remember the What the old man said. . .\n"
+    #       "To get out of here I must kill the three champions of this ARENA!\n")
 
-    while my_char['HP'][1] != 0 and GRID_EVENTS['bosses']:
-        print(my_char['current_location'])
+    while my_char['HP'][1] > 0 and GRID_EVENTS['bosses']:
+        # print(my_char['current_location'])
         grid_generator(my_char, GRID_EVENTS)
         move_character(my_char, GRID_EVENTS)
-        monster_battle = movement_checker(my_char)
+
         boss_fight = boss_fight_checker(my_char, GRID_EVENTS)
+        monster_battle = movement_checker(my_char)
         if boss_fight:
-            print(boss_fight)
+            if boss_fight == 'dragon':
+                print(boss_fight)
+            elif boss_fight == 'giant':
+                print(boss_fight)
+            else:
+                print(boss_fight)
         else:
             if monster_battle:
                 print("A monster catches up to you. Get ready for battle!")
-
-        # if monster_battle:
-        #     print("A monster catches up to you. Get ready for battle!")
-
-    #
-    # my_char = create_character()
-    # print_character(my_char)
-    #
+                normal_battle(my_char)
 
 
 if __name__ == '__main__':
