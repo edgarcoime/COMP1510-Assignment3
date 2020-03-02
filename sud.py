@@ -2,6 +2,7 @@ import random
 import doctest
 import boss_list
 
+
 # Character movement and Grid events functions
 def roll_die(number_of_rolls, number_of_sides):
     """Calculate the sum of the rolls of a die.
@@ -373,11 +374,13 @@ def attack(attacker, defender, times_attack=1, roll=1, side=6):
             f"{attacker['Name']} rolls {damage_string}for a total of {sum(damage_rolls)} damage. "
             f"Leaving {defender['Name']} with {defender['HP'][1]}/{defender['HP'][0]}HP.\n")
 
+
 def boss():
     dragon = {"Name": "dragon", "HP": [20, 20], "side": 4, "roll": 2, "times": 1}
     giant = {"Name": "giant", "HP": [15, 15], "side": 12, "roll": 1, "times": 1}
     wolf = {"Name": "wolf", "HP": [12, 12], "side": 6, "roll": 1, "times": 2}
     return {'dragon': dragon, 'giant': giant, 'wolf': wolf}
+
 
 def dumb_question(real_boss):
     while True:
@@ -387,6 +390,7 @@ def dumb_question(real_boss):
             break
         else:
             print("You cannot regret now, you must fight")
+
 
 def three_boss_fight(character, boss_name):
     real_boss = boss()[boss_name].copy().copy()
@@ -404,10 +408,11 @@ def three_boss_fight(character, boss_name):
             print('now you can proceed')
             return True
         print(f"{real_boss['Name']} staggers and recovers its composure. It glares at you and Retaliates!")
-        attack(real_boss, character, real_boss['times'],  real_boss['roll'], real_boss['side'])
+        attack(real_boss, character, real_boss['times'], real_boss['roll'], real_boss['side'])
         if character['HP'][1] <= 0:
             print("you are dead from the boss fighting")
             return False
+
 
 def boss_speech(choice):
     if choice == "dragon":
@@ -424,10 +429,6 @@ def boss_speech(choice):
     his fangs can easily tear the prey, he also runs towards you at a very fast speed, 
     you can only prepare your weapons to the enemy\n""")
         print("""The wolf has incredible speed 1d6 attack points and two times attack and 12 normal HP points""")
-
-
-
-
 
 
 def main():
@@ -520,7 +521,6 @@ def main():
                 if monster_battle:
                     print("A monster catches up to you. Get ready for battle!")
                     normal_battle(my_char)
-
 
 
 if __name__ == '__main__':
