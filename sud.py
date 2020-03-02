@@ -1,6 +1,5 @@
 import random
 import doctest
-import copy
 import boss_list
 
 # Character movement and Grid events functions
@@ -58,10 +57,6 @@ def boss_fight_checker(character, grid_events):
         else:
             return 'wolf'
     else:
-        if character['HP'][1] < character['HP'][0]:
-            print("no meet monsters, player current HP heal to %d" % (character['HP'][1]))
-        else:
-            print("your HP is full %d" % (character['HP'][1]))
         return False
 
 
@@ -73,13 +68,9 @@ def move_north(character):
     if character['current_location'][1] == 1:
         print("The Northern wall of the colosseum towers before you.\n"
               "You cannot go any more North! Turn back.")
-        print("You cannot go any more North! Turn back.")
-        return False
     else:
         new_y = character['current_location'][1] - 1
         character['current_location'] = (character['current_location'][0], new_y)
-        return True
-
 
 
 def move_south(character):
@@ -90,13 +81,9 @@ def move_south(character):
     if character['current_location'][1] == 5:
         print("The Southern wall of the colosseum towers before you.\n"
               "You cannot go any more South! Turn back.")
-        print("You cannot go any more South! Turn back.")
-        return False
     else:
         new_y = character['current_location'][1] + 1
         character['current_location'] = (character['current_location'][0], new_y)
-        return True
-
 
 
 def move_east(character):
@@ -107,14 +94,9 @@ def move_east(character):
     if character['current_location'][0] == 5:
         print("The Eastern wall of the colosseum towers before you.\n"
               "You cannot go any more East! Turn back.")
-        print("You cannot go any more East! Turn back.")
-        return False
-
     else:
         new_x = character['current_location'][0] + 1
         character['current_location'] = (new_x, character['current_location'][1])
-        return True
-
 
 
 def move_west(character):
@@ -125,20 +107,14 @@ def move_west(character):
     if character['current_location'][0] == 1:
         print("The Western wall of the colosseum towers before you.\n"
               "You cannot go any more West! Turn back.")
-        print("You cannot go any more West! Turn back.")
-        return False
     else:
         new_x = character['current_location'][0] - 1
         character['current_location'] = (new_x, character['current_location'][1])
-        return True
-
 
 
 def grid_generator(character, grid_events):
     """Generates a grid with current location and prints it to the user.
-<<<<<<< HEAD
     :param grid_events:
-=======
     :param character:
     :return:
     """
@@ -417,27 +393,27 @@ def three_boss_fight(character, boss_name):
     boss_list.call_monster(boss_name)
     boss_speech(boss_name)
     dumb_question(real_boss)
-    # dragon: hp 20 , fight once_a_time, hit 2d5
+    # dragon: hp 20 , fight once_a_time, hit 2d4
     # giant: hp 15 , fight once, hit 1d12
     # wolf: hp 12, fight twice, hit 1d6
     while True:
         print(f"{character['Name']} draws his weapon and lunges at {real_boss['Name']}.")
         attack(character, real_boss)
-        if character['HP'][1] <= 0:
-            print("you are dead from the boss fighting")
-            return False
-        print(f"{real_boss['Name']} staggers and recovers its composure. It glares at you and Retaliates!")
-        attack(real_boss, character, real_boss['times'],  real_boss['roll'], real_boss['side'])
         if real_boss['HP'][1] <= 0:
             print(f"you finally beat one of the dangerous boss {real_boss['Name']}\n ")
             print('now you can proceed')
             return True
+        print(f"{real_boss['Name']} staggers and recovers its composure. It glares at you and Retaliates!")
+        attack(real_boss, character, real_boss['times'],  real_boss['roll'], real_boss['side'])
+        if character['HP'][1] <= 0:
+            print("you are dead from the boss fighting")
+            return False
 
 def boss_speech(choice):
     if choice == "dragon":
         print("""Congratulations on letting the evil dragon wake up, the world will fall into darkness, 
     his body, and the lethal flame spitting out of his mouth, approaching you step by step\n""")
-        print("""The dragon has two dragon claws to give 2d54 attack points and 20 high HP points""")
+        print("""The dragon has two dragon claws to give 2d4 attack points and 20 high HP points""")
     elif choice == "giant":
         print("""The giant approached you slowly with terrible brute force and giant body. 
     He seems to be telling you your insignificance, 
@@ -449,126 +425,9 @@ def boss_speech(choice):
     you can only prepare your weapons to the enemy\n""")
         print("""The wolf has incredible speed 1d6 attack points and two times attack and 12 normal HP points""")
 
-def generate_name():
-    name = input("Please create player's name?")
-    return name.capitalize().strip()
 
 
-def select_class():
-    class_list = ['barbarian', 'bard', 'cleric', 'druid', 'fighter', 'monk', 'paladin', 'ranger', 'rogue', 'sorcerer',
-                  'warlock', 'wizard']
-    for i, class_name in enumerate(class_list, 1):
-        print(i, class_name)
 
-    class_ask = input("Which class you want?(Please choose a number)").strip()
-    return class_list[int(class_ask) - 1]
-
-
-def select_race():
-    race_list = ['dragonborn', 'dwarf', 'elf', 'gnome', 'half-elf', 'halfing', 'half-orc', 'human', 'tiefling']
-    for i, race_name in enumerate(race_list, 1):
-        print(i, race_name)
-    race_ask = input("Which race you want?(Please choose a number)").strip()
-    # while not race_ask.isdigit() or int(race_ask)> len(race_list) or int(race_ask) <= 0:
-    #     race_ask = input("Please type a correct number: ").strip()
-    return race_list[int(race_ask) - 1]
-
-
-def create_character():
-    character = {'Name': generate_name(), 'Class': select_class(), 'Race': select_race(), 'HP': [10, 10],
-                 'current_location': (3, 3)}
-    return character
-    # else:
-    #     print("the syllables must be a non-zero positive integer")
-    #     return None
-
-def print_character(character):
-    """Use dictionary for loop to print each key and value horizontally
-
-    Use for loop and object key and keys to print the values and keys in dictionary by order
-
-    Computing Thinking:
-    :Decomposition: Input a character dictionary and print out the understandable character's statue to players.
-    :Pattern Matching and Data Representation: call the character's dictionary and use for loop and items() to print out
-    each key and value
-    :Abstraction and Generalization: print out the understandable character's statue to players
-    :Algorithms and Automation: None
-    :param character: invoke the return value from create_character function
-    :precondition: the input must be a character dictionary
-    :postcondition: First, print out a key. Second, print a colin. Third, print value. The print shows to  make player
-    understand easily.
-    """
-    for key, value in character.items():
-        print(key, ':', value)
-    return None
-
-def GIRD():
-    # (1,1) , (2,1).....
-    coord = {}
-    for x in range(1, 6):
-        for y in range(1, 6):
-            coord[(y, x)] = ""
-    print(coord)
-
-
-def monster():
-    monster_list = ['Gael(Katakan)', 'White Lady(Noonwraith)', 'Dragon(Forktail)', 'Melusine(Siren)', 'Morvudd(Fiend)',
-                    'Jenny'
-        , 'the Woods (Nightwraith)', 'Mourntart(Grave Hag)', 'Harrisi(Arachas)']
-    mon_name = random.choice(monster_list)
-    dic_monster = {'Name': mon_name, 'HP': [5, 5]}
-    return dic_monster
-
-
-def meet_monster(char):
-    mon = monster()
-    print("You meet a monster %s" % (mon['Name']))
-    while True:
-        decision = input("you have to choose fight or run?(type: run or fight)")
-        if decision == "fight" or decision == "run":
-            if decision == "fight":
-                combat_round(char, mon)
-            elif decision == "run":
-                run(char)
-            break
-
-
-def run(char):
-    decision_make = roll_die(1, 10)
-    if decision_make == 1:
-        print("you got attack")
-        char['HP'][1] -= roll_die(1, 4)
-        print("hit %s HP: %d" % (char['Name'], char['HP'][0] - char['HP'][1]))
-        print("%s current HP: %d" % (char['Name'], char['HP'][1]))
-    else:
-        print("you successfully escape")
-
-
-def combat_round(player, monster):
-    count = 0
-    while True:
-        count += 1
-        print("\nRound %d" % count)
-        if attack(monster) <= 0:
-            print("monster dead")
-            return True
-        elif attack(player) <= 0:
-            print("you're dead")
-            return False
-
-
-def attack(hurt):
-    hurt['HP'][1] -= roll_die(1, 6)
-    print("hit %s HP: %d" % (hurt['Name'], hurt['HP'][0] - hurt['HP'][1]))
-    print("%s current HP: %d" % (hurt['Name'], hurt['HP'][1]))
-    return hurt['HP'][1]
-
-
-def move_meet_monster(char):
-    if movement_checker(char):
-        meet_monster(char)
-    # elif sud.movement_checker(char):
-    #     pass
 
 
 def main():
@@ -662,45 +521,6 @@ def main():
                     print("A monster catches up to you. Get ready for battle!")
                     normal_battle(my_char)
 
-    #
-    # my_char = {
-    #     'Name': 'Edgar',
-    #     'Class': 'barbarian',
-    #     'Race': 'human',
-    #     'HP': [15, 15],
-    #     'current_location': (3, 3)}
-    # # boss_fight(my_char, 'dragon')
-    # # boss_fight(my_char, 'giant')
-    # boss_fight(my_char, 'wolf')
-    print("Welcome to our wolf game!")
-    char = create_character()
-    print_character(char)
-
-    while True:
-        print(char['current_location'])
-        grid_generator(char)
-        user_movement = input("Where would you like to go? (n(north)/s(south)/e(east)/w(west)) (type q if you want to quit)")
-        if char['HP'][1] <= 0 or user_movement == 'q':
-            break
-        else:
-            if user_movement.lower().strip() == 'n':
-                if move_north(char):
-                    move_meet_monster(char)
-
-            elif user_movement.lower().strip() == 'e':
-                if move_east(char):
-                    move_meet_monster(char)
-
-            elif user_movement.lower().strip() == 's':
-                if move_south(char):
-                    move_meet_monster(char)
-
-            elif user_movement.lower().strip() == 'w':
-                if move_west(char):
-                    move_meet_monster(char)
-            else:
-                print("That's not a valid input")
-    # print(movement_checker({'name':'asdas','HP':[5,5]}))
 
 
 if __name__ == '__main__':
