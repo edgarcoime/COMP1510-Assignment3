@@ -31,8 +31,9 @@ def roll_die(number_of_rolls, number_of_sides):
 
 def movement_checker(character):
     """Upon movement, checks if user encounters monster if not heals character.
-    :param character:
-    :return:
+    :param character: character is a dictionary containing name, class, race and HP.
+    :return: Return False if the result of roll_die function is 1, others will justify if HP[1] < HP[0] add H[1]
+    2 points and print the status or print out the full HP and return False
     """
     monster_chance = roll_die(1, 4)
     if monster_chance == 1:
@@ -50,6 +51,11 @@ def movement_checker(character):
 
 
 def boss_fight_checker(character, grid_events):
+    """check the player could meet the boss or not by the location.
+    :param character: character is a dictionary containing name, class, race and HP.
+    :param grid_events: grid_events is a dictionary storing boss location
+    :return: return the string of boss name if the current location match the boss location. Otherwise, return False
+    """
     if character['current_location'] in grid_events['bosses'].keys():
         if grid_events['bosses'][character['current_location']] == 'dragon':
             return 'dragon'
@@ -63,8 +69,8 @@ def boss_fight_checker(character, grid_events):
 
 def move_north(character):
     """Modifies character location to move North.
-    :param character:
-    :return:
+    :param character: character is a dictionary containing name, class, race and HP.
+    :return: create a new tuple to subtract one at character['current_location'][1]
     """
     if character['current_location'][1] == 1:
         print("The Northern wall of the colosseum towers before you.\n"
@@ -77,7 +83,8 @@ def move_north(character):
 def move_south(character):
     """Modifies character location to move South.
     :param character:
-    :return:
+    :param character: character is a dictionary containing name, class, race and HP.
+    :return: create a new tuple to subtract one at character['current_location'][1]
     """
     if character['current_location'][1] == 5:
         print("The Southern wall of the colosseum towers before you.\n"
@@ -90,7 +97,8 @@ def move_south(character):
 def move_east(character):
     """Modifies character locaiton to move East.
     :param character:
-    :return:
+    :param character: character is a dictionary containing name, class, race and HP.
+    :return: create a new tuple to subtract one at character['current_location'][1]
     """
     if character['current_location'][0] == 5:
         print("The Eastern wall of the colosseum towers before you.\n"
@@ -102,8 +110,8 @@ def move_east(character):
 
 def move_west(character):
     """Modifies character location to move West.
-    :param character:
-    :return:
+    :param character: character is a dictionary containing name, class, race and HP.
+    :return: create a new tuple to subtract one at character['current_location'][1]
     """
     if character['current_location'][0] == 1:
         print("The Western wall of the colosseum towers before you.\n"
@@ -119,24 +127,24 @@ def grid_generator(character, grid_events):
     :param character:
     :return:
     """
-    print(f"[C] Is your character named {character['Name']}\n"
-          "[D] = Cetus the Dragon || [W] = Fenrir the Great Wolf || [G] = Ajax the Giant")
+    print(f"[🦸] Is your character named {character['Name']}\n"
+          "[🐉] = Cetus the Dragon || [🐺] = Fenrir the Great Wolf || [😈] = Ajax the Giant")
     for y, _ in enumerate(range(5), 1):
         line = ""
         for x, _ in enumerate(range(5), 1):
             if (x, y) == character['current_location']:
-                line += "[C]"
+                line += "[♞‍]"
             elif (x, y) in grid_events['bosses'].keys():
                 if grid_events['bosses'][(x, y)] == 'dragon':
-                    line += "[D]"
+                    line += "[🐉]"
                 elif grid_events['bosses'][(x, y)] == 'wolf':
-                    line += "[W]"
+                    line += "[🐺]"
                 elif grid_events['bosses'][(x, y)] == 'giant':
-                    line += "[G]"
+                    line += "[😈]"
                 else:
                     pass
             else:
-                line += "[ ]"
+                line += "[  ]"
         print(line)
     print(f"You have {character['HP'][1]}HP")
     print(f"{len(grid_events['bosses'].keys())}/3 bosses are still alive!\n"
@@ -376,9 +384,13 @@ def attack(attacker, defender, times_attack=1, roll=1, side=6):
 
 
 def boss():
-    dragon = {"Name": "dragon", "HP": [20, 20], "side": 4, "roll": 2, "times": 1}
-    giant = {"Name": "giant", "HP": [15, 15], "side": 12, "roll": 1, "times": 1}
-    wolf = {"Name": "wolf", "HP": [12, 12], "side": 6, "roll": 1, "times": 2}
+    """
+
+    :return:
+    """
+    dragon = {"Name": "dragon", "HP": [20, 20], "side": 1, "roll": 1, "times": 1}
+    giant = {"Name": "giant", "HP": [15, 15], "side": 1, "roll": 1, "times": 1}
+    wolf = {"Name": "wolf", "HP": [12, 12], "side": 1, "roll": 1, "times": 2}
     return {'dragon': dragon, 'giant': giant, 'wolf': wolf}
 
 
@@ -392,7 +404,14 @@ def dumb_question(real_boss):
             print("You cannot regret now, you must fight")
 
 
-def three_boss_fight(character, boss_name):
+def three_boss_fight(character, boss_name, grid_events):
+    """
+
+    :param character:
+    :param boss_name:
+    :param grid_events:
+    :return:
+    """
     real_boss = boss()[boss_name].copy().copy()
     boss_list.call_monster(boss_name)
     boss_speech(boss_name)
@@ -404,14 +423,36 @@ def three_boss_fight(character, boss_name):
         print(f"{character['Name']} draws his weapon and lunges at {real_boss['Name']}.")
         attack(character, real_boss)
         if real_boss['HP'][1] <= 0:
-            print(f"you finally beat one of the dangerous boss {real_boss['Name']}\n ")
-            print('now you can proceed')
-            return True
+            new_dic = update_boss(boss_name, grid_events)
+            congrats_for_winning(real_boss, grid_events)
+            return new_dic
         print(f"{real_boss['Name']} staggers and recovers its composure. It glares at you and Retaliates!")
         attack(real_boss, character, real_boss['times'], real_boss['roll'], real_boss['side'])
         if character['HP'][1] <= 0:
             print("you are dead from the boss fighting")
             return False
+
+def update_boss(boss_name, grid_events):
+    """
+
+    :param boss_name:
+    :param grid_events:
+    :return:
+    """
+    new_dic = grid_events.copy()
+    for coordinate in new_dic['bosses'].keys():
+        if new_dic['bosses'][coordinate] == boss_name:
+            del new_dic['bosses'][coordinate]
+            return new_dic
+
+def congrats_for_winning(real_boss, grid_events):
+    if grid_events['bosses'] != {}:
+        print(f"you finally beat one of the dangerous boss {real_boss['Name']}"
+              "now you can proceed\n")
+    else:
+        print(f"that's is impossible that you really beat the last boss {real_boss['Name']}\n"
+              "Now you are able to release and get some fresh air and sunshine to face your reborn life!!\n"
+              "Thank you so much to play our game. Tha game producers are Edgar and Tommy")
 
 
 def boss_speech(choice):
@@ -420,20 +461,20 @@ def boss_speech(choice):
     his body, and the lethal flame spitting out of his mouth, approaching you step by step\n""")
         print("""The dragon has two dragon claws to give 2d4 attack points and 20 high HP points""")
     elif choice == "giant":
-        print("""The giant approached you slowly with terrible brute force and giant body. 
-    He seems to be telling you your insignificance, 
-    full of murderousness, not disdain your challenge\n""")
+        print("""Representing the human body enlarged to the point of being monstrous, 
+        giants evoke terror and remind humans of their body's frailty and mortality. 
+        The giant approached you slowly. He seems to be telling your insignificance and disdains your challenge\n""")
         print("""The giant has giant fists to give 1d12 attack points and 15 semi-high HP points""")
     else:
-        print("""The vicious wolf stares at you fiercely, he will not let go of the prey in front of him, 
-    his fangs can easily tear the prey, he also runs towards you at a very fast speed, 
-    you can only prepare your weapons to the enemy\n""")
+        print("""The vicious wolf stares at you fiercely, He has evolved into a persistent pursuer 
+        with incredible speed catch his prey and hunt game animals that are a lot larger than itself. 
+        You can only prepare the weapons to fight your enemy.\n""")
         print("""The wolf has incredible speed 1d6 attack points and two times attack and 12 normal HP points""")
 
 
 def main():
     doctest.testmod()
-    GRID_EVENTS = {
+    grid_events = {
         'bosses': {(1, 1): 'dragon',
                    (5, 1): 'giant',
                    (5, 5): 'wolf'},
@@ -500,23 +541,24 @@ def main():
           "and monsters surround you on all sides. You remember the What the old man said. . .\n"
           "To get out of here I must kill the three champions of this ARENA!\n")
 
-    while my_char['HP'][1] > 0 and GRID_EVENTS['bosses']:
+    while my_char['HP'][1] > 0 and grid_events['bosses']:
         # print(my_char['current_location'])
-        grid_generator(my_char, GRID_EVENTS)
+        print(grid_events)
+        grid_generator(my_char, grid_events)
         quit_prompt = move_character(my_char)
         if quit_prompt:
             print("Thanks for playing our game! Please play again next time.")
             break
         else:
-            boss_fight = boss_fight_checker(my_char, GRID_EVENTS)
+            boss_fight = boss_fight_checker(my_char, grid_events)
             monster_battle = movement_checker(my_char)
             if boss_fight:
                 if boss_fight == 'dragon':
-                    three_boss_fight(my_char, boss_fight)
+                    grid_events = three_boss_fight(my_char, boss_fight, grid_events)
                 elif boss_fight == 'giant':
-                    three_boss_fight(my_char, boss_fight)
+                    grid_events = three_boss_fight(my_char, boss_fight, grid_events)
                 else:
-                    three_boss_fight(my_char, boss_fight)
+                    grid_events = three_boss_fight(my_char, boss_fight, grid_events)
             else:
                 if monster_battle:
                     print("A monster catches up to you. Get ready for battle!")
