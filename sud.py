@@ -133,7 +133,7 @@ def grid_generator(character, grid_events):
         line = ""
         for x, _ in enumerate(range(5), 1):
             if (x, y) == character['current_location']:
-                line += "[♞‍]"
+                line += "[🦸‍]"
             elif (x, y) in grid_events['bosses'].keys():
                 if grid_events['bosses'][(x, y)] == 'dragon':
                     line += "[🐉]"
