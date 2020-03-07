@@ -231,13 +231,11 @@ def select_class():
           "11. Warlock: A wielder of magic that is derived from a bargain with an extraplanar entity.\n"
           "12. Wizard: A scholarly magic-user capable of manipulating the structures of reality.\n")
 
-    classes_prompt = True
-    while classes_prompt:
-        user_class = int(input("What class did I specialize in again? "))
-        if user_class in classes.keys():
-            print(f"I was a {classes[user_class].capitalize()}\n")
-            classes_prompt = False
-            return classes[user_class]
+    while True:
+        user_class = input("What class did I specialize in again? ").strip()
+        if user_class.isdigit() and int(user_class) in classes.keys():
+            print(f"I was a {classes[int(user_class)].capitalize()}\n")
+            return classes[int(user_class)]
         else:
             print("No, That's not the class that I was.\n"
                   "Please select a number from 1-12")
@@ -283,13 +281,11 @@ def select_race():
           "9. Tiefling: Tieflings are derived from human bloodlines, and in the broadest possible sense, they still "
           "look human.\n")
 
-    race_prompt = True
-    while race_prompt:
-        user_race = int(input("Where did I come from? and what was my background? "))
-        if user_race in races.keys():
-            print(f"I was part of the {races[user_race].capitalize()} race.\n")
-            race_prompt = False
-            return races[user_race]
+    while True:
+        user_race = input("Where did I come from? and what was my background? ").strip()
+        if user_race.isdigit() and int(user_race) in races.keys():
+            print(f"I was part of the {races[int(user_race)].capitalize()} race.\n")
+            return races[int(user_race)]
         else:
             print("No, I am not of that race. I need to remember!\n"
                   "Please select a number from 1-9")
@@ -432,6 +428,7 @@ def three_boss_fight(character, boss_name, grid_events):
             print("you are dead from the boss fighting")
             return False
 
+
 def update_boss(boss_name, grid_events):
     """
 
@@ -445,6 +442,7 @@ def update_boss(boss_name, grid_events):
             del new_dic['bosses'][coordinate]
             return new_dic
 
+
 def congrats_for_winning(real_boss, grid_events):
     if grid_events['bosses'] != {}:
         print(f"you finally beat one of the dangerous boss {real_boss['Name']}"
@@ -453,6 +451,7 @@ def congrats_for_winning(real_boss, grid_events):
         print(f"that's is impossible that you really beat the last boss {real_boss['Name']}\n"
               "Now you are able to release and get some fresh air and sunshine to face your reborn life!!\n"
               "Thank you so much to play our game. Tha game producers are Edgar and Tommy")
+        boss_list.win()
 
 
 def boss_speech(choice):
@@ -505,17 +504,17 @@ def main():
                          "2. Who is Fenrir the Great Wolf?\n"
                          "3. Who is Cetus the Dragon?\n"
                          "4. What happens if I win against them?\n")
-        if int(intro_q1) == 1:
+        if intro_q1.isdigit() and int(intro_q1) == 1:
             print("    Death row inmate: 'Ajax the Giant is a Troll who stands as tall as three adult men.\n"
                   "                       He can single handedly crush you with a swing of his club.'\n")
-        elif int(intro_q1) == 2:
+        elif intro_q1.isdigit() and int(intro_q1) == 2:
             print("    Death row inmate: 'Fenrir the Great Wolf is a fierce beast whose speed is unrivaled in battle\n"
                   "                       in the time it takes you to land a hit he would've striked you twice.'\n")
-        elif int(intro_q1) == 3:
+        elif intro_q1.isdigit() and int(intro_q1) == 3:
             print("    Death row inmate: 'Cetus the Dragon has served in the king's bloodline for\n"
                   "                       thousands of years. His ferociousness is otherworldly and his thick hide\n"
                   "                       protects him from weapons that would pierce even walls'\n")
-        elif int(intro_q1) == 4:
+        elif intro_q1.isdigit() and int(intro_q1) == 4:
             print("    Death row inmate: 'HAHAHA You are never going to win, not even in a thousand years. But if \n"
                   "                       you do manage to pull a miracle the king will set you free with fortunes\n"
                   "                       that the Gods would even kill for.'\n")
