@@ -392,9 +392,12 @@ def three_boss_fight(character, boss_name, grid_events):
     :param grid_events:
     :return:
     """
-    real_boss = boss()[boss_name].copy().copy()
+    real_boss = boss()[boss_name]
     boss_list.call_monster(boss_name)
     boss_speech(boss_name)
+    input(f"You are about to face one of the three bosses in this arena.\n"
+          f"Prepare yourself as this is a battle to the death.\n"
+          f"- press ENTER to continue -")
     # dragon: hp 20 , fight once_a_time, hit 2d4
     # giant: hp 15 , fight once, hit 1d12
     # wolf: hp 12, fight twice, hit 1d6
@@ -408,7 +411,8 @@ def three_boss_fight(character, boss_name, grid_events):
         print(f"{real_boss['Name']} staggers and recovers its composure. It glares at you and Retaliates!")
         attack(real_boss, character, real_boss['times'], real_boss['roll'], real_boss['side'])
         if character['HP'][1] <= 0:
-            print("you are dead from the boss fighting")
+            print("Your sight begins to blur as you feel you life fading away.\n"
+                  "You have died. Please try again")
             return False
 
 
