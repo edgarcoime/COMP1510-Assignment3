@@ -378,20 +378,10 @@ def boss():
 
     :return:
     """
-    dragon = {"Name": "dragon", "HP": [20, 20], "side": 1, "roll": 1, "times": 1}
-    giant = {"Name": "giant", "HP": [15, 15], "side": 1, "roll": 1, "times": 1}
-    wolf = {"Name": "wolf", "HP": [12, 12], "side": 1, "roll": 1, "times": 2}
+    dragon = {"Name": "dragon", "HP": [12, 12], "side": 6, "roll": 1, "times": 1}
+    giant = {"Name": "giant", "HP": [8, 8], "side": 8, "roll": 1, "times": 1}
+    wolf = {"Name": "wolf", "HP": [6, 6], "side": 4, "roll": 1, "times": 2}
     return {'dragon': dragon, 'giant': giant, 'wolf': wolf}
-
-
-def dumb_question(real_boss):
-    while True:
-        final_ask = input(
-            f"This is the determining time to face it\n Are you ready to face the most dangerous {real_boss['Name']} (type Yes)?")
-        if final_ask.lower().strip() == "yes":
-            break
-        else:
-            print("You cannot regret now, you must fight")
 
 
 def three_boss_fight(character, boss_name, grid_events):
@@ -405,7 +395,6 @@ def three_boss_fight(character, boss_name, grid_events):
     real_boss = boss()[boss_name].copy().copy()
     boss_list.call_monster(boss_name)
     boss_speech(boss_name)
-    dumb_question(real_boss)
     # dragon: hp 20 , fight once_a_time, hit 2d4
     # giant: hp 15 , fight once, hit 1d12
     # wolf: hp 12, fight twice, hit 1d6
@@ -452,21 +441,22 @@ def boss_speech(choice):
         print("You have woken the Dragon named Cetus. As it approaches you, you fight off the urge to run\n"
               "away from the nightmarish beast in front of you clad with dark obsidian scales. As Cetus approaches\n"
               "its mouth begins to froth with molten magma and his nostrils flair and emit steam. You take up arms\n"
-              "and ready yourself mentally and physically for battle that will unfold.")
+              "and ready yourself mentally and physically for battle that will unfold.\n")
         print("You have challenged Cetus the Dragon, one of the three champions in this arena.\n"
               "His claws give it high attack of 2d4, and his draconic scales give him 12HP ")
     elif choice == "giant":
         print("As you approach the Giant named Ajax his lips begin to curl upward as his monstrous body towers\n"
               "before you. His club is the length and seems to weigh as much as he does; yet, he swings the club\n"
               "effortlessly. "
-              "You take a deep breath as you ready yourself for battle while Ajax laughs condescendingly.")
+              "You take a deep breath as you ready yourself for battle while Ajax laughs condescendingly.\n")
         print("You have challenged Ajax the Giant, one of the three champions in this arena.\n"
               "His size gives him abnormal strength allowing him an attack of 1d8, "
               "his size gives him above average 8HP.")
     else:
         print("Fenrir stares at you as if he was looking at a rabbit that he could kill at any moment. From a\n"
               "distance you can already tell that he was leagues above being just 'nimble'. He was fast and with\n"
-              "ferocity to match that speed as well. You prepare yourself sharpening your instincts as it approaches.")
+              "ferocity to match that speed as well. "
+              "You prepare yourself sharpening your instincts as it approaches.\n")
         print("You have challenged Fenrir the Great Wolf, one of the three champions in this arena.\n"
               "His speed allows him to attack twice with a roll of 1d4, compared to the others he is still fragile"
               "so he has average health of 6HP")
