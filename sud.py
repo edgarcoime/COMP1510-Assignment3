@@ -44,7 +44,7 @@ def movement_checker(character):
         return True
     else:
         if character['HP'][1] < character['HP'][0]:
-            character['HP'][1] += 2
+            character['HP'][1] += 2 if character['HP'][1] != (character['HP'][0]-1) else 1
             print("The monsters couldn't catch up to you. This gives you the opportunity to bandage your wounds.\n"
                   f"You heal 2 points. You now have {character['HP'][1]}/{character['HP'][0]}HP\n")
         else:
@@ -76,56 +76,102 @@ def move_north(character):
     """Modifies character location to move North.
 
     :param character: character is a dictionary containing name, class, race and HP.
-    :return: create a new tuple to subtract one at character['current_location'][1]
+    :precondition: character must be a dictionary contain key 'HP' and a a list for value get max HP and current HP by the
+                   positive integers.
+    :postcondition: if character's current location at y axis in 1, then print a warning message and return false.
+                    Otherwise, create a tuple with subtracting 1 at y axis and return true.
+    :return: return False if character meet the boundary or return true and create a new tuple to subtract one at character['current_location'][1]
+    
+    Computational thinking:
+    To adapt the abstraction to solve this problem. Find the boundary of the map and try and error to show that it will
+    go up at the map according to the addition or subtraction of x or y axis and give a error message if the target meet
+    to the boundary.
     """
     if character['current_location'][1] == 1:
         print("The Northern wall of the colosseum towers before you.\n"
               "You cannot go any more North! Turn back.")
+        return False
     else:
         new_y = character['current_location'][1] - 1
         character['current_location'] = (character['current_location'][0], new_y)
+        return True
 
 
 def move_south(character):
     """Modifies character location to move South.
 
     :param character: character is a dictionary containing name, class, race and HP.
-    :return: create a new tuple to subtract one at character['current_location'][1]
+    :precondition: character must be a dictionary contain key 'HP' and a a list for value get max HP and current HP by the
+                   positive integers.
+    :postcondition: if character's current location at y axis in 5, then print a warning message and return false.
+                    Otherwise, create a tuple with add 1 at y axis and return true.
+    :return: return False if character meet the boundary or return true and create a new tuple to add one at character['current_location'][1]
+    
+    Computational thinking:
+    To adapt the abstraction to solve this problem. Find the boundary of the map and try and error to show that it will
+    go up at the map according to the addition or subtraction of x or y axis and give a error message if the target meet
+    to the boundary.
     """
     if character['current_location'][1] == 5:
         print("The Southern wall of the colosseum towers before you.\n"
               "You cannot go any more South! Turn back.")
+        return False
     else:
         new_y = character['current_location'][1] + 1
         character['current_location'] = (character['current_location'][0], new_y)
+        return True
+
 
 
 def move_east(character):
     """Modifies character location to move East.
 
     :param character: character is a dictionary containing name, class, race and HP.
-    :return: create a new tuple to subtract one at character['current_location'][1]
+    :precondition: character must be a dictionary contain key 'HP' and a a list for value get max HP and current HP by the
+                   positive integers.
+    :postcondition: if character's current location at x axis in 5, then print a warning message and return false.
+                    Otherwise, create a tuple with add 1 at x axis and return true.
+    :return: return False if character meet the boundary or return true and create a new tuple to add one at character['current_location'][0]
+    
+    Computational thinking:
+    To adapt the abstraction to solve this problem. Find the boundary of the map and try and error to show that it will
+    go up at the map according to the addition or subtraction of x or y axis and give a error message if the target meet
+    to the boundary.
     """
     if character['current_location'][0] == 5:
         print("The Eastern wall of the colosseum towers before you.\n"
               "You cannot go any more East! Turn back.")
+        return False
     else:
         new_x = character['current_location'][0] + 1
         character['current_location'] = (new_x, character['current_location'][1])
+        return True
+
 
 
 def move_west(character):
     """Modifies character location to move West.
 
     :param character: character is a dictionary containing name, class, race and HP.
-    :return: create a new tuple to subtract one at character['current_location'][1]
+    :precondition: character must be a dictionary contain key 'HP' and a a list for value get max HP and current HP by the
+                   positive integers.
+    :postcondition: if character's current location at x axis in 1, then print a warning message and return false.
+                    Otherwise, create a tuple with subtract 1 at x axis and return true.
+    :return: return False if character meet the boundary or return true and create a new tuple to subtract one at character['current_location'][0]
+    
+    Computational thinking:
+    To adapt the abstraction to solve this problem. Find the boundary of the map and try and error to show that it will
+    go up at the map according to the addition or subtraction of x or y axis and give a error message if the target meet
+    to the boundary.
     """
     if character['current_location'][0] == 1:
         print("The Western wall of the colosseum towers before you.\n"
               "You cannot go any more West! Turn back.")
+        return False
     else:
         new_x = character['current_location'][0] - 1
         character['current_location'] = (new_x, character['current_location'][1])
+        return True
 
 
 def grid_generator(character, grid_events):
@@ -165,19 +211,19 @@ def move_character(character):
                             '"W" for [NORTH], "D" for [EAST], "S" for [SOUTH], "A" for [WEST]\n'
                             'To quit game type: Q or Quit\n')
         if user_prompt.lower().strip() == 'w':
-            move_north(character)
-            break
+            return move_north(character)
+
         elif user_prompt.lower().strip() == 'd':
-            move_east(character)
-            break
+            return move_east(character)
+
         elif user_prompt.lower().strip() == 's':
-            move_south(character)
-            break
+            return move_south(character)
+
         elif user_prompt.lower().strip() == 'a':
-            move_west(character)
-            break
+            return move_west(character)
+
         elif user_prompt.lower().strip() == 'q' or user_prompt.lower().strip() == 'quit':
-            return True
+            return "q"
         else:
             print("That's not a valid input")
 
@@ -195,11 +241,13 @@ def create_character():
 
 def select_class():
     """Prompt user to choose from 12 classes.
+    
     :precondition: user input must be a positive non-zero integer that is between 1 - 12 inclusive,
                    representing one of the twelve classes.
     :postcondition: if user chose a positive integer returns
                     a dictionary representing the class and attributes associated with it.
     :return: a dictionary representing the class name and the attributes of the class
+    
     This function can be decomposed into two steps. First step being taking input from the user and the second being
     returning the appropriate class dictionary to reflect the user's choice.
     This process can be automated by initializing a dictionary with the key being the number associated with the class
@@ -235,13 +283,11 @@ def select_class():
           "11. Warlock: A wielder of magic that is derived from a bargain with an extraplanar entity.\n"
           "12. Wizard: A scholarly magic-user capable of manipulating the structures of reality.\n")
 
-    classes_prompt = True
-    while classes_prompt:
-        user_class = int(input("What class did I specialize in again? "))
-        if user_class in classes.keys():
-            print(f"I was a {classes[user_class].capitalize()}\n")
-            classes_prompt = False
-            return classes[user_class]
+    while True:
+        user_class = input("What class did I specialize in again? ").strip()
+        if user_class.isdigit() and int(user_class) in classes.keys():
+            print(f"I was a {classes[int(user_class)].capitalize()}\n")
+            return classes[int(user_class)]
         else:
             print("No, That's not the class that I was.\n"
                   "Please select a number from 1-12")
@@ -249,10 +295,12 @@ def select_class():
 
 def select_race():
     """Prompt user to choose from 9 races.
+    
     :precondition: user input must be a positive non-zero integer that is between 1 - 9 inclusive,
                    representing one of the nine races.
     :postcondition: returns a string representing the race of user has chosen.
     :return: a string representing a race.
+    
     This function can be decomposed into two steps. First step being taking input from the user and the second being
     returning the appropriate race name to reflect the user's choice.
     This process can be automated by initializing a dictionary with the key being the number associated with the race
@@ -287,13 +335,11 @@ def select_race():
           "9. Tiefling: Tieflings are derived from human bloodlines, and in the broadest possible sense, they still "
           "look human.\n")
 
-    race_prompt = True
-    while race_prompt:
-        user_race = int(input("Where did I come from? and what was my background? "))
-        if user_race in races.keys():
-            print(f"I was part of the {races[user_race].capitalize()} race.\n")
-            race_prompt = False
-            return races[user_race]
+    while True:
+        user_race = input("Where did I come from? and what was my background? ").strip()
+        if user_race.isdigit() and int(user_race) in races.keys():
+            print(f"I was part of the {races[int(user_race)].capitalize()} race.\n")
+            return races[int(user_race)]
         else:
             print("No, I am not of that race. I need to remember!\n"
                   "Please select a number from 1-9")
@@ -309,6 +355,24 @@ def print_character(character):
 
 
 def normal_battle(character):
+    """
+    
+    Choose a random monster name in a list and type fight or run to implement the functions to show the combat or
+    escape. In the fighting part, show two types of results: defeat monster or monster defeat player. Finally, retype if
+    the player didn't type fight or run correctly.
+    
+    Precondition: character must be a dictionary contain key 'HP' and a a list for value get max HP and current HP by the
+    positive integers.
+    Postcondition: Implement
+    :param character: character is a dictionary containing name, class, race and HP.
+    :Precondition: character must be a dictionary contain key 'HP' and a a list for value get max HP and current HP by the
+                   positive integers.
+    Postcondition: Implement
+    
+    Computation thinking:
+    Decompose the function into creating monster, asking player, typing correction and showing the result of combat or
+    escaping. Make the abstraction to meet monster and show the process.
+    """
     monster_names = ['Gael (Katakan)', 'White Lady (Noonwraith)', 'Forktail (Baby Wyvern)',
                      'Melusine (Siren)', 'Morvudd(Fiend)', 'The Woods (Nightwraith)',
                      'Mourntart (Grave Hag)', 'Harrisi (Arachas)']
@@ -390,11 +454,11 @@ def combat_round(character, monster):
 
 def attack(attacker, defender, times_attack=1, roll=1, side=6):
     """Calculate the amount of damage the defender receives depending on attacker damage rolls.
-
+    
     This function calculates the total damage the defender receives from the attacker. This function takes 2
     necessary parameters which are the dictionaries of the attacker and defender. Damage is calculated based on a die
     roll system similar to DND and has 3 default parameters which assume a normal die roll of 1d6 rolled once.
-
+    
     :param attacker: a dictionary that represents the attacker. This dictionary mut be a valid character dictionary that
                      has the attacker's 'Name' and 'HP' which is represented as a list.
     :param defender: a dictionary that represents the defender. This dictionary mut be a valid character dictionary that
@@ -429,7 +493,6 @@ def attack(attacker, defender, times_attack=1, roll=1, side=6):
 
 def boss():
     """
-
     :return:
     """
     dragon = {"Name": "Cetus the Dragon", "HP": [12, 12], "side": 6, "roll": 1, "times": 1}
@@ -440,7 +503,6 @@ def boss():
 
 def three_boss_fight(character, boss_name, grid_events):
     """
-
     :param character:
     :param boss_name:
     :param grid_events:
@@ -452,9 +514,6 @@ def three_boss_fight(character, boss_name, grid_events):
     input(f"You are about to face one of the three bosses in this arena.\n"
           f"Prepare yourself as this is a battle to the death.\n"
           f"- press ENTER to continue -")
-    # dragon: hp 20 , fight once_a_time, hit 2d4
-    # giant: hp 15 , fight once, hit 1d12
-    # wolf: hp 12, fight twice, hit 1d6
     while True:
         print(f"{character['Name']} draws his weapon and lunges at {real_boss['Name']}.")
         attack(character, real_boss)
@@ -472,7 +531,6 @@ def three_boss_fight(character, boss_name, grid_events):
 
 def update_boss(boss_name, grid_events):
     """
-
     :param boss_name:
     :param grid_events:
     :return:
@@ -493,6 +551,7 @@ def congrats_for_winning(real_boss, grid_events):
               "You take a deep breath as you are overcome with the elation of escaping this nightmarish arena.\n"
               "You breath in the last breath of air that you will take in this God forsaken place and look forward\n"
               "to your new reborn life.\n"
+              f"{boss_list.win()}"
               "Thank you so much to play our game. Tha game producers are Edgar and Tommy")
 
 
@@ -597,10 +656,10 @@ def main():
         # print(grid_events)
         grid_generator(my_char, grid_events)
         quit_prompt = move_character(my_char)
-        if quit_prompt:
+        if quit_prompt == 'q':
             print("Thanks for playing our game! Please play again next time.")
             break
-        else:
+        elif quit_prompt:
             boss_fight = boss_fight_checker(my_char, grid_events)
             monster_battle = movement_checker(my_char)
             if boss_fight:
@@ -614,6 +673,8 @@ def main():
                 if monster_battle:
                     print("A monster catches up to you. Get ready for battle!")
                     normal_battle(my_char)
+        else:
+            pass
 
 
 if __name__ == '__main__':
