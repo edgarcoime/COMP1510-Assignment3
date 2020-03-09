@@ -84,6 +84,6 @@ class TestCombatRound(TestCase):
         char_expected_HP = [15, -2]
         monster_expected_HP = [5, 1]
         sud.combat_round(char, monster)
-        self.assertEqual(mock_stdout.getvalue(), expected_print, "The Character kills monster.")
+        self.assertEqual(mock_stdout.getvalue(), expected_print, "The monster kills the user character")
         self.assertTrue(char['HP'] == char_expected_HP)
         self.assertTrue(monster['HP'] == monster_expected_HP)
