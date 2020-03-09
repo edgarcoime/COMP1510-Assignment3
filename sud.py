@@ -33,14 +33,14 @@ def movement_checker(character):
     """Upon movement, checks if user encounters monster if not heals character.
     :param character: character is a dictionary containing name, class, race and HP.
     :return: Return False if the result of roll_die function is 1, others will justify if HP[1] < HP[0] add H[1]
-    2 points and print the status or print out the full HP and return False
+             2 points and print the status or print out the full HP and return False
     """
     monster_chance = roll_die(1, 4)
     if monster_chance == 1:
         return True
     else:
         if character['HP'][1] < character['HP'][0]:
-            character['HP'][1] += 2
+            character['HP'][1] += 2 if character['HP'][1] != (character['HP'][0]-1) else 1
             print("The monsters couldn't catch up to you. This gives you the opportunity to bandage your wounds.\n"
                   f"You heal 2 points. You now have {character['HP'][1]}/{character['HP'][0]}HP\n")
         else:
@@ -75,37 +75,43 @@ def move_north(character):
     if character['current_location'][1] == 1:
         print("The Northern wall of the colosseum towers before you.\n"
               "You cannot go any more North! Turn back.")
+        return False
     else:
         new_y = character['current_location'][1] - 1
         character['current_location'] = (character['current_location'][0], new_y)
+        return True
 
 
 def move_south(character):
     """Modifies character location to move South.
-    :param character:
     :param character: character is a dictionary containing name, class, race and HP.
     :return: create a new tuple to subtract one at character['current_location'][1]
     """
     if character['current_location'][1] == 5:
         print("The Southern wall of the colosseum towers before you.\n"
               "You cannot go any more South! Turn back.")
+        return False
     else:
         new_y = character['current_location'][1] + 1
         character['current_location'] = (character['current_location'][0], new_y)
+        return True
+
 
 
 def move_east(character):
-    """Modifies character locaiton to move East.
-    :param character:
+    """Modifies character location to move East.
     :param character: character is a dictionary containing name, class, race and HP.
     :return: create a new tuple to subtract one at character['current_location'][1]
     """
     if character['current_location'][0] == 5:
         print("The Eastern wall of the colosseum towers before you.\n"
               "You cannot go any more East! Turn back.")
+        return False
     else:
         new_x = character['current_location'][0] + 1
         character['current_location'] = (new_x, character['current_location'][1])
+        return True
+
 
 
 def move_west(character):
@@ -116,9 +122,11 @@ def move_west(character):
     if character['current_location'][0] == 1:
         print("The Western wall of the colosseum towers before you.\n"
               "You cannot go any more West! Turn back.")
+        return False
     else:
         new_x = character['current_location'][0] - 1
         character['current_location'] = (new_x, character['current_location'][1])
+        return True
 
 
 def grid_generator(character, grid_events):
@@ -127,66 +135,62 @@ def grid_generator(character, grid_events):
     :param character:
     :return:
     """
-    print(f"[🦸] Is your character named {character['Name']}\n"
-          "[🐉] = Cetus the Dragon || [🐺] = Fenrir the Great Wolf || [😈] = Ajax the Giant")
+    print(f"[C] = Your character named {character['Name']}\n"
+          "[D] = Cetus the Dragon || [W] = Fenrir the Great Wolf || [G] = Ajax the Giant\n")
     for y, _ in enumerate(range(5), 1):
         line = ""
         for x, _ in enumerate(range(5), 1):
             if (x, y) == character['current_location']:
-                line += "[🦸‍]"
+                line += "[C]"
             elif (x, y) in grid_events['bosses'].keys():
                 if grid_events['bosses'][(x, y)] == 'dragon':
-                    line += "[🐉]"
+                    line += "[D]"
                 elif grid_events['bosses'][(x, y)] == 'wolf':
-                    line += "[🐺]"
+                    line += "[W]"
                 elif grid_events['bosses'][(x, y)] == 'giant':
-                    line += "[😈]"
+                    line += "[G]"
                 else:
                     pass
             else:
-                line += "[  ]"
+                line += "[ ]"
         print(line)
-    print(f"You have {character['HP'][1]}HP")
+    print(f"\nYou have {character['HP'][1]}HP")
     print(f"{len(grid_events['bosses'].keys())}/3 bosses are still alive!\n"
           f"You must kill them to be free of this nightmare!\n")
 
 
 def move_character(character):
     while True:
-        user_prompt = input('Where would you like to move?\n'
-                            'type (N or North) - (E or East) - (S or South) - (W or West)\n'
+        user_prompt = input('Where would you like to move? Type: \n'
+                            '"W" for [NORTH], "D" for [EAST], "S" for [SOUTH], "A" for [WEST]\n'
                             'To quit game type: Q or Quit\n')
-        if user_prompt.lower().strip() == 'n' or user_prompt.lower().strip() == 'north':
-            move_north(character)
-            break
-        elif user_prompt.lower().strip() == 'e' or user_prompt.lower().strip() == 'east':
-            move_east(character)
-            break
-        elif user_prompt.lower().strip() == 's' or user_prompt.lower().strip() == 'south':
-            move_south(character)
-            break
-        elif user_prompt.lower().strip() == 'w' or user_prompt.lower().strip() == 'west':
-            move_west(character)
-            break
+        if user_prompt.lower().strip() == 'w':
+            return move_north(character)
+
+        elif user_prompt.lower().strip() == 'd':
+            return move_east(character)
+
+        elif user_prompt.lower().strip() == 's':
+            return move_south(character)
+
+        elif user_prompt.lower().strip() == 'a':
+            return move_west(character)
+
         elif user_prompt.lower().strip() == 'q' or user_prompt.lower().strip() == 'quit':
-            return True
+            return "q"
         else:
             print("That's not a valid input")
 
 
 # Character creator functions
 def create_character():
-    character = {'Name': generate_name(),
+    name = input("What was your name again? ").lower().capitalize().strip()
+    character = {'Name': name,
                  'Class': select_class(),
                  'Race': select_race(),
-                 'HP': [15, 15],
+                 'HP': [20, 20],
                  'current_location': (3, 3)}
     return character
-
-
-def generate_name():
-    name = input("What was your name again? ")
-    return name.lower().capitalize().strip()
 
 
 def select_class():
@@ -301,35 +305,40 @@ def print_character(character):
 
 
 def normal_battle(character):
-    monster = create_monster()
-    print("You meet a monster named %s" % (monster['Name']))
-    while monster['HP'][1] > 0 and character['HP'][1] > 0:
-        decision = input(f"You have {character['HP'][1]}HP and the enemy has {monster['HP'][1]}\n"
-                         "Will you fight or run? (type: fight or run):\n")
-        if decision == 'fight':
-            combat_round(character, monster)
-        elif decision == 'run':
-            retreat(character)
-            break
-        else:
-            pass
-
-
-def create_monster():
-    monster_names = ['Gael (Katakan)',
-                     'White Lady (Noonwraith)',
-                     'Forktail (Baby Wyvern)',
-                     'Melusine (Siren)',
-                     'Morvudd(Fiend)',
-                     'The Woods (Nightwraith)',
-                     'Mourntart (Grave Hag)',
-                     'Harrisi (Arachas)']
+    monster_names = ['Gael (Katakan)', 'White Lady (Noonwraith)', 'Forktail (Baby Wyvern)',
+                     'Melusine (Siren)', 'Morvudd(Fiend)', 'The Woods (Nightwraith)',
+                     'Mourntart (Grave Hag)', 'Harrisi (Arachas)']
     monster_name = random.choice(monster_names)
     monster_dictionary = {'Name': monster_name, 'HP': [5, 5]}
-    return monster_dictionary
+    while True:
+        decision = input(f"You have {character['HP'][1]}HP and the enemy has {monster_dictionary['HP'][1]}\n"
+                         "Will you fight or run? (type: fight or run):\n")
+        print("You meet a monster named %s" % (monster_dictionary['Name']))
+        if decision == 'fight' or decision == 'run':
+            if decision == 'fight':
+                while monster_dictionary['HP'][1] > 0 and character['HP'][1] > 0:
+                    combat_round(character, monster_dictionary)
+                break
+            elif decision == 'run':
+                retreat(character)
+                break
+        else:
+            print("\nPlease type run or fight correctly.\n")
 
 
 def retreat(character):
+    """Determine if character is backstabbed if retreat option is chosen.
+    This function determines using a die roll whether or not the user's character is backstabbed in the process of
+    running away from the monster. This chance is simulated using a die roll of 1d10, where 1 is the 10% chance that
+    they do get hit while retreating.
+    :param character: a dictionary that represents the user's character. This dictionary mut be a valid character
+                      dictionary that has the character's 'Name' and 'HP' which is represented as a list.
+    :precondition: character dictionary must be valid with the key value pairs of 'Name' and 'HP' mandatory inside the
+                   dictionary.
+    :postcondition: this function returns nothing but it modifies the character dictionary to reflect how much damage is
+                    is inflicted if character is backstabbed.
+    :return: no return value but modifies the 'character' param.
+    """
     hit_chance_roll = roll_die(1, 10)
     print("You have a 10% chance of being backstabbed.")
     if hit_chance_roll == 1:
@@ -343,6 +352,22 @@ def retreat(character):
 
 
 def combat_round(character, monster):
+    """Simulate a single back and forth exchange between attacker and defender.
+    This function acts as a control structure and print statement for the user to display helpful information
+    for the story. This function keeps track of the current HP of the two dictionaries and decides whether another
+    back and forth exchange should be done or a death screen should be displayed to the user to represent losing
+    the game.
+    :param character: a dictionary that represents the user's character. This dictionary mut be a valid character
+                      dictionary that has the character's 'Name' and 'HP' which is represented as a list.
+    :param monster: a dictionary that represents the minor monsters or non-boss monsters in the arena. This dictionary
+                    must be a valid and have key value pairs that represents the monster's 'Name' and 'HP' represented
+                    as a list.
+    :precondition: both dictionaries must be valid with the key value pairs of 'Name' and 'HP' mandatory inside the
+                   dictionary.
+    :postcondition: this function returns nothing but it modifies the character and monster parameters to reflect how
+                    much damage was done in the one for one exchange against each other.
+    :return: no return value but modifies the 'character' param.
+    """
     # Character attacks first
     print(f"{character['Name']} draws his weapon and lunges at the beast.")
     attack(character, monster)
@@ -360,58 +385,65 @@ def combat_round(character, monster):
 
 
 def attack(attacker, defender, times_attack=1, roll=1, side=6):
+    """Calculate the amount of damage the defender receives depending on attacker damage rolls.
+    This function calculates the total damage the defender receives from the attacker. This function takes 2
+    necessary parameters which are the dictionaries of the attacker and defender. Damage is calculated based on a die
+    roll system similar to DND and has 3 default parameters which assume a normal die roll of 1d6 rolled once.
+    :param attacker: a dictionary that represents the attacker. This dictionary mut be a valid character dictionary that
+                     has the attacker's 'Name' and 'HP' which is represented as a list.
+    :param defender: a dictionary that represents the defender. This dictionary mut be a valid character dictionary that
+                     has the defender's 'Name' and 'HP' which is represented as a list.
+    :param times_attack: default value is 1, otherwise this param must be a non-zero positive integer. Represents
+                         how many times the attacker attacks.
+    :param roll: default value is 1, otherwise this param must be a non-zero positive integer. Represents how many times
+                 the damage die is rolled to calculate a single attack.
+    :param side: default value is 6, otherwise this param must be a non-zero positive integer. Represents how many sides
+                 the damage die has.
+    :precondition: both dictionaries must be valid with the key value pairs of 'Name' and 'HP' mandatory inside the
+                   dictionary. The three default value parameters must be non-zero integers and SHOULD be imagined
+                   and used as a die being rolled a certain amount of times with a certain number of sides.
+    :postcondition: this function does not return anything but it modifies the defender parameter to reflect how much
+                    damage was done to it.
+    :return: no return value but modifies 'defender' param.
+    """
     if times_attack == 1:
         damage_roll = roll_die(roll, side)
         defender['HP'][1] -= damage_roll
         print(f"{attacker['Name']} attacks {defender['Name']} and deals {damage_roll} damage.\n"
               f"Leaving {defender['Name']} with {defender['HP'][1]}/{defender['HP'][0]}HP.\n")
     else:
-        damage_rolls = []
-        damage_string = ""
-        for _ in range(times_attack):
-            damage_roll = roll_die(roll, side)
-            damage_rolls.append(damage_roll)
-            damage_string += str(damage_roll) + ", "
+        damage_rolls = [roll_die(roll, side) for n in range(times_attack)]
+        damage_rolls_string = ', '.join(str(damage_roll) for damage_roll in damage_rolls)
         defender['HP'][1] -= sum(damage_rolls)
         print(
-            f"The beast attacks with tremendous speed! Allowing it to strike {defender['Name']} {times_attack} times.\n"
-            f"{attacker['Name']} rolls {damage_string}for a total of {sum(damage_rolls)} damage. "
+            f"{attacker['Name']} attacks with tremendous speed! Allowing it to strike {defender['Name']} {times_attack} times.\n"
+            f"{attacker['Name']} rolls {damage_rolls_string} for a total of {sum(damage_rolls)} damage. "
             f"Leaving {defender['Name']} with {defender['HP'][1]}/{defender['HP'][0]}HP.\n")
 
 
 def boss():
     """
-
     :return:
     """
-    dragon = {"Name": "dragon", "HP": [20, 20], "side": 1, "roll": 1, "times": 1}
-    giant = {"Name": "giant", "HP": [15, 15], "side": 1, "roll": 1, "times": 1}
-    wolf = {"Name": "wolf", "HP": [12, 12], "side": 1, "roll": 1, "times": 2}
+    dragon = {"Name": "Cetus the Dragon", "HP": [12, 12], "side": 6, "roll": 1, "times": 1}
+    giant = {"Name": "Ajax the Giant", "HP": [8, 8], "side": 8, "roll": 1, "times": 1}
+    wolf = {"Name": "Fenrir the Great Wolf", "HP": [8, 8], "side": 4, "roll": 1, "times": 2}
     return {'dragon': dragon, 'giant': giant, 'wolf': wolf}
-
-
-def dumb_question(real_boss):
-    while True:
-        final_ask = input(
-            f"This is the determining time to face it\n Are you ready to face the most dangerous {real_boss['Name']} (type Yes)?")
-        if final_ask.lower().strip() == "yes":
-            break
-        else:
-            print("You cannot regret now, you must fight")
 
 
 def three_boss_fight(character, boss_name, grid_events):
     """
-
     :param character:
     :param boss_name:
     :param grid_events:
     :return:
     """
-    real_boss = boss()[boss_name].copy().copy()
+    real_boss = boss()[boss_name]
     boss_list.call_monster(boss_name)
     boss_speech(boss_name)
-    dumb_question(real_boss)
+    input(f"You are about to face one of the three bosses in this arena.\n"
+          f"Prepare yourself as this is a battle to the death.\n"
+          f"- press ENTER to continue -")
     # dragon: hp 20 , fight once_a_time, hit 2d4
     # giant: hp 15 , fight once, hit 1d12
     # wolf: hp 12, fight twice, hit 1d6
@@ -425,13 +457,13 @@ def three_boss_fight(character, boss_name, grid_events):
         print(f"{real_boss['Name']} staggers and recovers its composure. It glares at you and Retaliates!")
         attack(real_boss, character, real_boss['times'], real_boss['roll'], real_boss['side'])
         if character['HP'][1] <= 0:
-            print("you are dead from the boss fighting")
+            print("Your sight begins to blur as you feel you life fading away.\n"
+                  "You have died. Please try again")
             return False
 
 
 def update_boss(boss_name, grid_events):
     """
-
     :param boss_name:
     :param grid_events:
     :return:
@@ -445,30 +477,40 @@ def update_boss(boss_name, grid_events):
 
 def congrats_for_winning(real_boss, grid_events):
     if grid_events['bosses'] != {}:
-        print(f"you finally beat one of the dangerous boss {real_boss['Name']}"
-              "now you can proceed\n")
+        print(f"Congratulations! You have beaten {real_boss['Name']}\n"
+              "You can now proceed to the other bosses in the arena.")
     else:
-        print(f"that's is impossible that you really beat the last boss {real_boss['Name']}\n"
-              "Now you are able to release and get some fresh air and sunshine to face your reborn life!!\n"
+        print(f"As you stand before the lifeless carcass of {real_boss['Name']} the final champion.\n"
+              "You take a deep breath as you are overcome with the elation of escaping this nightmarish arena.\n"
+              "You breath in the last breath of air that you will take in this God forsaken place and look forward\n"
+              "to your new reborn life.\n"
               "Thank you so much to play our game. Tha game producers are Edgar and Tommy")
-        boss_list.win()
 
 
 def boss_speech(choice):
     if choice == "dragon":
-        print("""Congratulations on letting the evil dragon wake up, the world will fall into darkness, 
-    his body, and the lethal flame spitting out of his mouth, approaching you step by step\n""")
-        print("""The dragon has two dragon claws to give 2d4 attack points and 20 high HP points""")
+        print("You have woken the Dragon named Cetus. As it approaches you, you fight off the urge to run\n"
+              "away from the nightmarish beast in front of you clad with dark obsidian scales. As Cetus approaches\n"
+              "its mouth begins to froth with molten magma and his nostrils flair and emit steam. You take up arms\n"
+              "and ready yourself mentally and physically for battle that will unfold.\n")
+        print("You have challenged Cetus the Dragon, one of the three champions in this arena.\n"
+              "His claws give it high attack of 2d4, and his draconic scales give him 12HP ")
     elif choice == "giant":
-        print("""Representing the human body enlarged to the point of being monstrous, 
-        giants evoke terror and remind humans of their body's frailty and mortality. 
-        The giant approached you slowly. He seems to be telling your insignificance and disdains your challenge\n""")
-        print("""The giant has giant fists to give 1d12 attack points and 15 semi-high HP points""")
+        print("As you approach the Giant named Ajax his lips begin to curl upward as his monstrous body towers\n"
+              "before you. His club is the length and seems to weigh as much as he does; yet, he swings the club\n"
+              "effortlessly. "
+              "You take a deep breath as you ready yourself for battle while Ajax laughs condescendingly.\n")
+        print("You have challenged Ajax the Giant, one of the three champions in this arena.\n"
+              "His size gives him abnormal strength allowing him an attack of 1d8, "
+              "his size gives him above average 8HP.")
     else:
-        print("""The vicious wolf stares at you fiercely, He has evolved into a persistent pursuer 
-        with incredible speed catch his prey and hunt game animals that are a lot larger than itself. 
-        You can only prepare the weapons to fight your enemy.\n""")
-        print("""The wolf has incredible speed 1d6 attack points and two times attack and 12 normal HP points""")
+        print("Fenrir stares at you as if he was looking at a rabbit that he could kill at any moment. From a\n"
+              "distance you can already tell that he was leagues above being just 'nimble'. He was fast and with\n"
+              "ferocity to match that speed as well. "
+              "You prepare yourself sharpening your instincts as it approaches.\n")
+        print("You have challenged Fenrir the Great Wolf, one of the three champions in this arena.\n"
+              "His speed allows him to attack twice with a roll of 1d4, compared to the others he is still fragile"
+              "so he has average health of 6HP")
 
 
 def main():
@@ -489,7 +531,9 @@ def main():
         "laughter from behind you. \n"
         "    Death row inmate: 'Hahaha . . . You are going into the arena tomorrow. Only death awaits you there.'\n"
     )
-    input("You have no idea what is going on and you wonder what this ‘arena’ is, so you ask the man for more details.")
+    input("You have no idea what is going on and you wonder what this ‘arena’ is, so you ask the man for more "
+          "details.\n "
+          "- press ENTER to continue -")
     print(
         "    Death row inmate: 'The arena is where the king throws inmates to fight his 3 champions. \n"
         "                       Ajax the Giant, Fenrir the great Wolf, and Cetus the Dragon.\n"
@@ -506,7 +550,7 @@ def main():
                          "4. What happens if I win against them?\n")
         if intro_q1.isdigit() and int(intro_q1) == 1:
             print("    Death row inmate: 'Ajax the Giant is a Troll who stands as tall as three adult men.\n"
-                  "                       He can single handedly crush you with a swing of his club.'\n")
+                  "                       He can single handily crush you with a swing of his club.'\n")
         elif intro_q1.isdigit() and int(intro_q1) == 2:
             print("    Death row inmate: 'Fenrir the Great Wolf is a fierce beast whose speed is unrivaled in battle\n"
                   "                       in the time it takes you to land a hit he would've striked you twice.'\n")
@@ -521,7 +565,6 @@ def main():
             break
         else:
             print("That's not a valid choice. Type a number associated with a choice.\n")
-
     print("You end the conversation and try to get some sleep. Trying to remember who you are.\n"
           "You ask yourself:")
 
@@ -530,9 +573,9 @@ def main():
     #     'Name': 'Edgar',
     #     'Class': 'barbarian',
     #     'Race': 'human',
-    #     'HP': [15, 1],
+    #     'HP': [15, 40],
     #     'current_location': (3, 3)}
-    print_character(my_char)
+    # print_character(my_char)
 
     input("You close your eyes to rest hoping that this is all a ridiculous nightmare.")
 
@@ -542,13 +585,13 @@ def main():
 
     while my_char['HP'][1] > 0 and grid_events['bosses']:
         # print(my_char['current_location'])
-        print(grid_events)
+        # print(grid_events)
         grid_generator(my_char, grid_events)
         quit_prompt = move_character(my_char)
-        if quit_prompt:
+        if quit_prompt == 'q':
             print("Thanks for playing our game! Please play again next time.")
             break
-        else:
+        elif quit_prompt:
             boss_fight = boss_fight_checker(my_char, grid_events)
             monster_battle = movement_checker(my_char)
             if boss_fight:
@@ -562,6 +605,8 @@ def main():
                 if monster_battle:
                     print("A monster catches up to you. Get ready for battle!")
                     normal_battle(my_char)
+        else:
+            pass
 
 
 if __name__ == '__main__':
