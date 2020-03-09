@@ -355,7 +355,7 @@ def print_character(character):
 
 
 def normal_battle(character):
-    """
+    """Simulate a battle to the death with a monster.
     
     Choose a random monster name in a list and type fight or run to implement the functions to show the combat or
     escape. In the fighting part, show two types of results: defeat monster or monster defeat player. Finally, retype if
