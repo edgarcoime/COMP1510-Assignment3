@@ -184,17 +184,13 @@ def move_character(character):
 
 # Character creator functions
 def create_character():
-    character = {'Name': generate_name(),
+    name = input("What was your name again? ").lower().capitalize().strip()
+    character = {'Name': name,
                  'Class': select_class(),
                  'Race': select_race(),
                  'HP': [15, 15],
                  'current_location': (3, 3)}
     return character
-
-
-def generate_name():
-    name = input("What was your name again? ")
-    return name.lower().capitalize().strip()
 
 
 def select_class():
