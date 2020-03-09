@@ -480,7 +480,9 @@ def main():
         "laughter from behind you. \n"
         "    Death row inmate: 'Hahaha . . . You are going into the arena tomorrow. Only death awaits you there.'\n"
     )
-    input("You have no idea what is going on and you wonder what this ‘arena’ is, so you ask the man for more details.")
+    input("You have no idea what is going on and you wonder what this ‘arena’ is, so you ask the man for more "
+          "details.\n "
+          "- press ENTER to continue -")
     print(
         "    Death row inmate: 'The arena is where the king throws inmates to fight his 3 champions. \n"
         "                       Ajax the Giant, Fenrir the great Wolf, and Cetus the Dragon.\n"
@@ -495,24 +497,23 @@ def main():
                          "2. Who is Fenrir the Great Wolf?\n"
                          "3. Who is Cetus the Dragon?\n"
                          "4. What happens if I win against them?\n")
-        if int(intro_q1) == 1:
+        if intro_q1.isdigit() and int(intro_q1) == 1:
             print("    Death row inmate: 'Ajax the Giant is a Troll who stands as tall as three adult men.\n"
-                  "                       He can single handedly crush you with a swing of his club.'\n")
-        elif int(intro_q1) == 2:
+                  "                       He can single handily crush you with a swing of his club.'\n")
+        elif intro_q1.isdigit() and int(intro_q1) == 2:
             print("    Death row inmate: 'Fenrir the Great Wolf is a fierce beast whose speed is unrivaled in battle\n"
                   "                       in the time it takes you to land a hit he would've striked you twice.'\n")
-        elif int(intro_q1) == 3:
+        elif intro_q1.isdigit() and int(intro_q1) == 3:
             print("    Death row inmate: 'Cetus the Dragon has served in the king's bloodline for\n"
                   "                       thousands of years. His ferociousness is otherworldly and his thick hide\n"
                   "                       protects him from weapons that would pierce even walls'\n")
-        elif int(intro_q1) == 4:
+        elif intro_q1.isdigit() and int(intro_q1) == 4:
             print("    Death row inmate: 'HAHAHA You are never going to win, not even in a thousand years. But if \n"
                   "                       you do manage to pull a miracle the king will set you free with fortunes\n"
                   "                       that the Gods would even kill for.'\n")
             break
         else:
             print("That's not a valid choice. Type a number associated with a choice.\n")
-
     print("You end the conversation and try to get some sleep. Trying to remember who you are.\n"
           "You ask yourself:")
 
@@ -521,9 +522,9 @@ def main():
     #     'Name': 'Edgar',
     #     'Class': 'barbarian',
     #     'Race': 'human',
-    #     'HP': [15, 1],
+    #     'HP': [15, 40],
     #     'current_location': (3, 3)}
-    print_character(my_char)
+    # print_character(my_char)
 
     input("You close your eyes to rest hoping that this is all a ridiculous nightmare.")
 
