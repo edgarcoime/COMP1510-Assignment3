@@ -378,9 +378,9 @@ def boss():
 
     :return:
     """
-    dragon = {"Name": "dragon", "HP": [12, 12], "side": 6, "roll": 1, "times": 1}
-    giant = {"Name": "giant", "HP": [8, 8], "side": 8, "roll": 1, "times": 1}
-    wolf = {"Name": "wolf", "HP": [6, 6], "side": 4, "roll": 1, "times": 2}
+    dragon = {"Name": "Cetus the Dragon", "HP": [12, 12], "side": 6, "roll": 1, "times": 1}
+    giant = {"Name": "Ajax the Giant", "HP": [8, 8], "side": 8, "roll": 1, "times": 1}
+    wolf = {"Name": "Fenrir the Great Wolf", "HP": [8, 8], "side": 4, "roll": 1, "times": 2}
     return {'dragon': dragon, 'giant': giant, 'wolf': wolf}
 
 
