@@ -327,6 +327,20 @@ def normal_battle(character):
 
 
 def retreat(character):
+    """Determine if character is backstabbed if retreat option is chosen.
+
+    This function determines using a die roll whether or not the user's character is backstabbed in the process of
+    running away from the monster. This chance is simulated using a die roll of 1d10, where 1 is the 10% chance that
+    they do get hit while retreating.
+
+    :param character: a dictionary that represents the user's character. This dictionary mut be a valid character
+                      dictionary that has the character's 'Name' and 'HP' which is represented as a list.
+    :precondition: character dictionary must be valid with the key value pairs of 'Name' and 'HP' mandatory inside the
+                   dictionary.
+    :postcondition: this function returns nothing but it modifies the character dictionary to reflect how much damage is
+                    is inflicted if character is backstabbed.
+    :return: no return value but modifies the 'character' param.
+    """
     hit_chance_roll = roll_die(1, 10)
     print("You have a 10% chance of being backstabbed.")
     if hit_chance_roll == 1:
@@ -356,7 +370,7 @@ def combat_round(character, monster):
                    dictionary.
     :postcondition: this function returns nothing but it modifies the character and monster parameters to reflect how
                     much damage was done in the one for one exchange against each other.
-    :return: no return value but modifies the 'character' param
+    :return: no return value but modifies the 'character' param.
     """
     # Character attacks first
     print(f"{character['Name']} draws his weapon and lunges at the beast.")
