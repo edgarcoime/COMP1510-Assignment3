@@ -314,31 +314,17 @@ def normal_battle(character):
                      'Mourntart (Grave Hag)', 'Harrisi (Arachas)']
     monster_name = random.choice(monster_names)
     monster_dictionary = {'Name': monster_name, 'HP': [5, 5]}
+    decision = input(f"You have {character['HP'][1]}HP and the enemy has {monster_dictionary['HP'][1]}\n"
+                     "Will you fight or run? (type: fight or run):\n")
     print("You meet a monster named %s" % (monster_dictionary['Name']))
-    while monster_dictionary['HP'][1] > 0 and character['HP'][1] > 0:
-        decision = input(f"You have {character['HP'][1]}HP and the enemy has {monster_dictionary['HP'][1]}\n"
-                         "Will you fight or run? (type: fight or run):\n")
-        if decision == 'fight':
+    if decision == 'fight':
+        while monster_dictionary['HP'][1] > 0 and character['HP'][1] > 0:
             combat_round(character, monster_dictionary)
-        elif decision == 'run':
-            retreat(character)
-            break
-        else:
-            pass
+    elif decision == 'run':
+        retreat(character)
+    else:
+        pass
 
-
-def create_monster():
-    monster_names = ['Gael (Katakan)',
-                     'White Lady (Noonwraith)',
-                     'Forktail (Baby Wyvern)',
-                     'Melusine (Siren)',
-                     'Morvudd(Fiend)',
-                     'The Woods (Nightwraith)',
-                     'Mourntart (Grave Hag)',
-                     'Harrisi (Arachas)']
-    monster_name = random.choice(monster_names)
-    monster_dictionary = {'Name': monster_name, 'HP': [5, 5]}
-    return monster_dictionary
 
 
 def retreat(character):
