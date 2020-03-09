@@ -69,8 +69,16 @@ def boss_fight_checker(character, grid_events):
 
 def move_north(character):
     """Modifies character location to move North.
+    precondition: character must be a dictionary contain key 'HP' and a a list for value get max HP and current HP by the
+    positive integers.
+    postcondition: if character's current location at y axis in 1, then print a warning message and return false.
+    Otherwise, create a tuple with subtracting 1 at y axis and return true.
     :param character: character is a dictionary containing name, class, race and HP.
-    :return: create a new tuple to subtract one at character['current_location'][1]
+    :return: return False if character meet the boundary or return true and create a new tuple to subtract one at character['current_location'][1]
+    Computational thinking:
+    To adapt the abstraction to solve this problem. Find the boundary of the map and try and error to show that it will
+    go up at the map according to the addition or subtraction of x or y axis and give a error message if the target meet
+    to the boundary.
     """
     if character['current_location'][1] == 1:
         print("The Northern wall of the colosseum towers before you.\n"
@@ -84,8 +92,16 @@ def move_north(character):
 
 def move_south(character):
     """Modifies character location to move South.
+    precondition: character must be a dictionary contain key 'HP' and a a list for value get max HP and current HP by the
+    positive integers.
+    postcondition: if character's current location at y axis in 5, then print a warning message and return false.
+    Otherwise, create a tuple with add 1 at y axis and return true.
     :param character: character is a dictionary containing name, class, race and HP.
-    :return: create a new tuple to subtract one at character['current_location'][1]
+    :return: return False if character meet the boundary or return true and create a new tuple to add one at character['current_location'][1]
+    Computational thinking:
+    To adapt the abstraction to solve this problem. Find the boundary of the map and try and error to show that it will
+    go up at the map according to the addition or subtraction of x or y axis and give a error message if the target meet
+    to the boundary.
     """
     if character['current_location'][1] == 5:
         print("The Southern wall of the colosseum towers before you.\n"
@@ -100,8 +116,16 @@ def move_south(character):
 
 def move_east(character):
     """Modifies character location to move East.
+    precondition: character must be a dictionary contain key 'HP' and a a list for value get max HP and current HP by the
+    positive integers.
+    postcondition: if character's current location at x axis in 5, then print a warning message and return false.
+    Otherwise, create a tuple with add 1 at x axis and return true.
     :param character: character is a dictionary containing name, class, race and HP.
-    :return: create a new tuple to subtract one at character['current_location'][1]
+    :return: return False if character meet the boundary or return true and create a new tuple to add one at character['current_location'][0]
+    Computational thinking:
+    To adapt the abstraction to solve this problem. Find the boundary of the map and try and error to show that it will
+    go up at the map according to the addition or subtraction of x or y axis and give a error message if the target meet
+    to the boundary.
     """
     if character['current_location'][0] == 5:
         print("The Eastern wall of the colosseum towers before you.\n"
@@ -116,8 +140,16 @@ def move_east(character):
 
 def move_west(character):
     """Modifies character location to move West.
+    precondition: character must be a dictionary contain key 'HP' and a a list for value get max HP and current HP by the
+    positive integers.
+    postcondition: if character's current location at x axis in 1, then print a warning message and return false.
+    Otherwise, create a tuple with subtract 1 at x axis and return true.
     :param character: character is a dictionary containing name, class, race and HP.
-    :return: create a new tuple to subtract one at character['current_location'][1]
+    :return: return False if character meet the boundary or return true and create a new tuple to subtract one at character['current_location'][0]
+    Computational thinking:
+    To adapt the abstraction to solve this problem. Find the boundary of the map and try and error to show that it will
+    go up at the map according to the addition or subtraction of x or y axis and give a error message if the target meet
+    to the boundary.
     """
     if character['current_location'][0] == 1:
         print("The Western wall of the colosseum towers before you.\n"
@@ -305,6 +337,18 @@ def print_character(character):
 
 
 def normal_battle(character):
+    """
+    Choose a random monster name in a list and type fight or run to implement the functions to show the combat or
+    escape. In the fighting part, show two types of results: defeat monster or monster defeat player. Finally, retype if
+    the player didn't type fight or run correctly.
+    Precondition: character must be a dictionary contain key 'HP' and a a list for value get max HP and current HP by the
+    positive integers.
+    Postcondition: Implement
+    :param character: character is a dictionary containing name, class, race and HP.
+    Computation thinking:
+    Decompose the function into creating monster, asking player, typing correction and showing the result of combat or
+    escaping. Make the abstraction to meet monster and show the process.
+    """
     monster_names = ['Gael (Katakan)', 'White Lady (Noonwraith)', 'Forktail (Baby Wyvern)',
                      'Melusine (Siren)', 'Morvudd(Fiend)', 'The Woods (Nightwraith)',
                      'Mourntart (Grave Hag)', 'Harrisi (Arachas)']
@@ -444,9 +488,9 @@ def three_boss_fight(character, boss_name, grid_events):
     input(f"You are about to face one of the three bosses in this arena.\n"
           f"Prepare yourself as this is a battle to the death.\n"
           f"- press ENTER to continue -")
-    # dragon: hp 20 , fight once_a_time, hit 2d4
-    # giant: hp 15 , fight once, hit 1d12
-    # wolf: hp 12, fight twice, hit 1d6
+    # dragon: hp 12 , fight once_a_time, hit 1d6
+    # giant: hp 8 , fight once, hit 1d8
+    # wolf: hp 8, fight twice, hit 2d4
     while True:
         print(f"{character['Name']} draws his weapon and lunges at {real_boss['Name']}.")
         attack(character, real_boss)
@@ -484,6 +528,7 @@ def congrats_for_winning(real_boss, grid_events):
               "You take a deep breath as you are overcome with the elation of escaping this nightmarish arena.\n"
               "You breath in the last breath of air that you will take in this God forsaken place and look forward\n"
               "to your new reborn life.\n"
+              f"{boss_list.win()}"
               "Thank you so much to play our game. Tha game producers are Edgar and Tommy")
 
 
