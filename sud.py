@@ -614,6 +614,13 @@ def main():
           "You ask yourself:")
 
     my_char = create_character()
+    # my_char = {
+    #     'Name': 'Edgar',
+    #     'Class': 'barbarian',
+    #     'Race': 'human',
+    #     'HP': [15, 40],
+    #     'current_location': (3, 3)}
+    # print_character(my_char)
 
     input("You close your eyes to rest hoping that this is all a ridiculous nightmare.")
 
