@@ -6,14 +6,17 @@ import boss_list
 # Character movement and Grid events functions
 def roll_die(number_of_rolls, number_of_sides):
     """Calculate the sum of the rolls of a die.
+
     This function simulates rolling a die a set number of times specified by the user and adding the results together
     to get the sum of the rolls. Returns the sum of the rolls.
+
     :param number_of_rolls: a positive non-zero integer.
     :param number_of_sides: a positive non-zero integer.
     :precondition: both parameters must be positive non-zero integers representing
                    # of rolls and # of sides respectively.
     :postcondition: returns a positive integer representing the sum of the rolls.
     :return: a positive non-zero integer.
+
     Computational thinking:
     Decomposed this problem into a single action; randomly choose an integer from 0 to max, then, store the value
     in a variable. This pattern is repeated a set number of times depending on how many rolls the user specifies.
@@ -31,9 +34,10 @@ def roll_die(number_of_rolls, number_of_sides):
 
 def movement_checker(character):
     """Upon movement, checks if user encounters monster if not heals character.
+
     :param character: character is a dictionary containing name, class, race and HP.
     :return: Return False if the result of roll_die function is 1, others will justify if HP[1] < HP[0] add H[1]
-    2 points and print the status or print out the full HP and return False
+             2 points and print the status or print out the full HP and return False
     """
     monster_chance = roll_die(1, 4)
     if monster_chance == 1:
@@ -52,6 +56,7 @@ def movement_checker(character):
 
 def boss_fight_checker(character, grid_events):
     """check the player could meet the boss or not by the location.
+
     :param character: character is a dictionary containing name, class, race and HP.
     :param grid_events: grid_events is a dictionary storing boss location
     :return: return the string of boss name if the current location match the boss location. Otherwise, return False
@@ -69,6 +74,7 @@ def boss_fight_checker(character, grid_events):
 
 def move_north(character):
     """Modifies character location to move North.
+
     :param character: character is a dictionary containing name, class, race and HP.
     :return: create a new tuple to subtract one at character['current_location'][1]
     """
@@ -82,7 +88,7 @@ def move_north(character):
 
 def move_south(character):
     """Modifies character location to move South.
-    :param character:
+
     :param character: character is a dictionary containing name, class, race and HP.
     :return: create a new tuple to subtract one at character['current_location'][1]
     """
@@ -95,8 +101,8 @@ def move_south(character):
 
 
 def move_east(character):
-    """Modifies character locaiton to move East.
-    :param character:
+    """Modifies character location to move East.
+
     :param character: character is a dictionary containing name, class, race and HP.
     :return: create a new tuple to subtract one at character['current_location'][1]
     """
@@ -110,6 +116,7 @@ def move_east(character):
 
 def move_west(character):
     """Modifies character location to move West.
+
     :param character: character is a dictionary containing name, class, race and HP.
     :return: create a new tuple to subtract one at character['current_location'][1]
     """
@@ -123,6 +130,7 @@ def move_west(character):
 
 def grid_generator(character, grid_events):
     """Generates a grid with current location and prints it to the user.
+
     :param grid_events:
     :param character:
     :return:
@@ -153,19 +161,19 @@ def grid_generator(character, grid_events):
 
 def move_character(character):
     while True:
-        user_prompt = input('Where would you like to move?\n'
-                            'type (N or North) - (E or East) - (S or South) - (W or West)\n'
+        user_prompt = input('Where would you like to move? Type: \n'
+                            '"W" for [NORTH], "D" for [EAST], "S" for [SOUTH], "A" for [WEST]\n'
                             'To quit game type: Q or Quit\n')
-        if user_prompt.lower().strip() == 'n' or user_prompt.lower().strip() == 'north':
+        if user_prompt.lower().strip() == 'w':
             move_north(character)
             break
-        elif user_prompt.lower().strip() == 'e' or user_prompt.lower().strip() == 'east':
+        elif user_prompt.lower().strip() == 'd':
             move_east(character)
             break
-        elif user_prompt.lower().strip() == 's' or user_prompt.lower().strip() == 'south':
+        elif user_prompt.lower().strip() == 's':
             move_south(character)
             break
-        elif user_prompt.lower().strip() == 'w' or user_prompt.lower().strip() == 'west':
+        elif user_prompt.lower().strip() == 'a':
             move_west(character)
             break
         elif user_prompt.lower().strip() == 'q' or user_prompt.lower().strip() == 'quit':
