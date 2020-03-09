@@ -189,7 +189,7 @@ def create_character():
     character = {'Name': name,
                  'Class': select_class(),
                  'Race': select_race(),
-                 'HP': [15, 15],
+                 'HP': [20, 20],
                  'current_location': (3, 3)}
     return character
 
