@@ -326,7 +326,6 @@ def normal_battle(character):
         pass
 
 
-
 def retreat(character):
     hit_chance_roll = roll_die(1, 10)
     print("You have a 10% chance of being backstabbed.")
@@ -422,6 +421,7 @@ def three_boss_fight(character, boss_name, grid_events):
             print("you are dead from the boss fighting")
             return False
 
+
 def update_boss(boss_name, grid_events):
     """
 
@@ -435,6 +435,7 @@ def update_boss(boss_name, grid_events):
             del new_dic['bosses'][coordinate]
             return new_dic
 
+
 def congrats_for_winning(real_boss, grid_events):
     if grid_events['bosses'] != {}:
         print(f"you finally beat one of the dangerous boss {real_boss['Name']}"
@@ -447,19 +448,27 @@ def congrats_for_winning(real_boss, grid_events):
 
 def boss_speech(choice):
     if choice == "dragon":
-        print("""Congratulations on letting the evil dragon wake up, the world will fall into darkness, 
-    his body, and the lethal flame spitting out of his mouth, approaching you step by step\n""")
-        print("""The dragon has two dragon claws to give 2d4 attack points and 20 high HP points""")
+        print("You have woken the Dragon named Cetus. As it approaches you, you fight off the urge to run\n"
+              "away from the nightmarish beast in front of you clad with dark obsidian scales. As Cetus approaches\n"
+              "its mouth begins to froth with molten magma and his nostrils flair and emit steam. You take up arms\n"
+              "and ready yourself mentally and physically for battle that will unfold.")
+        print("You have challenged Cetus the Dragon, one of the three champions in this arena.\n"
+              "His claws give it high attack of 2d4, and his draconic scales give him 12HP ")
     elif choice == "giant":
-        print("""Representing the human body enlarged to the point of being monstrous, 
-        giants evoke terror and remind humans of their body's frailty and mortality. 
-        The giant approached you slowly. He seems to be telling your insignificance and disdains your challenge\n""")
-        print("""The giant has giant fists to give 1d12 attack points and 15 semi-high HP points""")
+        print("As you approach the Giant named Ajax his lips begin to curl upward as his monstrous body towers\n"
+              "before you. His club is the length and seems to weigh as much as he does; yet, he swings the club\n"
+              "effortlessly. "
+              "You take a deep breath as you ready yourself for battle while Ajax laughs condescendingly.")
+        print("You have challenged Ajax the Giant, one of the three champions in this arena.\n"
+              "His size gives him abnormal strength allowing him an attack of 1d8, "
+              "his size gives him above average 8HP.")
     else:
-        print("""The vicious wolf stares at you fiercely, He has evolved into a persistent pursuer 
-        with incredible speed catch his prey and hunt game animals that are a lot larger than itself. 
-        You can only prepare the weapons to fight your enemy.\n""")
-        print("""The wolf has incredible speed 1d6 attack points and two times attack and 12 normal HP points""")
+        print("Fenrir stares at you as if he was looking at a rabbit that he could kill at any moment. From a\n"
+              "distance you can already tell that he was leagues above being just 'nimble'. He was fast and with\n"
+              "ferocity to match that speed as well. You prepare yourself sharpening your instincts as it approaches.")
+        print("You have challenged Fenrir the Great Wolf, one of the three champions in this arena.\n"
+              "His speed allows him to attack twice with a roll of 1d4, compared to the others he is still fragile"
+              "so he has average health of 6HP")
 
 
 def main():
