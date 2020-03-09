@@ -154,8 +154,7 @@ def grid_generator(character, grid_events):
             else:
                 line += "[ ]"
         print(line)
-    print(f"\n")
-    print(f"You have {character['HP'][1]}HP")
+    print(f"\nYou have {character['HP'][1]}HP")
     print(f"{len(grid_events['bosses'].keys())}/3 bosses are still alive!\n"
           f"You must kill them to be free of this nightmare!\n")
 
@@ -540,7 +539,7 @@ def main():
 
     while my_char['HP'][1] > 0 and grid_events['bosses']:
         # print(my_char['current_location'])
-        print(grid_events)
+        # print(grid_events)
         grid_generator(my_char, grid_events)
         quit_prompt = move_character(my_char)
         if quit_prompt:
