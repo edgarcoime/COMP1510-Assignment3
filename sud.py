@@ -357,6 +357,29 @@ def combat_round(character, monster):
 
 
 def attack(attacker, defender, times_attack=1, roll=1, side=6):
+    """Calculate the amount of damage the defender receives depending on attacker damage rolls.
+
+    This function calculates the total damage the defender receives from the attacker. This function takes 2
+    necessary parameters which are the dictionaries of the attacker and defender. Damage is calculated based on a die
+    roll system similar to DND and has 3 default parameters which assume a normal die roll of 1d6 rolled once.
+
+    :param attacker: a dictionary that represents the attacker. This dictionary mut be a valid character dictionary that
+                     has the attacker's 'Name' and 'HP' which is represented as a list.
+    :param defender: a dictionary that represents the defender. This dictionary mut be a valid character dictionary that
+                     has the defender's 'Name' and 'HP' which is represented as a list.
+    :param times_attack: default value is 1, otherwise this param must be a non-zero positive integer. Represents
+                         how many times the attacker attacks.
+    :param roll: default value is 1, otherwise this param must be a non-zero positive integer. Represents how many times
+                 the damage die is rolled to calculate a single attack.
+    :param side: default value is 6, otherwise this param must be a non-zero positive integer. Represents how many sides
+                 the damage die has.
+    :precondition: both dictionaries must be valid with the key value pairs of 'Name' and 'HP' mandatory inside the
+                   dictionary. The three default value parameters must be non-zero integers and SHOULD be imagined
+                   and used as a die being rolled a certain amount of times with a certain number of sides.
+    :postcondition: this function does not return anything but it modifies the defender parameter to reflect how much
+                    damage was done to it.
+    :return: no return value but modifies 'defender' param.
+    """
     if times_attack == 1:
         damage_roll = roll_die(roll, side)
         defender['HP'][1] -= damage_roll
@@ -367,7 +390,7 @@ def attack(attacker, defender, times_attack=1, roll=1, side=6):
         damage_rolls_string = ', '.join(str(damage_roll) for damage_roll in damage_rolls)
         defender['HP'][1] -= sum(damage_rolls)
         print(
-            f"The beast attacks with tremendous speed! Allowing it to strike {defender['Name']} {times_attack} times.\n"
+            f"{attacker['Name']} attacks with tremendous speed! Allowing it to strike {defender['Name']} {times_attack} times.\n"
             f"{attacker['Name']} rolls {damage_rolls_string} for a total of {sum(damage_rolls)} damage. "
             f"Leaving {defender['Name']} with {defender['HP'][1]}/{defender['HP'][0]}HP.\n")
 
