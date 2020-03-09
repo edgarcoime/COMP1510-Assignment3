@@ -135,25 +135,26 @@ def grid_generator(character, grid_events):
     :param character:
     :return:
     """
-    print(f"[🦸] Is your character named {character['Name']}\n"
-          "[🐉] = Cetus the Dragon || [🐺] = Fenrir the Great Wolf || [😈] = Ajax the Giant")
+    print(f"[C] = Your character named {character['Name']}\n"
+          "[D] = Cetus the Dragon || [W] = Fenrir the Great Wolf || [G] = Ajax the Giant\n")
     for y, _ in enumerate(range(5), 1):
         line = ""
         for x, _ in enumerate(range(5), 1):
             if (x, y) == character['current_location']:
-                line += "[🦸‍]"
+                line += "[C]"
             elif (x, y) in grid_events['bosses'].keys():
                 if grid_events['bosses'][(x, y)] == 'dragon':
-                    line += "[🐉]"
+                    line += "[D]"
                 elif grid_events['bosses'][(x, y)] == 'wolf':
-                    line += "[🐺]"
+                    line += "[W]"
                 elif grid_events['bosses'][(x, y)] == 'giant':
-                    line += "[😈]"
+                    line += "[G]"
                 else:
                     pass
             else:
-                line += "[  ]"
+                line += "[ ]"
         print(line)
+    print(f"\n")
     print(f"You have {character['HP'][1]}HP")
     print(f"{len(grid_events['bosses'].keys())}/3 bosses are still alive!\n"
           f"You must kill them to be free of this nightmare!\n")
