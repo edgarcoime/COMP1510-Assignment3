@@ -340,6 +340,24 @@ def retreat(character):
 
 
 def combat_round(character, monster):
+    """Simulate a single back and forth exchange between attacker and defender.
+
+    This function acts as a control structure and print statement for the user to display helpful information
+    for the story. This function keeps track of the current HP of the two dictionaries and decides whether another
+    back and forth exchange should be done or a death screen should be displayed to the user to represent losing
+    the game.
+
+    :param character: a dictionary that represents the user's character. This dictionary mut be a valid character
+                      dictionary that has the character's 'Name' and 'HP' which is represented as a list.
+    :param monster: a dictionary that represents the minor monsters or non-boss monsters in the arena. This dictionary
+                    must be a valid and have key value pairs that represents the monster's 'Name' and 'HP' represented
+                    as a list.
+    :precondition: both dictionaries must be valid with the key value pairs of 'Name' and 'HP' mandatory inside the
+                   dictionary.
+    :postcondition: this function returns nothing but it modifies the character and monster parameters to reflect how
+                    much damage was done in the one for one exchange against each other.
+    :return: no return value but modifies the 'character' param
+    """
     # Character attacks first
     print(f"{character['Name']} draws his weapon and lunges at the beast.")
     attack(character, monster)
