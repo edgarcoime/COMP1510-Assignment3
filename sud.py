@@ -378,16 +378,19 @@ def normal_battle(character):
                      'Mourntart (Grave Hag)', 'Harrisi (Arachas)']
     monster_name = random.choice(monster_names)
     monster_dictionary = {'Name': monster_name, 'HP': [5, 5]}
-    decision = input(f"You have {character['HP'][1]}HP and the enemy has {monster_dictionary['HP'][1]}\n"
-                     "Will you fight or run? (type: fight or run):\n")
     print("You meet a monster named %s" % (monster_dictionary['Name']))
-    if decision == 'fight':
-        while monster_dictionary['HP'][1] > 0 and character['HP'][1] > 0:
-            combat_round(character, monster_dictionary)
-    elif decision == 'run':
-        retreat(character)
-    else:
-        pass
+    while True:
+        decision = input(f"You have {character['HP'][1]}HP and the enemy has {monster_dictionary['HP'][1]}\n"
+                         "Will you fight or run? (type: fight or run):\n")
+        if decision.strip().lower() == 'fight':
+            while monster_dictionary['HP'][1] > 0 and character['HP'][1] > 0:
+                combat_round(character, monster_dictionary)
+            break
+        elif decision.strip().lower() == 'run':
+            retreat(character)
+            break
+        else:
+            print("That is not a valid input please type 'run' or 'fight'")
 
 
 def retreat(character):

@@ -118,10 +118,7 @@ You successfully escape!
         character = {"Name": "Player", "HP": [20, 20]}
         sud.normal_battle(character)
         expected_print = """You meet a monster named Morvudd(Fiend)
-
-Please type run or fight correctly.
-
-You meet a monster named Morvudd(Fiend)
+That is not a valid input please type 'run' or 'fight'
 You have a 10% chance of being backstabbed.
 You successfully escape!
 
