@@ -428,11 +428,13 @@ def update_boss(boss_name, grid_events):
 
 def congrats_for_winning(real_boss, grid_events):
     if grid_events['bosses'] != {}:
-        print(f"you finally beat one of the dangerous boss {real_boss['Name']}"
-              "now you can proceed\n")
+        print(f"Congratulations! You have beaten {real_boss['Name']}\n"
+              "You can now proceed to the other bosses in the arena.")
     else:
-        print(f"that's is impossible that you really beat the last boss {real_boss['Name']}\n"
-              "Now you are able to release and get some fresh air and sunshine to face your reborn life!!\n"
+        print(f"As you stand before the lifeless carcass of {real_boss['Name']} the final champion.\n"
+              "You take a deep breath as you are overcome with the elation of escaping this nightmarish arena.\n"
+              "You breath in the last breath of air that you will take in this God forsaken place and look forward\n"
+              "to your new reborn life.\n"
               "Thank you so much to play our game. Tha game producers are Edgar and Tommy")
 
 
