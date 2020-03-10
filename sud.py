@@ -585,12 +585,15 @@ def attack(attacker, defender, times_attack=1, roll=1, side=6):
 
 
 def boss():
-    """
+    """Generate a boss dictionary for each of the bosses.
+
     Create three dictionaries to store in a dictionary as the values for the further usage of three_boss_fight function.
+
     precondition: none
     postcondition: return a dictionary with three string keys: 'dragon', 'giant' and 'wolf' ,and the respective values
-    are dragon, giant and wolf which have individual dictionaries.
+                   are dragon, giant and wolf which have individual dictionaries.
     :return: return a dictionary with three string keys and values
+
     Computation thinking:
     We can use the data and pattern matching to use the same structure creating all the dictionaries below.
     >>> boss()
@@ -603,23 +606,26 @@ def boss():
 
 
 def three_boss_fight(character, boss_name, grid_events):
-    """
+    """Simulate a battle to the death with one of the bosses of the game.
+
     Describe the whole process of boss by meeting three types of bosses: dragon, giant and wolf. Provide their
     background stories and their figures, and give the result of defeating boss or being defeated.
-     precondition: character must be a dictionary. boss_name must be a string only accepting "dragon", "giant" or "wolf".
-     postcondition: Show the whole process of boss combat and give the result that who is the winner. Also, return a
-     new dictionary if player defeat a boss. Return false if player is been defeated.
+
     :param character: a dictionary that represents the user's character. This dictionary mut be a valid character
-    dictionary that has the character's 'Name' and 'HP' which is represented as a list.
+                      dictionary that has the character's 'Name' and 'HP' which is represented as a list.
     :param boss_name: boss_name is a string containing dragon, giant or wolf
     :param grid_events: is a dictionary containing boss and its dictionary with their coordinates.
-    :return: ruturn a new dictionary if the boss has been defeated and update the grid_events or return false if player
-    is defeated by bosses.
+    :precondition: character must be a dictionary boss_name must be a string only accepting "dragon", "giant" or "wolf".
+    :postcondition: Show the whole process of boss combat and give the result that who is the winner. Also, return a
+                    new dictionary if player defeat a boss. Return false if player is been defeated.
+    :return: return a new dictionary if the boss has been defeated and update the grid_events or return false if player
+             is defeated by bosses.
+
     Computation thinking:
-    Adapt the abstract to realize give the story and figure of coming boss and enter to the fight, showing the process of
-    fight and deciding to continue or not according to the result of fight. Use decomposition to separate the helper funcitons
-    and outside functions to implement the details. Finally, use pattern matching to make conditions to know is winning or
-    losing.
+    Adapt the abstract to realize give the story and figure of coming boss and enter to the fight, showing the process
+    of fight and deciding to continue or not according to the result of fight. Use decomposition to separate the
+    helper functions and outside functions to implement the details. Finally, use pattern matching to make conditions
+    to know is winning or losing.
     """
     real_boss = boss()[boss_name]
     boss_list.call_monster(boss_name)
@@ -643,19 +649,23 @@ def three_boss_fight(character, boss_name, grid_events):
 
 
 def update_boss(boss_name, grid_events):
-    """
+    """Update the grid_events dictionary to delete boss key-value pair that was defeated
+
     the helper function to implement the delete the boss who is killed bt a player by its coordinate.
     create a copy to ensue not change the original data first and return a new dictionary.
-    precondition: boss_name must be a string containing dragon, giant or wolf.
-    grid_events must be a dictionary whose keys are "bosses" and the values are coordinates.
-    postcondition: if grid_events['bosses'] is not empty, show which boss the player defeat. Otherwise, print the
-    winning text to player.
+
+
     :param boss_name: boss_name is a string containing dragon, giant or wolf
     :param grid_events: is a dictionary containing boss and its dictionary with their coordinates.
+    :precondition: boss_name must be a string containing dragon, giant or wolf.
+                   grid_events must be a dictionary whose keys are "bosses" and the values are coordinates.
+    :postcondition: if grid_events['bosses'] is not empty, show which boss the player defeat. Otherwise, print the
+                    winning text to player.
     :return: return a new dictionary without the boss key and its value of the parameter boss_name.
+
     Computation thinking:
     Use abstract to search the word of boss that matches the boss the player meet and delete the boss the
-    gird_events dictionary.
+    grid_events dictionary.
     """
     new_dic = grid_events.copy()
     for coordinate in new_dic['bosses'].keys():
@@ -665,14 +675,18 @@ def update_boss(boss_name, grid_events):
 
 
 def congrats_for_winning(real_boss, grid_events):
-    """
+    """Display victory speech if the game is won or defeat/death speech if you have lost the game.
+
     Create the helper function to figure out is just only kill one of bosses or achieving the goal of wining which is
     defeating whole three bosses.
-    precondition: real_boss must be a dictionary whose keys are "Name" and the values are the name of bosses.
-    postcondition: if grid_events['bosses'] is not empty, show which boss the player defeat. Otherwise, print the
-    winning text to player.
+
+
     :param real_boss: be a dictionary under the function boss() containing the details of bosses
     :param grid_events: is a dictionary containing boss and its dictionary with their coordinates.
+    :precondition: real_boss must be a dictionary whose keys are "Name" and the values are the name of bosses.
+    :postcondition: if grid_events['bosses'] is not empty, show which boss the player defeat. Otherwise, print the
+                    winning text to player.
+
     Computation thinking:
     Use thee pattern match to make the condition to separate the win or defeating a boss.
     """
@@ -688,11 +702,14 @@ def congrats_for_winning(real_boss, grid_events):
 
 
 def boss_speech(choice):
-    """
+    """Display unique Boss introduction when encountering each of the bosses in the arena.
+
     a helper function to show the detail description for each boss by boss's name
-    precondition: choice must be a string only covering "dragon","giant" and "wolf"
-    postcondition: print out the text according the boss name the player meet.
+
     :param choice: be a string only covering "dragon","giant" and "wolf"
+    :precondition: choice must be a string only covering "dragon","giant" and "wolf"
+    :postcondition: print out the text according the boss name the player meet.
+
     Computation thinking:
     Use thee pattern match to make the condition to show which is going to show in three_boss_fight function.
     """
