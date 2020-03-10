@@ -1,4 +1,12 @@
 def call_monster(choice):
+    """
+    Create a helper function to make figures of each boss for three_boss_fight function in sud.py.
+    precondition: choice must be a string which are "dragon", "giant" or "wolf"
+    postcondition: print out the figure according to which string is typed.
+    :param choice: accept a string to decide which figure is going to print out.
+    Computation thinking:
+    Use pattern and data matching for making conditions for which string is typed.
+    """
     if choice == "dragon":
         print("""
                                         _.--.
@@ -114,6 +122,13 @@ def call_monster(choice):
 
 
 def win():
+    """
+    Create a helper function to make winning figures of each boss for three_boss_fight function in sud.py.
+    precondition: none
+    postcondition: print out the figure of winning.
+    Computation thinking:
+    none
+    """
     winner = """
     
  $$$$$$\                                                    $$\               $$\            $$\     $$\                               $$\       $$\      $$\ $$\                                         $$\ $$\ 
