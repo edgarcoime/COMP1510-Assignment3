@@ -1,3 +1,6 @@
+import doctest
+
+
 def call_monster(choice):
     """
     Create a helper function to make figures of each boss for three_boss_fight function in sud.py.
@@ -143,3 +146,11 @@ $$ |  $$\ $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |     $$  __$$ | $$ |$$\ $$ |  $$ |$$
                                \______/                                                                                                                                                                           
 """
     print(winner)
+
+
+def main():
+    doctest.testmod()
+
+
+if __name__ == '__main__':
+    main()
