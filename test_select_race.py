@@ -8,7 +8,7 @@ import sud
 
 
 class TestSelectRace(TestCase):
-    @unittest.mock.patch('builtins.input', side_effect=[1])
+    @unittest.mock.patch('builtins.input', side_effect=['1'])
     def test_select_race_1(self, _):
         """Test output when user input is 1"""
 
@@ -16,7 +16,7 @@ class TestSelectRace(TestCase):
         expected = 'dwarf'
         self.assertEqual(actual, expected, "User input is 1")
 
-    @unittest.mock.patch('builtins.input', side_effect=[3])
+    @unittest.mock.patch('builtins.input', side_effect=['3'])
     def test_select_race_3(self, _):
         """Test output when user input is 3"""
 
@@ -24,7 +24,7 @@ class TestSelectRace(TestCase):
         expected = 'halfling'
         self.assertEqual(actual, expected, "User input is 3")
 
-    @unittest.mock.patch('builtins.input', side_effect=[6])
+    @unittest.mock.patch('builtins.input', side_effect=['6'])
     def test_select_race_6(self, _):
         """Test output when user input is 6"""
 
@@ -32,7 +32,7 @@ class TestSelectRace(TestCase):
         expected = 'gnome'
         self.assertEqual(actual, expected, "User input is 6")
 
-    @unittest.mock.patch('builtins.input', side_effect=[9])
+    @unittest.mock.patch('builtins.input', side_effect=['9'])
     def test_select_race_9(self, _):
         """Test output when user input is 9"""
 
