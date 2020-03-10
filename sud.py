@@ -291,9 +291,19 @@ def move_character(character):
 
 # Character creator functions
 def create_character():
-    """
+    """Creates a valid character dictionary with the necessary properties to play the game
 
-    :return:
+    :precondition: name input must be a string with Alphabet characters, your name cannot have integers or floats.
+    :postcondition: this function returns a dictionary with the character's name, class, race, HP, and starting location
+                    which is defaulted to the middle of the grid or coordinate (3, 3).
+    :return: a character dictionary with the necessary properties to play and progress through the game.
+
+    Computational Thinking:
+    This function abstracts away selecting a class and race by refactoring it to other functions. This pattern of
+    creating a character is very systematic and can be repeated over and over. This process can be automated by using
+    dictionary literal syntax to call the key value pairs and calling the necessary helper functions to produce the
+    desired value. This function returns a properly formatted and populated character dictionary that will allow
+    the player to play through the game.
     """
     name = input("What was your name again? ").lower().capitalize().strip()
     character = {'Name': name,

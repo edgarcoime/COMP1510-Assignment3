@@ -11,7 +11,7 @@ import sud
 class TestMoveCharacter(TestCase):
 
     @unittest.mock.patch('builtins.input', side_effect=['qut', '   quit'])
-    @unittest. mock.patch('sys.stdout', new_callable=io.StringIO)
+    @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
     def test_move_character_invalid_input_then_quit_input(self, mock_stdout, _):
         my_character = {
             'Name': 'jason',
