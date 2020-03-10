@@ -559,7 +559,6 @@ def boss():
     postcondition: return a dictionary with three string keys: 'dragon', 'giant' and 'wolf' ,and the respective values
     are dragon, giant and wolf which have individual dictionaries.
     :return: return a dictionary with three string keys and values
-    Con
     Computation thinking:
     We can use the data and pattern matching to use the same structure creating all the dictionaries below.
     >>> boss()
