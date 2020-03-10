@@ -126,8 +126,7 @@ def win():
     Create a helper function to make winning figures of each boss for three_boss_fight function in sud.py.
     precondition: none
     postcondition: print out the figure of winning.
-    Computation thinking:
-    none
+    Computation thinking: none
     """
     winner = """
     
