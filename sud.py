@@ -243,10 +243,29 @@ def grid_generator(character, grid_events):
 
 
 def move_character(character):
-    """
+    """Replace current character location with the new destination depending on the desired direction.
 
-    :param character:
-    :return:
+    This function acts like a control structure where depending on the user input it calls a helper function to
+    calculate the desired new character location. The result of this helper function which will always be a tuple is
+    stored returned back to the user.
+
+    :param character: a dictionary that represents the user's character. This dictionary mut be a valid character
+                      dictionary that has the character's 'Name' and 'HP'. The dictionary MUST have the key value pair
+                      for current location where they key is 'current_location' and its value as a tuple.
+    :precondition: the character param must be a valid dictionary and for the specific use case of this function
+                   must have a key-value pair associated with the character location.
+    :postcondition: this function returns the result the called helper function depending on the user input and will
+                    always return a tuple.
+    :return: the result of a helper function which is always a tuple representing a coordinate relative to a
+             5 by 5 grid layout. If the user types 'q' or 'quit' returns a string 'q'.
+
+    Computational Thinking:
+    This function abstracts away the unnecessary information inside the character dictionary and isolates the
+    'current_location' of the dictionary. The function is responsible for determining which helper function gets called
+    to calculate the new coordinate relative to grid based on a North, South, East, West direction. This process can
+    be automated using a while statement where the 4 if or elif statements are the compass directions, 1 elif statement
+    is for 'quit' and the else statement is for invalid inputs. This function returns the result of the direction helper
+    functions or 'q' to quit the game.
     """
     while True:
         user_prompt = input('Where would you like to move? Type: \n'

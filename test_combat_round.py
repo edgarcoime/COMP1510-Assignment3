@@ -33,7 +33,6 @@ class TestCombatRound(TestCase):
         self.assertTrue(char['HP'] == char_expected_HP)
         self.assertTrue(monster['HP'] == monster_expected_HP)
 
-
     @unittest.mock.patch('sud.roll_die', side_effect=[4, 6])
     @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
     def test_combat_round_both_alive(self, mock_stdout, _):
@@ -58,7 +57,6 @@ class TestCombatRound(TestCase):
         self.assertEqual(mock_stdout.getvalue(), expected_print, "The Character kills monster.")
         self.assertTrue(char['HP'] == char_expected_HP)
         self.assertTrue(monster['HP'] == monster_expected_HP)
-
 
     @unittest.mock.patch('sud.roll_die', side_effect=[4, 6])
     @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
