@@ -34,7 +34,7 @@ def roll_die(number_of_rolls, number_of_sides):
 
 def movement_checker(character):
     """Upon movement, checks if user encounters monster if not heals character.
-
+    
     :param character: character is a dictionary containing name, class, race and HP.
     :return: Return False if the result of roll_die function is 1, others will justify if HP[1] < HP[0] add H[1]
              2 points and print the status or print out the full HP and return False
@@ -63,7 +63,7 @@ def movement_checker(character):
 
 def boss_fight_checker(character, grid_events):
     """check the player could meet the boss or not by the location.
-
+    
     :param character: character is a dictionary containing name, class, race and HP.
     :param grid_events: grid_events is a dictionary storing boss location
     :return: return the string of boss name if the current location match the boss location. Otherwise, return False
@@ -196,7 +196,7 @@ def grid_generator(character, grid_events):
     This function is responsible for creating a 5 by 5 grid which contains the character and the bosses in the game
     so that the user can visually see the data. It will also print out the legend for the symbols in the grid as well
     as the current HP of the character and how many bosses are still alive.
-
+    
     :param grid_events: a valid dictionary that stores the events in the game and stores where they are located as
                         tuple coordinate points. This passed param must have the key 'bosses'.
     :param character: a dictionary that represents the user's character. This dictionary mut be a valid character
@@ -244,11 +244,11 @@ def grid_generator(character, grid_events):
 
 def move_character(character):
     """Replace current character location with the new destination depending on the desired direction.
-
+    
     This function acts like a control structure where depending on the user input it calls a helper function to
     calculate the desired new character location. The result of this helper function which will always be a tuple is
     stored returned back to the user.
-
+    
     :param character: a dictionary that represents the user's character. This dictionary mut be a valid character
                       dictionary that has the character's 'Name' and 'HP'. The dictionary MUST have the key value pair
                       for current location where they key is 'current_location' and its value as a tuple.
@@ -375,7 +375,7 @@ def select_race():
                    representing one of the nine races.
     :postcondition: returns a string representing the race of user has chosen.
     :return: a string representing a race.
-    
+    Computation thinking:
     This function can be decomposed into two steps. First step being taking input from the user and the second being
     returning the appropriate race name to reflect the user's choice.
     This process can be automated by initializing a dictionary with the key being the number associated with the race
@@ -454,8 +454,10 @@ def normal_battle(character):
     :param character: character is a dictionary containing name, class, race and HP.
     :Precondition: character must be a dictionary contain key 'HP' and a a list for value get max HP and current HP by
                    the positive integers.
-    Postcondition: Implement
-    
+    :postcondition: Implement the combat_round while onster_dictionary['HP'][1] > 0 and character['HP'][1] > 0 if player
+                   choose fight and break the while loop. Implement the retreat function if player choose run and break
+                   the while loop. Otherwise, print a text and tell the player type again.
+                   
     Computation thinking:
     Decompose the function into creating monster, asking player, typing correction and showing the result of combat or
     escaping. Make the abstraction to meet monster and show the process.
@@ -584,7 +586,15 @@ def attack(attacker, defender, times_attack=1, roll=1, side=6):
 
 def boss():
     """
-    :return:
+    Create three dictionaries to store in a dictionary as the values for the further usage of three_boss_fight function.
+    precondition: none
+    postcondition: return a dictionary with three string keys: 'dragon', 'giant' and 'wolf' ,and the respective values
+    are dragon, giant and wolf which have individual dictionaries.
+    :return: return a dictionary with three string keys and values
+    Computation thinking:
+    We can use the data and pattern matching to use the same structure creating all the dictionaries below.
+    >>> boss()
+    {'dragon': {'Name': 'Cetus the Dragon', 'HP': [12, 12], 'side': 6, 'roll': 1, 'times': 1}, 'giant': {'Name': 'Ajax the Giant', 'HP': [8, 8], 'side': 8, 'roll': 1, 'times': 1}, 'wolf': {'Name': 'Fenrir the Great Wolf', 'HP': [8, 8], 'side': 4, 'roll': 1, 'times': 2}}
     """
     dragon = {"Name": "Cetus the Dragon", "HP": [12, 12], "side": 6, "roll": 1, "times": 1}
     giant = {"Name": "Ajax the Giant", "HP": [8, 8], "side": 8, "roll": 1, "times": 1}
@@ -594,10 +604,22 @@ def boss():
 
 def three_boss_fight(character, boss_name, grid_events):
     """
-    :param character:
-    :param boss_name:
-    :param grid_events:
-    :return:
+    Describe the whole process of boss by meeting three types of bosses: dragon, giant and wolf. Provide their
+    background stories and their figures, and give the result of defeating boss or being defeated.
+     precondition: character must be a dictionary. boss_name must be a string only accepting "dragon", "giant" or "wolf".
+     postcondition: Show the whole process of boss combat and give the result that who is the winner. Also, return a
+     new dictionary if player defeat a boss. Return false if player is been defeated.
+    :param character: a dictionary that represents the user's character. This dictionary mut be a valid character
+    dictionary that has the character's 'Name' and 'HP' which is represented as a list.
+    :param boss_name: boss_name is a string containing dragon, giant or wolf
+    :param grid_events: is a dictionary containing boss and its dictionary with their coordinates.
+    :return: ruturn a new dictionary if the boss has been defeated and update the grid_events or return false if player
+    is defeated by bosses.
+    Computation thinking:
+    Adapt the abstract to realize give the story and figure of coming boss and enter to the fight, showing the process of
+    fight and deciding to continue or not according to the result of fight. Use decomposition to separate the helper funcitons
+    and outside functions to implement the details. Finally, use pattern matching to make conditions to know is winning or
+    losing.
     """
     real_boss = boss()[boss_name]
     boss_list.call_monster(boss_name)
@@ -622,9 +644,18 @@ def three_boss_fight(character, boss_name, grid_events):
 
 def update_boss(boss_name, grid_events):
     """
-    :param boss_name:
-    :param grid_events:
-    :return:
+    the helper function to implement the delete the boss who is killed bt a player by its coordinate.
+    create a copy to ensue not change the original data first and return a new dictionary.
+    precondition: boss_name must be a string containing dragon, giant or wolf.
+    grid_events must be a dictionary whose keys are "bosses" and the values are coordinates.
+    postcondition: if grid_events['bosses'] is not empty, show which boss the player defeat. Otherwise, print the
+    winning text to player.
+    :param boss_name: boss_name is a string containing dragon, giant or wolf
+    :param grid_events: is a dictionary containing boss and its dictionary with their coordinates.
+    :return: return a new dictionary without the boss key and its value of the parameter boss_name.
+    Computation thinking:
+    Use abstract to search the word of boss that matches the boss the player meet and delete the boss the
+    gird_events dictionary.
     """
     new_dic = grid_events.copy()
     for coordinate in new_dic['bosses'].keys():
@@ -634,6 +665,17 @@ def update_boss(boss_name, grid_events):
 
 
 def congrats_for_winning(real_boss, grid_events):
+    """
+    Create the helper function to figure out is just only kill one of bosses or achieving the goal of wining which is
+    defeating whole three bosses.
+    precondition: real_boss must be a dictionary whose keys are "Name" and the values are the name of bosses.
+    postcondition: if grid_events['bosses'] is not empty, show which boss the player defeat. Otherwise, print the
+    winning text to player.
+    :param real_boss: be a dictionary under the function boss() containing the details of bosses
+    :param grid_events: is a dictionary containing boss and its dictionary with their coordinates.
+    Computation thinking:
+    Use thee pattern match to make the condition to separate the win or defeating a boss.
+    """
     if grid_events['bosses'] != {}:
         print(f"Congratulations! You have beaten {real_boss['Name']}\n"
               "You can now proceed to the other bosses in the arena.")
@@ -646,6 +688,14 @@ def congrats_for_winning(real_boss, grid_events):
 
 
 def boss_speech(choice):
+    """
+    a helper function to show the detail description for each boss by boss's name
+    precondition: choice must be a string only covering "dragon","giant" and "wolf"
+    postcondition: print out the text according the boss name the player meet.
+    :param choice: be a string only covering "dragon","giant" and "wolf"
+    Computation thinking:
+    Use thee pattern match to make the condition to show which is going to show in three_boss_fight function.
+    """
     if choice == "dragon":
         print("You have woken the Dragon named Cetus. As it approaches you, you fight off the urge to run\n"
               "away from the nightmarish beast in front of you clad with dark obsidian scales. As Cetus approaches\n"
