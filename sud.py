@@ -67,6 +67,12 @@ def boss_fight_checker(character, grid_events):
     :param character: character is a dictionary containing name, class, race and HP.
     :param grid_events: grid_events is a dictionary storing boss location
     :return: return the string of boss name if the current location match the boss location. Otherwise, return False
+
+    Computational Thinking:
+    This function is abstracted away from the character movement that checks and checks the current position against
+    the grid_events param which indicates where the bosses are. This function cannot be decomposed any further as it
+    is only responsible for checking current character location to see if the character encounters a boss. This function
+    returns the key name that is associated with the boss, either 'dragon', 'giant', or 'wolf'.
     """
     if character['current_location'] in grid_events['bosses'].keys():
         if grid_events['bosses'][character['current_location']] == 'dragon':
@@ -129,7 +135,6 @@ def move_south(character):
         return True
 
 
-
 def move_east(character):
     """Modifies character location to move East.
 
@@ -153,7 +158,6 @@ def move_east(character):
         new_x = character['current_location'][0] + 1
         character['current_location'] = (new_x, character['current_location'][1])
         return True
-
 
 
 def move_west(character):
@@ -213,6 +217,11 @@ def grid_generator(character, grid_events):
 
 
 def move_character(character):
+    """
+
+    :param character:
+    :return:
+    """
     while True:
         user_prompt = input('Where would you like to move? Type: \n'
                             '"W" for [NORTH], "D" for [EAST], "S" for [SOUTH], "A" for [WEST]\n'
@@ -237,6 +246,10 @@ def move_character(character):
 
 # Character creator functions
 def create_character():
+    """
+
+    :return:
+    """
     name = input("What was your name again? ").lower().capitalize().strip()
     character = {'Name': name,
                  'Class': select_class(),
@@ -343,7 +356,7 @@ def select_race():
           "look human.\n")
 
     while True:
-        user_race = input("Where did I come from? and what was my background? ").strip()
+        user_race = input("Where did I come from? and what was my background? ")
         if user_race.isdigit() and int(user_race) in races.keys():
             print(f"I was part of the {races[int(user_race)].capitalize()} race.\n")
             return races[int(user_race)]
