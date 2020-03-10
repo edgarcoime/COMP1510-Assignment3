@@ -421,6 +421,21 @@ def select_race():
 
 
 def print_character(character):
+    """Display a structured and readable character info page by printing information back to the user.
+
+    :param character: a dictionary that represents the user's character. This dictionary mut be a valid character
+                      dictionary that has necessary key-value pairs associated with the character.
+    :precondition: the passed dictionary must have key-value pairs for 'Name', 'Class', 'Race', and 'HP'. These values
+                   must be properly formatted and be the correct data structure.
+    :postcondition: this function returns nothing but prints out the information on the user's character.
+    :return: nothing, but prints a stats sheet of the character.
+
+    Computational Thinking:
+    This function cannot be decomposed any further as its purpose is to format the character dictionary in a way that
+    makes it more readable to the user. This process can be automated and processed by using f-string formatting
+    to pass character's keys to print the dictionary's values. This function does not return or modify anything but it
+    prints the character's dictionary in a formatted form.
+    """
     print(  # basic character information
         f"These are the characteristics that you remember.\n"
         f"Name: {character['Name'].capitalize()}\n"
