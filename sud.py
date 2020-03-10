@@ -38,13 +38,20 @@ def movement_checker(character):
     :param character: character is a dictionary containing name, class, race and HP.
     :return: Return False if the result of roll_die function is 1, others will justify if HP[1] < HP[0] add H[1]
              2 points and print the status or print out the full HP and return False
+
+    Computational Thinking:
+    This function is abstracted away from the character movement. This function can be decomposed into 2 steps: 1. Simu-
+    late a die roll, 2. Check the die roll to see if its one, print the result to the user, and return True or False to
+    indicate if the character has randomly encountered a monster in the arena. This function is responsible for
+    generating a 25% chance of encountering a monster in the game and returns True or False to indicate if a monster
+    has been found.
     """
     monster_chance = roll_die(1, 4)
     if monster_chance == 1:
         return True
     else:
         if character['HP'][1] < character['HP'][0]:
-            character['HP'][1] += 2 if character['HP'][1] != (character['HP'][0]-1) else 1
+            character['HP'][1] += 2 if character['HP'][1] != (character['HP'][0] - 1) else 1
             print("The monsters couldn't catch up to you. This gives you the opportunity to bandage your wounds.\n"
                   f"You heal 2 points. You now have {character['HP'][1]}/{character['HP'][0]}HP\n")
         else:

@@ -4,7 +4,7 @@ from unittest.mock import patch
 import io  # NEW
 
 
-class TestMoveChecker(TestCase):
+class TestMovementChecker(TestCase):
     @patch('sud.roll_die', side_effect=[1])
     def test_movement_checker_roll_1_meet_monster_true(self, _):
         character = {'HP': [15, 15]}
