@@ -34,9 +34,11 @@ def roll_die(number_of_rolls, number_of_sides):
 
 def movement_checker(character):
     """Upon movement, checks if user encounters monster if not heals character.
+    
     :param character: character is a dictionary containing name, class, race and HP.
     :return: Return False if the result of roll_die function is 1, others will justify if HP[1] < HP[0] add H[1]
              2 points and print the status or print out the full HP and return False
+
     Computational Thinking:
     This function is abstracted away from the character movement. This function can be decomposed into 2 steps: 1. Simu-
     late a die roll, 2. Check the die roll to see if its one, print the result to the user, and return True or False to
@@ -49,7 +51,7 @@ def movement_checker(character):
         return True
     else:
         if character['HP'][1] < character['HP'][0]:
-            character['HP'][1] += 2 if character['HP'][1] != (character['HP'][0]-1) else 1
+            character['HP'][1] += 2 if character['HP'][1] != (character['HP'][0] - 1) else 1
             print("The monsters couldn't catch up to you. This gives you the opportunity to bandage your wounds.\n"
                   f"You heal 2 points. You now have {character['HP'][1]}/{character['HP'][0]}HP\n")
         else:
@@ -61,9 +63,11 @@ def movement_checker(character):
 
 def boss_fight_checker(character, grid_events):
     """check the player could meet the boss or not by the location.
+    
     :param character: character is a dictionary containing name, class, race and HP.
     :param grid_events: grid_events is a dictionary storing boss location
     :return: return the string of boss name if the current location match the boss location. Otherwise, return False
+
     Computational Thinking:
     This function is abstracted away from the character movement that checks and checks the current position against
     the grid_events param which indicates where the bosses are. This function cannot be decomposed any further as it
@@ -85,11 +89,12 @@ def move_north(character):
     """Modifies character location to move North.
 
     :param character: character is a dictionary containing name, class, race and HP.
-    :precondition: character must be a dictionary contain key 'HP' and a a list for value get max HP and current HP by the
-                   positive integers.
+    :precondition: character must be a dictionary contain key 'HP' and a a list for value get max HP and current HP by
+                   the positive integers.
     :postcondition: if character's current location at y axis in 1, then print a warning message and return false.
                     Otherwise, create a tuple with subtracting 1 at y axis and return true.
-    :return: return False if character meet the boundary or return true and create a new tuple to subtract one at character['current_location'][1]
+    :return: return False if character meet the boundary or return true and create a new tuple to subtract one at
+             character['current_location'][1]
     
     Computational thinking:
     To adapt the abstraction to solve this problem. Find the boundary of the map and try and error to show that it will
@@ -110,11 +115,13 @@ def move_south(character):
     """Modifies character location to move South.
 
     :param character: character is a dictionary containing name, class, race and HP.
-    :precondition: character must be a dictionary contain key 'HP' and a a list for value get max HP and current HP by the
+    :precondition: character must be a dictionary contain key 'HP' and a a list for value get max HP and current HP by
+                   the
                    positive integers.
     :postcondition: if character's current location at y axis in 5, then print a warning message and return false.
                     Otherwise, create a tuple with add 1 at y axis and return true.
-    :return: return False if character meet the boundary or return true and create a new tuple to add one at character['current_location'][1]
+    :return: return False if character meet the boundary or return true and create a new tuple to add one at
+             character['current_location'][1]
     
     Computational thinking:
     To adapt the abstraction to solve this problem. Find the boundary of the map and try and error to show that it will
@@ -131,16 +138,16 @@ def move_south(character):
         return True
 
 
-
 def move_east(character):
     """Modifies character location to move East.
 
     :param character: character is a dictionary containing name, class, race and HP.
-    :precondition: character must be a dictionary contain key 'HP' and a a list for value get max HP and current HP by the
-                   positive integers.
+    :precondition: character must be a dictionary contain key 'HP' and a a list for value get max HP and current HP by
+                   the positive integers.
     :postcondition: if character's current location at x axis in 5, then print a warning message and return false.
                     Otherwise, create a tuple with add 1 at x axis and return true.
-    :return: return False if character meet the boundary or return true and create a new tuple to add one at character['current_location'][0]
+    :return: return False if character meet the boundary or return true and create a new tuple to add one at
+             character['current_location'][0]
     
     Computational thinking:
     To adapt the abstraction to solve this problem. Find the boundary of the map and try and error to show that it will
@@ -157,16 +164,16 @@ def move_east(character):
         return True
 
 
-
 def move_west(character):
     """Modifies character location to move West.
 
     :param character: character is a dictionary containing name, class, race and HP.
-    :precondition: character must be a dictionary contain key 'HP' and a a list for value get max HP and current HP by the
-                   positive integers.
+    :precondition: character must be a dictionary contain key 'HP' and a a list for value get max HP and current HP by
+                   the positive integers.
     :postcondition: if character's current location at x axis in 1, then print a warning message and return false.
                     Otherwise, create a tuple with subtract 1 at x axis and return true.
-    :return: return False if character meet the boundary or return true and create a new tuple to subtract one at character['current_location'][0]
+    :return: return False if character meet the boundary or return true and create a new tuple to subtract one at
+             character['current_location'][0]
     
     Computational thinking:
     To adapt the abstraction to solve this problem. Find the boundary of the map and try and error to show that it will
@@ -185,9 +192,11 @@ def move_west(character):
 
 def grid_generator(character, grid_events):
     """Generates a grid with current location and prints it to the user.
+
     This function is responsible for creating a 5 by 5 grid which contains the character and the bosses in the game
     so that the user can visually see the data. It will also print out the legend for the symbols in the grid as well
     as the current HP of the character and how many bosses are still alive.
+    
     :param grid_events: a valid dictionary that stores the events in the game and stores where they are located as
                         tuple coordinate points. This passed param must have the key 'bosses'.
     :param character: a dictionary that represents the user's character. This dictionary mut be a valid character
@@ -198,6 +207,7 @@ def grid_generator(character, grid_events):
     :postcondition: this function returns nothing as it is only responsible for displaying the data in the parameters
                     in a legible way back to the user.
     :return: returns nothing, but displays the instructions for winning the game, a legend, and the grid for the user.
+
     Computational Thinking:
     This function abstracts away useless information in the character param and grid_events param and only prints the
     necessary information to progress through the game which include a win or lose condition. To display the grid
@@ -234,9 +244,11 @@ def grid_generator(character, grid_events):
 
 def move_character(character):
     """Replace current character location with the new destination depending on the desired direction.
+    
     This function acts like a control structure where depending on the user input it calls a helper function to
     calculate the desired new character location. The result of this helper function which will always be a tuple is
     stored returned back to the user.
+    
     :param character: a dictionary that represents the user's character. This dictionary mut be a valid character
                       dictionary that has the character's 'Name' and 'HP'. The dictionary MUST have the key value pair
                       for current location where they key is 'current_location' and its value as a tuple.
@@ -246,6 +258,7 @@ def move_character(character):
                     always return a tuple.
     :return: the result of a helper function which is always a tuple representing a coordinate relative to a
              5 by 5 grid layout. If the user types 'q' or 'quit' returns a string 'q'.
+
     Computational Thinking:
     This function abstracts away the unnecessary information inside the character dictionary and isolates the
     'current_location' of the dictionary. The function is responsible for determining which helper function gets called
@@ -279,10 +292,12 @@ def move_character(character):
 # Character creator functions
 def create_character():
     """Creates a valid character dictionary with the necessary properties to play the game
+
     :precondition: name input must be a string with Alphabet characters, your name cannot have integers or floats.
     :postcondition: this function returns a dictionary with the character's name, class, race, HP, and starting location
                     which is defaulted to the middle of the grid or coordinate (3, 3).
     :return: a character dictionary with the necessary properties to play and progress through the game.
+
     Computational Thinking:
     This function abstracts away selecting a class and race by refactoring it to other functions. This pattern of
     creating a character is very systematic and can be repeated over and over. This process can be automated by using
@@ -396,7 +411,7 @@ def select_race():
           "look human.\n")
 
     while True:
-        user_race = input("Where did I come from? and what was my background? ").strip()
+        user_race = input("Where did I come from? and what was my background? ")
         if user_race.isdigit() and int(user_race) in races.keys():
             print(f"I was part of the {races[int(user_race)].capitalize()} race.\n")
             return races[int(user_race)]
@@ -415,18 +430,19 @@ def print_character(character):
 
 
 def normal_battle(character):
-    """
+    """Simulate a battle to the death with a monster.
     
     Choose a random monster name in a list and type fight or run to implement the functions to show the combat or
     escape. In the fighting part, show two types of results: defeat monster or monster defeat player. Finally, retype if
     the player didn't type fight or run correctly.
-    
-    Precondition: character must be a dictionary contain key 'HP' and a a list for value get max HP and current HP by the
-    positive integers.
-    Postcondition: Implement the combat_round while onster_dictionary['HP'][1] > 0 and character['HP'][1] > 0 if player
-    choose fight and break the while loop. Implement the retreat function if player choose run and break the while loop.
-    Otherwise, print a text and tell the player type again.
+
     :param character: character is a dictionary containing name, class, race and HP.
+    :Precondition: character must be a dictionary contain key 'HP' and a a list for value get max HP and current HP by
+                   the positive integers.
+    :postcondition: Implement the combat_round while onster_dictionary['HP'][1] > 0 and character['HP'][1] > 0 if player
+                   choose fight and break the while loop. Implement the retreat function if player choose run and break
+                   the while loop. Otherwise, print a text and tell the player type again.
+                   
     Computation thinking:
     Decompose the function into creating monster, asking player, typing correction and showing the result of combat or
     escaping. Make the abstraction to meet monster and show the process.
@@ -543,11 +559,12 @@ def attack(attacker, defender, times_attack=1, roll=1, side=6):
         print(f"{attacker['Name']} attacks {defender['Name']} and deals {damage_roll} damage.\n"
               f"Leaving {defender['Name']} with {defender['HP'][1]}/{defender['HP'][0]}HP.\n")
     else:
-        damage_rolls = [roll_die(roll, side) for n in range(times_attack)]
+        damage_rolls = [roll_die(roll, side) for _ in range(times_attack)]
         damage_rolls_string = ', '.join(str(damage_roll) for damage_roll in damage_rolls)
         defender['HP'][1] -= sum(damage_rolls)
         print(
-            f"{attacker['Name']} attacks with tremendous speed! Allowing it to strike {defender['Name']} {times_attack} times.\n"
+            f"{attacker['Name']} attacks with tremendous speed! Allowing it to strike {defender['Name']} "
+            f"{times_attack} times.\n"
             f"{attacker['Name']} rolls {damage_rolls_string} for a total of {sum(damage_rolls)} damage. "
             f"Leaving {defender['Name']} with {defender['HP'][1]}/{defender['HP'][0]}HP.\n")
 
@@ -652,7 +669,6 @@ def congrats_for_winning(real_boss, grid_events):
               "You take a deep breath as you are overcome with the elation of escaping this nightmarish arena.\n"
               "You breath in the last breath of air that you will take in this God forsaken place and look forward\n"
               "to your new reborn life.\n"
-              f"{boss_list.win()}"
               "Thank you so much to play our game. Tha game producers are Edgar and Tommy")
 
 
@@ -754,7 +770,8 @@ def main():
     #     'current_location': (3, 3)}
     # print_character(my_char)
 
-    input("You close your eyes to rest hoping that this is all a ridiculous nightmare.")
+    input("You close your eyes to rest hoping that this is all a ridiculous nightmare.\n"
+          "- press ENTER to continue -")
 
     print("You wake up to the sound of the screaming crowd as you stagger to your feet. You are in the arena\n"
           "and monsters surround you on all sides. You remember the What the old man said. . .\n"
