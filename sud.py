@@ -1,3 +1,4 @@
+# Team Members: Tommy Chien, Edgar Coime
 import random
 import doctest
 import boss_list
