@@ -22,6 +22,8 @@ def roll_die(number_of_rolls, number_of_sides):
     in a variable. This pattern is repeated a set number of times depending on how many rolls the user specifies.
     This process can be automated by using a while loop to repeat choosing a random integer a set number of times.
     The result is then returned back to the user as a integer.
+
+    Doctest: Cannot doctest because of uses random module
     """
     sum_of_rolls = 0
     counter = 0
@@ -45,6 +47,8 @@ def movement_checker(character):
     indicate if the character has randomly encountered a monster in the arena. This function is responsible for
     generating a 25% chance of encountering a monster in the game and returns True or False to indicate if a monster
     has been found.
+
+    Doctest: Cannot doctest because of uses random module
     """
     monster_chance = roll_die(1, 4)
     if monster_chance == 1:
@@ -277,6 +281,23 @@ def grid_generator(character, grid_events):
     the game elements can be easily done by using if and else statements for the character and the individual bosses.
     This function returns nothing but displays the necessary information to the user to properly progress and play the
     game.
+
+    >>> my_char = {'Name': 'Jason', 'HP': [15, 15], 'current_location': (3, 3)}
+    >>> grid_events = {'bosses': {(1, 1): 'dragon', (5, 1): 'giant', (5, 5): 'wolf'}}
+    >>> grid_generator(my_char, grid_events)
+    [C] = Your character named Jason
+    [D] = Cetus the Dragon || [W] = Fenrir the Great Wolf || [G] = Ajax the Giant
+    <BLANKLINE>
+    [D][ ][ ][ ][G]
+    [ ][ ][ ][ ][ ]
+    [ ][ ][C][ ][ ]
+    [ ][ ][ ][ ][ ]
+    [ ][ ][ ][ ][W]
+    <BLANKLINE>
+    You have 15HP
+    3/3 bosses are still alive!
+    You must kill them to be free of this nightmare!
+    <BLANKLINE>
     """
     print(f"[C] = Your character named {character['Name']}\n"
           "[D] = Cetus the Dragon || [W] = Fenrir the Great Wolf || [G] = Ajax the Giant\n")
