@@ -56,25 +56,11 @@ You can now proceed to the other bosses in the arena.
             'events': None
         }
         real_boss = {'Name': 'wolf'}
-        expected = """
-    
- $$$$$$\                                                    $$\               $$\            $$\     $$\                               $$\       $$\      $$\ $$\                                         $$\ $$\ 
-$$  __$$\                                                   $$ |              $$ |           $$ |    \__|                              $$ |      $$ | $\  $$ |\__|                                        $$ |$$ |
-$$ /  \__| $$$$$$\  $$$$$$$\   $$$$$$\   $$$$$$\  $$$$$$\ $$$$$$\   $$\   $$\ $$ | $$$$$$\ $$$$$$\   $$\  $$$$$$\  $$$$$$$\   $$$$$$$\ $$ |      $$ |$$$\ $$ |$$\ $$$$$$$\  $$$$$$$\   $$$$$$\   $$$$$$\  $$ |$$ |
-$$ |      $$  __$$\ $$  __$$\ $$  __$$\ $$  __$$\ \____$$\8\_$$  _|  $$ |  $$ |$$ | \____$$\8\_$$  _|  $$ |$$  __$$\ $$  __$$\ $$  _____|$$ |      $$ $$ $$\$$ |$$ |$$  __$$\ $$  __$$\ $$  __$$\ $$  __$$\ $$ |$$ |
-$$ |      $$ /  $$ |$$ |  $$ |$$ /  $$ |$$ |  \__|$$$$$$$ | $$ |    $$ |  $$ |$$ | $$$$$$$ | $$ |    $$ |$$ /  $$ |$$ |  $$ |\$$$$$$\  \__|      $$$$  _$$$$ |$$ |$$ |  $$ |$$ |  $$ |$$$$$$$$ |$$ |  \__|\__|\__|
-$$ |  $$\ $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |     $$  __$$ | $$ |$$\ $$ |  $$ |$$ |$$  __$$ | $$ |$$\ $$ |$$ |  $$ |$$ |  $$ | \____$$\           $$$  / \$$$ |$$ |$$ |  $$ |$$ |  $$ |$$   ____|$$ |              
-\$$$$$$  |\$$$$$$  |$$ |  $$ |\$$$$$$$ |$$ |     \$$$$$$$ | \$$$$  |\$$$$$$  |$$ |\$$$$$$$ | \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$$  |$$\       $$  /   \$$ |$$ |$$ |  $$ |$$ |  $$ |\$$$$$$$\ $$ |      $$\ $$\ 
- \______/  \______/ \__|  \__| \____$$ |\__|      \_______|  \____/  \______/ \__| \_______|  \____/ \__| \______/ \__|  \__|\_______/ \__|      \__/     \__|\__|\__|  \__|\__|  \__| \_______|\__|      \__|\__|
-                              $$\   $$ |                                                                                                                                                                          
-                              \$$$$$$  |                                                                                                                                                                          
-                               \______/                                                                                                                                                                           
-
-As you stand before the lifeless carcass of wolf the final champion.
+        expected = """As you stand before the lifeless carcass of wolf the final champion.
 You take a deep breath as you are overcome with the elation of escaping this nightmarish arena.
 You breath in the last breath of air that you will take in this God forsaken place and look forward
 to your new reborn life.
-NoneThank you so much to play our game. Tha game producers are Edgar and Tommy
+Thank you so much to play our game. Tha game producers are Edgar and Tommy
 """
         sud.congrats_for_winning(real_boss, grid_events)
         self.assertEqual(expected, mock_stdout.getvalue())

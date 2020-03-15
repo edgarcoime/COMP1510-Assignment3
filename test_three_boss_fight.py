@@ -373,25 +373,11 @@ Player draws his weapon and lunges at Cetus the Dragon.
 Player attacks Cetus the Dragon and deals 4 damage.
 Leaving Cetus the Dragon with 0/12HP.
 
-
-    
- $$$$$$\                                                    $$\               $$\            $$\     $$\                               $$\       $$\      $$\ $$\                                         $$\ $$\ 
-$$  __$$\                                                   $$ |              $$ |           $$ |    \__|                              $$ |      $$ | $\  $$ |\__|                                        $$ |$$ |
-$$ /  \__| $$$$$$\  $$$$$$$\   $$$$$$\   $$$$$$\  $$$$$$\ $$$$$$\   $$\   $$\ $$ | $$$$$$\ $$$$$$\   $$\  $$$$$$\  $$$$$$$\   $$$$$$$\ $$ |      $$ |$$$\ $$ |$$\ $$$$$$$\  $$$$$$$\   $$$$$$\   $$$$$$\  $$ |$$ |
-$$ |      $$  __$$\ $$  __$$\ $$  __$$\ $$  __$$\ \____$$\8\_$$  _|  $$ |  $$ |$$ | \____$$\8\_$$  _|  $$ |$$  __$$\ $$  __$$\ $$  _____|$$ |      $$ $$ $$\$$ |$$ |$$  __$$\ $$  __$$\ $$  __$$\ $$  __$$\ $$ |$$ |
-$$ |      $$ /  $$ |$$ |  $$ |$$ /  $$ |$$ |  \__|$$$$$$$ | $$ |    $$ |  $$ |$$ | $$$$$$$ | $$ |    $$ |$$ /  $$ |$$ |  $$ |\$$$$$$\  \__|      $$$$  _$$$$ |$$ |$$ |  $$ |$$ |  $$ |$$$$$$$$ |$$ |  \__|\__|\__|
-$$ |  $$\ $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |     $$  __$$ | $$ |$$\ $$ |  $$ |$$ |$$  __$$ | $$ |$$\ $$ |$$ |  $$ |$$ |  $$ | \____$$\           $$$  / \$$$ |$$ |$$ |  $$ |$$ |  $$ |$$   ____|$$ |              
-\$$$$$$  |\$$$$$$  |$$ |  $$ |\$$$$$$$ |$$ |     \$$$$$$$ | \$$$$  |\$$$$$$  |$$ |\$$$$$$$ | \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$$  |$$\       $$  /   \$$ |$$ |$$ |  $$ |$$ |  $$ |\$$$$$$$\ $$ |      $$\ $$\ 
- \______/  \______/ \__|  \__| \____$$ |\__|      \_______|  \____/  \______/ \__| \_______|  \____/ \__| \______/ \__|  \__|\_______/ \__|      \__/     \__|\__|\__|  \__|\__|  \__| \_______|\__|      \__|\__|
-                              $$\   $$ |                                                                                                                                                                          
-                              \$$$$$$  |                                                                                                                                                                          
-                               \______/                                                                                                                                                                           
-
 As you stand before the lifeless carcass of Cetus the Dragon the final champion.
 You take a deep breath as you are overcome with the elation of escaping this nightmarish arena.
 You breath in the last breath of air that you will take in this God forsaken place and look forward
 to your new reborn life.
-NoneThank you so much to play our game. Tha game producers are Edgar and Tommy
+Thank you so much to play our game. Tha game producers are Edgar and Tommy
 """
         self.assertEqual(expected, actual)
         self.assertEqual(expected_print, mock_stdout.getvalue())
