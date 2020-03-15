@@ -73,6 +73,26 @@ def boss_fight_checker(character, grid_events):
     the grid_events param which indicates where the bosses are. This function cannot be decomposed any further as it
     is only responsible for checking current character location to see if the character encounters a boss. This function
     returns the key name that is associated with the boss, either 'dragon', 'giant', or 'wolf'.
+
+    >>> grid_events = {'bosses': {(1, 1): 'dragon'}}
+    >>> my_char = {'current_location': (1, 1)}
+    >>> boss_fight_checker(my_char, grid_events)
+    'dragon'
+
+    >>> grid_events = {'bosses': {(3, 3): 'giant'}}
+    >>> my_char = {'current_location': (3, 3)}
+    >>> boss_fight_checker(my_char, grid_events)
+    'giant'
+
+    >>> grid_events = {'bosses': {(5, 5): 'wolf'}}
+    >>> my_char = {'current_location': (5, 5)}
+    >>> boss_fight_checker(my_char, grid_events)
+    'wolf'
+
+    >>> grid_events = {'bosses': {(1, 1): 'dragon'}}
+    >>> my_char = {'current_location': (5, 5)}
+    >>> boss_fight_checker(my_char, grid_events)
+    False
     """
     if character['current_location'] in grid_events['bosses'].keys():
         if grid_events['bosses'][character['current_location']] == 'dragon':
