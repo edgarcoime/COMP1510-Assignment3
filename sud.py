@@ -559,6 +559,9 @@ def normal_battle(character):
     Computation thinking:
     Decompose the function into creating monster, asking player, typing correction and showing the result of combat or
     escaping. Make the abstraction to meet monster and show the process.
+
+    Doctest: Cannot doctest because function requires user input and implements combat round which is reliant on the
+             random module.
     """
     monster_names = ['Gael (Katakan)', 'White Lady (Noonwraith)', 'Forktail (Baby Wyvern)',
                      'Melusine (Siren)', 'Morvudd(Fiend)', 'The Woods (Nightwraith)',
@@ -625,6 +628,8 @@ def combat_round(character, monster):
     :postcondition: this function returns nothing but it modifies the character and monster parameters to reflect how
                     much damage was done in the one for one exchange against each other.
     :return: no return value but modifies the 'character' param.
+
+    Doctest: Cannot doctest because function implements the attack function which is reliant on the random module.
     """
     # Character attacks first
     print(f"{character['Name']} draws his weapon and lunges at the beast.")
@@ -665,6 +670,8 @@ def attack(attacker, defender, times_attack=1, roll=1, side=6):
     :postcondition: this function does not return anything but it modifies the defender parameter to reflect how much
                     damage was done to it.
     :return: no return value but modifies 'defender' param.
+
+    Doctest: Cannot doctest because function implements the roll_die function which is reliant on the random module.
     """
     if times_attack == 1:
         damage_roll = roll_die(roll, side)
@@ -724,6 +731,9 @@ def three_boss_fight(character, boss_name, grid_events):
     of fight and deciding to continue or not according to the result of fight. Use decomposition to separate the
     helper functions and outside functions to implement the details. Finally, use pattern matching to make conditions
     to know is winning or losing.
+
+    Doctest: Cannot doctest because function requires user input and implements 'attack' function which is reliant on
+             the random module.
     """
     real_boss = boss()[boss_name]
     boss_list.call_monster(boss_name)
@@ -764,6 +774,21 @@ def update_boss(boss_name, grid_events):
     Computation thinking:
     Use abstract to search the word of boss that matches the boss the player meet and delete the boss the
     grid_events dictionary.
+
+    >>> boss_name = 'dragon'
+    >>> grid_events = {'bosses': {(1, 1): 'dragon', (5, 1): 'giant', (5, 5): 'wolf'}}
+    >>> update_boss(boss_name, grid_events)
+    {'bosses': {(5, 1): 'giant', (5, 5): 'wolf'}}
+
+    >>> boss_name = 'giant'
+    >>> grid_events = {'bosses': {(5, 1): 'giant', (5, 5): 'wolf'}}
+    >>> update_boss(boss_name, grid_events)
+    {'bosses': {(5, 5): 'wolf'}}
+
+    >>> boss_name = 'wolf'
+    >>> grid_events = {'bosses': {(5, 5): 'wolf'}}
+    >>> update_boss(boss_name, grid_events)
+    {'bosses': {}}
     """
     new_dic = grid_events.copy()
     for coordinate in new_dic['bosses'].keys():
