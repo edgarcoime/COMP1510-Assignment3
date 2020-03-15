@@ -347,6 +347,8 @@ def move_character(character):
     be automated using a while statement where the 4 if or elif statements are the compass directions, 1 elif statement
     is for 'quit' and the else statement is for invalid inputs. This function returns the result of the direction helper
     functions or 'q' to quit the game.
+
+    Doctest: Cannot doctest because function requires user input
     """
     while True:
         user_prompt = input('Where would you like to move? Type: \n'
@@ -385,6 +387,8 @@ def create_character():
     dictionary literal syntax to call the key value pairs and calling the necessary helper functions to produce the
     desired value. This function returns a properly formatted and populated character dictionary that will allow
     the player to play through the game.
+
+    Doctest: Cannot doctest because function requires user input
     """
     name = input("What was your name again? ").lower().capitalize().strip()
     character = {'Name': name,
@@ -409,6 +413,8 @@ def select_class():
     This process can be automated by initializing a dictionary with the key being the number associated with the class
     and the values being a dictionary of attributes that will be used to populate the character dictionary. This
     function returns a dictionary of values as well as the class name that can be used in create_character.
+
+    Doctest: Cannot doctest because function requires user input
     """
     classes = {
         1: 'barbarian',
@@ -462,6 +468,8 @@ def select_race():
     This process can be automated by initializing a dictionary with the key being the number associated with the race
     and the the value being race that has being chosen as a string. This function returns a the race name as a string
     which can be used in create_character.
+
+    Doctest: Cannot doctest because function requires user input
     """
     races = {
         1: 'dwarf',
@@ -516,6 +524,15 @@ def print_character(character):
     makes it more readable to the user. This process can be automated and processed by using f-string formatting
     to pass character's keys to print the dictionary's values. This function does not return or modify anything but it
     prints the character's dictionary in a formatted form.
+    >>> my_char = {'Name': 'Jason', 'Class': 'barbarian', 'Race': 'human', 'HP': [15, 15], 'current_location': (3, 3)}
+    >>> print_character(my_char)
+    These are the characteristics that you remember.
+    Name: Jason
+    Hit-Points: 15/15
+    Class: Barbarian
+    Race: Human
+    <BLANKLINE>
+    <BLANKLINE>
     """
     print(  # basic character information
         f"These are the characteristics that you remember.\n"
