@@ -812,6 +812,21 @@ def congrats_for_winning(real_boss, grid_events):
 
     Computation thinking:
     Use thee pattern match to make the condition to separate the win or defeating a boss.
+
+    >>> dragon = {"Name": "Cetus the Dragon", "HP": [12, 12], "side": 6, "roll": 1, "times": 1}
+    >>> grid_events = {'bosses': {(5, 1): 'giant', (5, 5): 'wolf'}}
+    >>> congrats_for_winning(dragon, grid_events)
+    Congratulations! You have beaten Cetus the Dragon
+    You can now proceed to the other bosses in the arena.
+
+    >>> wolf = {"Name": "Fenrir the Great Wolf", "HP": [8, 8], "side": 4, "roll": 1, "times": 2}
+    >>> grid_events = {'bosses': {}}
+    >>> congrats_for_winning(dragon, grid_events)
+    As you stand before the lifeless carcass of Cetus the Dragon the final champion.
+    You take a deep breath as you are overcome with the elation of escaping this nightmarish arena.
+    You breath in the last breath of air that you will take in this God forsaken place and look forward
+    to your new reborn life.
+    Thank you so much to play our game. Tha game producers are Edgar and Tommy
     """
     if grid_events['bosses'] != {}:
         print(f"Congratulations! You have beaten {real_boss['Name']}\n"
