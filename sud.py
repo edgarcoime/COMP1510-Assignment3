@@ -23,6 +23,8 @@ def roll_die(number_of_rolls, number_of_sides):
     in a variable. This pattern is repeated a set number of times depending on how many rolls the user specifies.
     This process can be automated by using a while loop to repeat choosing a random integer a set number of times.
     The result is then returned back to the user as a integer.
+
+    Doctest: Cannot doctest because of uses random module
     """
     sum_of_rolls = 0
     counter = 0
@@ -46,6 +48,8 @@ def movement_checker(character):
     indicate if the character has randomly encountered a monster in the arena. This function is responsible for
     generating a 25% chance of encountering a monster in the game and returns True or False to indicate if a monster
     has been found.
+
+    Doctest: Cannot doctest because of uses random module
     """
     monster_chance = roll_die(1, 4)
     if monster_chance == 1:
@@ -74,6 +78,26 @@ def boss_fight_checker(character, grid_events):
     the grid_events param which indicates where the bosses are. This function cannot be decomposed any further as it
     is only responsible for checking current character location to see if the character encounters a boss. This function
     returns the key name that is associated with the boss, either 'dragon', 'giant', or 'wolf'.
+
+    >>> grid_events = {'bosses': {(1, 1): 'dragon'}}
+    >>> my_char = {'current_location': (1, 1)}
+    >>> boss_fight_checker(my_char, grid_events)
+    'dragon'
+
+    >>> grid_events = {'bosses': {(3, 3): 'giant'}}
+    >>> my_char = {'current_location': (3, 3)}
+    >>> boss_fight_checker(my_char, grid_events)
+    'giant'
+
+    >>> grid_events = {'bosses': {(5, 5): 'wolf'}}
+    >>> my_char = {'current_location': (5, 5)}
+    >>> boss_fight_checker(my_char, grid_events)
+    'wolf'
+
+    >>> grid_events = {'bosses': {(1, 1): 'dragon'}}
+    >>> my_char = {'current_location': (5, 5)}
+    >>> boss_fight_checker(my_char, grid_events)
+    False
     """
     if character['current_location'] in grid_events['bosses'].keys():
         if grid_events['bosses'][character['current_location']] == 'dragon':
@@ -101,6 +125,16 @@ def move_north(character):
     To adapt the abstraction to solve this problem. Find the boundary of the map and try and error to show that it will
     go up at the map according to the addition or subtraction of x or y axis and give a error message if the target meet
     to the boundary.
+
+    >>> my_char = {'current_location': (3, 2)}
+    >>> move_north(my_char)
+    True
+
+    >>> my_char = {'current_location': (3, 1)}
+    >>> move_north(my_char)
+    The Northern wall of the colosseum towers before you.
+    You cannot go any more North! Turn back.
+    False
     """
     if character['current_location'][1] == 1:
         print("The Northern wall of the colosseum towers before you.\n"
@@ -128,6 +162,16 @@ def move_south(character):
     To adapt the abstraction to solve this problem. Find the boundary of the map and try and error to show that it will
     go up at the map according to the addition or subtraction of x or y axis and give a error message if the target meet
     to the boundary.
+
+    >>> my_char = {'current_location': (3, 4)}
+    >>> move_south(my_char)
+    True
+
+    >>> my_char = {'current_location': (3, 5)}
+    >>> move_south(my_char)
+    The Southern wall of the colosseum towers before you.
+    You cannot go any more South! Turn back.
+    False
     """
     if character['current_location'][1] == 5:
         print("The Southern wall of the colosseum towers before you.\n"
@@ -154,6 +198,16 @@ def move_east(character):
     To adapt the abstraction to solve this problem. Find the boundary of the map and try and error to show that it will
     go up at the map according to the addition or subtraction of x or y axis and give a error message if the target meet
     to the boundary.
+
+    >>> my_char = {'current_location': (4, 3)}
+    >>> move_east(my_char)
+    True
+
+    >>> my_char = {'current_location': (5, 3)}
+    >>> move_east(my_char)
+    The Eastern wall of the colosseum towers before you.
+    You cannot go any more East! Turn back.
+    False
     """
     if character['current_location'][0] == 5:
         print("The Eastern wall of the colosseum towers before you.\n"
@@ -180,6 +234,16 @@ def move_west(character):
     To adapt the abstraction to solve this problem. Find the boundary of the map and try and error to show that it will
     go up at the map according to the addition or subtraction of x or y axis and give a error message if the target meet
     to the boundary.
+
+    >>> my_char = {'current_location': (2, 3)}
+    >>> move_west(my_char)
+    True
+
+    >>> my_char = {'current_location': (1, 3)}
+    >>> move_west(my_char)
+    The Western wall of the colosseum towers before you.
+    You cannot go any more West! Turn back.
+    False
     """
     if character['current_location'][0] == 1:
         print("The Western wall of the colosseum towers before you.\n"
@@ -218,6 +282,23 @@ def grid_generator(character, grid_events):
     the game elements can be easily done by using if and else statements for the character and the individual bosses.
     This function returns nothing but displays the necessary information to the user to properly progress and play the
     game.
+
+    >>> my_char = {'Name': 'Jason', 'HP': [15, 15], 'current_location': (3, 3)}
+    >>> grid_events = {'bosses': {(1, 1): 'dragon', (5, 1): 'giant', (5, 5): 'wolf'}}
+    >>> grid_generator(my_char, grid_events)
+    [C] = Your character named Jason
+    [D] = Cetus the Dragon || [W] = Fenrir the Great Wolf || [G] = Ajax the Giant
+    <BLANKLINE>
+    [D][ ][ ][ ][G]
+    [ ][ ][ ][ ][ ]
+    [ ][ ][C][ ][ ]
+    [ ][ ][ ][ ][ ]
+    [ ][ ][ ][ ][W]
+    <BLANKLINE>
+    You have 15HP
+    3/3 bosses are still alive!
+    You must kill them to be free of this nightmare!
+    <BLANKLINE>
     """
     print(f"[C] = Your character named {character['Name']}\n"
           "[D] = Cetus the Dragon || [W] = Fenrir the Great Wolf || [G] = Ajax the Giant\n")
@@ -267,6 +348,8 @@ def move_character(character):
     be automated using a while statement where the 4 if or elif statements are the compass directions, 1 elif statement
     is for 'quit' and the else statement is for invalid inputs. This function returns the result of the direction helper
     functions or 'q' to quit the game.
+
+    Doctest: Cannot doctest because function requires user input
     """
     while True:
         user_prompt = input('Where would you like to move? Type: \n'
@@ -305,6 +388,8 @@ def create_character():
     dictionary literal syntax to call the key value pairs and calling the necessary helper functions to produce the
     desired value. This function returns a properly formatted and populated character dictionary that will allow
     the player to play through the game.
+
+    Doctest: Cannot doctest because function requires user input
     """
     name = input("What was your name again? ").lower().capitalize().strip()
     character = {'Name': name,
@@ -329,6 +414,8 @@ def select_class():
     This process can be automated by initializing a dictionary with the key being the number associated with the class
     and the values being a dictionary of attributes that will be used to populate the character dictionary. This
     function returns a dictionary of values as well as the class name that can be used in create_character.
+
+    Doctest: Cannot doctest because function requires user input
     """
     classes = {
         1: 'barbarian',
@@ -382,6 +469,8 @@ def select_race():
     This process can be automated by initializing a dictionary with the key being the number associated with the race
     and the the value being race that has being chosen as a string. This function returns a the race name as a string
     which can be used in create_character.
+
+    Doctest: Cannot doctest because function requires user input
     """
     races = {
         1: 'dwarf',
@@ -436,6 +525,15 @@ def print_character(character):
     makes it more readable to the user. This process can be automated and processed by using f-string formatting
     to pass character's keys to print the dictionary's values. This function does not return or modify anything but it
     prints the character's dictionary in a formatted form.
+    >>> my_char = {'Name': 'Jason', 'Class': 'barbarian', 'Race': 'human', 'HP': [15, 15], 'current_location': (3, 3)}
+    >>> print_character(my_char)
+    These are the characteristics that you remember.
+    Name: Jason
+    Hit-Points: 15/15
+    Class: Barbarian
+    Race: Human
+    <BLANKLINE>
+    <BLANKLINE>
     """
     print(  # basic character information
         f"These are the characteristics that you remember.\n"
@@ -462,6 +560,9 @@ def normal_battle(character):
     Computation thinking:
     Decompose the function into creating monster, asking player, typing correction and showing the result of combat or
     escaping. Make the abstraction to meet monster and show the process.
+
+    Doctest: Cannot doctest because function requires user input and implements combat round which is reliant on the
+             random module.
     """
     monster_names = ['Gael (Katakan)', 'White Lady (Noonwraith)', 'Forktail (Baby Wyvern)',
                      'Melusine (Siren)', 'Morvudd(Fiend)', 'The Woods (Nightwraith)',
@@ -528,6 +629,8 @@ def combat_round(character, monster):
     :postcondition: this function returns nothing but it modifies the character and monster parameters to reflect how
                     much damage was done in the one for one exchange against each other.
     :return: no return value but modifies the 'character' param.
+
+    Doctest: Cannot doctest because function implements the attack function which is reliant on the random module.
     """
     # Character attacks first
     print(f"{character['Name']} draws his weapon and lunges at the beast.")
@@ -568,6 +671,8 @@ def attack(attacker, defender, times_attack=1, roll=1, side=6):
     :postcondition: this function does not return anything but it modifies the defender parameter to reflect how much
                     damage was done to it.
     :return: no return value but modifies 'defender' param.
+
+    Doctest: Cannot doctest because function implements the roll_die function which is reliant on the random module.
     """
     if times_attack == 1:
         damage_roll = roll_die(roll, side)
@@ -627,6 +732,9 @@ def three_boss_fight(character, boss_name, grid_events):
     of fight and deciding to continue or not according to the result of fight. Use decomposition to separate the
     helper functions and outside functions to implement the details. Finally, use pattern matching to make conditions
     to know is winning or losing.
+
+    Doctest: Cannot doctest because function requires user input and implements 'attack' function which is reliant on
+             the random module.
     """
     real_boss = boss()[boss_name]
     boss_list.call_monster(boss_name)
@@ -667,6 +775,21 @@ def update_boss(boss_name, grid_events):
     Computation thinking:
     Use abstract to search the word of boss that matches the boss the player meet and delete the boss the
     grid_events dictionary.
+
+    >>> boss_name = 'dragon'
+    >>> grid_events = {'bosses': {(1, 1): 'dragon', (5, 1): 'giant', (5, 5): 'wolf'}}
+    >>> update_boss(boss_name, grid_events)
+    {'bosses': {(5, 1): 'giant', (5, 5): 'wolf'}}
+
+    >>> boss_name = 'giant'
+    >>> grid_events = {'bosses': {(5, 1): 'giant', (5, 5): 'wolf'}}
+    >>> update_boss(boss_name, grid_events)
+    {'bosses': {(5, 5): 'wolf'}}
+
+    >>> boss_name = 'wolf'
+    >>> grid_events = {'bosses': {(5, 5): 'wolf'}}
+    >>> update_boss(boss_name, grid_events)
+    {'bosses': {}}
     """
     new_dic = grid_events.copy()
     for coordinate in new_dic['bosses'].keys():
@@ -690,6 +813,21 @@ def congrats_for_winning(real_boss, grid_events):
 
     Computation thinking:
     Use thee pattern match to make the condition to separate the win or defeating a boss.
+
+    >>> dragon = {"Name": "Cetus the Dragon", "HP": [12, 12], "side": 6, "roll": 1, "times": 1}
+    >>> grid_events = {'bosses': {(5, 1): 'giant', (5, 5): 'wolf'}}
+    >>> congrats_for_winning(dragon, grid_events)
+    Congratulations! You have beaten Cetus the Dragon
+    You can now proceed to the other bosses in the arena.
+
+    >>> wolf = {"Name": "Fenrir the Great Wolf", "HP": [8, 8], "side": 4, "roll": 1, "times": 2}
+    >>> grid_events = {'bosses': {}}
+    >>> congrats_for_winning(dragon, grid_events)
+    As you stand before the lifeless carcass of Cetus the Dragon the final champion.
+    You take a deep breath as you are overcome with the elation of escaping this nightmarish arena.
+    You breath in the last breath of air that you will take in this God forsaken place and look forward
+    to your new reborn life.
+    Thank you so much to play our game. Tha game producers are Edgar and Tommy
     """
     if grid_events['bosses'] != {}:
         print(f"Congratulations! You have beaten {real_boss['Name']}\n"
