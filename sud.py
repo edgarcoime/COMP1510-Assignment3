@@ -120,6 +120,16 @@ def move_north(character):
     To adapt the abstraction to solve this problem. Find the boundary of the map and try and error to show that it will
     go up at the map according to the addition or subtraction of x or y axis and give a error message if the target meet
     to the boundary.
+
+    >>> my_char = {'current_location': (3, 2)}
+    >>> move_north(my_char)
+    True
+
+    >>> my_char = {'current_location': (3, 1)}
+    >>> move_north(my_char)
+    The Northern wall of the colosseum towers before you.
+    You cannot go any more North! Turn back.
+    False
     """
     if character['current_location'][1] == 1:
         print("The Northern wall of the colosseum towers before you.\n"
@@ -147,6 +157,16 @@ def move_south(character):
     To adapt the abstraction to solve this problem. Find the boundary of the map and try and error to show that it will
     go up at the map according to the addition or subtraction of x or y axis and give a error message if the target meet
     to the boundary.
+
+    >>> my_char = {'current_location': (3, 4)}
+    >>> move_south(my_char)
+    True
+
+    >>> my_char = {'current_location': (3, 5)}
+    >>> move_south(my_char)
+    The Southern wall of the colosseum towers before you.
+    You cannot go any more South! Turn back.
+    False
     """
     if character['current_location'][1] == 5:
         print("The Southern wall of the colosseum towers before you.\n"
@@ -173,6 +193,16 @@ def move_east(character):
     To adapt the abstraction to solve this problem. Find the boundary of the map and try and error to show that it will
     go up at the map according to the addition or subtraction of x or y axis and give a error message if the target meet
     to the boundary.
+
+    >>> my_char = {'current_location': (4, 3)}
+    >>> move_east(my_char)
+    True
+
+    >>> my_char = {'current_location': (5, 3)}
+    >>> move_east(my_char)
+    The Eastern wall of the colosseum towers before you.
+    You cannot go any more East! Turn back.
+    False
     """
     if character['current_location'][0] == 5:
         print("The Eastern wall of the colosseum towers before you.\n"
@@ -199,6 +229,16 @@ def move_west(character):
     To adapt the abstraction to solve this problem. Find the boundary of the map and try and error to show that it will
     go up at the map according to the addition or subtraction of x or y axis and give a error message if the target meet
     to the boundary.
+
+    >>> my_char = {'current_location': (2, 3)}
+    >>> move_west(my_char)
+    True
+
+    >>> my_char = {'current_location': (1, 3)}
+    >>> move_west(my_char)
+    The Western wall of the colosseum towers before you.
+    You cannot go any more West! Turn back.
+    False
     """
     if character['current_location'][0] == 1:
         print("The Western wall of the colosseum towers before you.\n"
