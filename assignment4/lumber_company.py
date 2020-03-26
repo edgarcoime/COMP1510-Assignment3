@@ -3,25 +3,7 @@ from tree import Tree
 from tree_farm import TreeFarm
 
 
-def platform():
-    tree_farm = TreeFarm()
-    while True:
-        ask_options = input("""
-        1. Add a Tree
-        2. Harvest one Tree
-        3. Harvest some Trees
-        4. Quit
-        """)
-        if ask_options == str(1):
-            tree_farm = add_tree(tree_farm)
-        elif ask_options == str(2):
-            tree_farm = harvest_one_tree(tree_farm)
-        elif ask_options == str(3):
-            tree_farm = harvest_some_trees(tree_farm)
-        elif ask_options == str(4):
-            break
-        else:
-            print("Please only type 1, 2, 3 or 4")
+
 
 
 def add_tree(tree_farm):
@@ -54,7 +36,24 @@ def harvest_some_trees(tree_farm):
 
 
 def main():
-    platform()
+    tree_farm = TreeFarm()
+    while True:
+        ask_options = input("""
+        1. Add a Tree
+        2. Harvest one Tree
+        3. Harvest some Trees
+        4. Quit
+        """)
+        if ask_options == str(1):
+            tree_farm = add_tree(tree_farm)
+        elif ask_options == str(2):
+            tree_farm = harvest_one_tree(tree_farm)
+        elif ask_options == str(3):
+            tree_farm = harvest_some_trees(tree_farm)
+        elif ask_options == str(4):
+            break
+        else:
+            print("Please only type 1, 2, 3 or 4")
 
 
 if __name__ == '__main__':
