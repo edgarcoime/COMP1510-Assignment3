@@ -28,10 +28,14 @@ def add_tree(tree_farm):
     species = input("What species is the tree? ")
     age = input("What is the tree's age? ")
     circumference = input("What is the tree's circumference? ")
-    tree_farm.add(Tree(species, int(age), float(circumference)))
-    tree_farm.print_trees()
-    return tree_farm
-
+    try:
+        tree = Tree(species, int(age), float(circumference))
+    except ValueError:
+        print("You only can provide non-empty species, positive integer age and non-zero positive float circumference.")
+    else:
+        tree_farm.add(tree)
+        tree_farm.print_trees()
+        return tree_farm
 
 def harvest_one_tree(tree_farm):
     diameter = input("What diameter tree would you like? ")
