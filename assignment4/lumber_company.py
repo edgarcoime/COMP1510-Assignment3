@@ -37,7 +37,7 @@ def harvest_one_tree(tree_farm):
     diameter = input("What diameter tree would you like? ")
     circumference = math.pi * float(diameter)
     tree_farm.remove_tree(circumference)
-    tree_farm.print_tree()
+    tree_farm.print_trees()
     return tree_farm
 
 

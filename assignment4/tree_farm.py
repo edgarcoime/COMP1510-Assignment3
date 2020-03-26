@@ -2,7 +2,9 @@ from assignment4.tree import Tree
 
 
 class TreeFarm:
+
     def __init__(self):
+
         self.__tree_farm = []
 
     def __str__(self):
@@ -29,6 +31,7 @@ class TreeFarm:
     def remove_tree(self, trunk_circumference: float):
         for one_tree in self.__tree_farm.copy():
             if trunk_circumference <= one_tree.get_circumference():
+                print(f"You have harvested the {one_tree.get_species()} tree that is {one_tree.get_age()} old.")
                 self.__tree_farm.remove(one_tree)
                 return self.__tree_farm
         return None
@@ -36,6 +39,7 @@ class TreeFarm:
     def remove_trees(self, trunk_circumference: float) -> list:
         for one_tree in self.__tree_farm.copy():
             if trunk_circumference <= one_tree.get_circumference():
+                print(f"You have harvested the {one_tree.get_species()} tree that is {one_tree.get_age()} old.")
                 self.__tree_farm.remove(one_tree)
         return self.__tree_farm
 
