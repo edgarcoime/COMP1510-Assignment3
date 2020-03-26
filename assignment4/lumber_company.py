@@ -1,6 +1,6 @@
 import math
 from tree import Tree
-from treefram import TreeFarm
+from tree_farm import TreeFarm
 
 
 def platform():
@@ -21,20 +21,20 @@ def platform():
         elif ask_options == str(4):
             break
         else:
-            print("please type 1,2,3 or 4")
+            print("Please only type 1, 2, 3 or 4")
 
 
 def add_tree(tree_farm):
-    species = input("What is the species?")
-    age = input("What is the tree's age?")
-    circumference = input("What is the tree's circumference?")
+    species = input("What species is the tree? ")
+    age = input("What is the tree's age? ")
+    circumference = input("What is the tree's circumference? ")
     tree_farm.add(Tree(species, int(age), float(circumference)))
-    tree_farm.print_tree()
+    tree_farm.print_trees()
     return tree_farm
 
 
 def harvest_one_tree(tree_farm):
-    diameter = input("What is the tree's diameter?")
+    diameter = input("What diameter tree would you like? ")
     circumference = math.pi * float(diameter)
     tree_farm.remove_tree(circumference)
     tree_farm.print_tree()
@@ -42,10 +42,10 @@ def harvest_one_tree(tree_farm):
 
 
 def harvest_some_trees(tree_farm):
-    diameter = input("What is the tree's diameter?")
+    diameter = input("What diameter trees would you like? ")
     circumference = math.pi * float(diameter)
     tree_farm.remove_trees(circumference)
-    tree_farm.print_tree()
+    tree_farm.print_trees()
     return tree_farm
 
 
