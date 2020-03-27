@@ -6,10 +6,11 @@ from tree import Tree
 import io  # NEW
 import math
 
+
 class TestHarvestSomeTrees(TestCase):
-    @patch('builtins.input', side_effect=[100/math.pi])
+    @patch('builtins.input', side_effect=[100 / math.pi])
     @patch('sys.stdout', new_callable=io.StringIO)
-    def test_harvest_some_trees_circumference_100cm_up(self, mock_stdout, _):
+    def test_harvest_some_trees_100cm_circumference_up(self, mock_stdout, _):
         trees = TreeFarm()
         trees.add(Tree("Maple", 150, 50.23))
         trees.add(Tree("Ailanthus", 10, 104.23))
@@ -27,7 +28,7 @@ There is a Maple tree that is 150 years old.\n"""
 
     @patch('builtins.input', side_effect=[50 / math.pi])
     @patch('sys.stdout', new_callable=io.StringIO)
-    def test_harvest_some_trees_circumference_all_tress(self, mock_stdout, _):
+    def test_harvest_some_trees_harvest_all_tress(self, mock_stdout, _):
         trees = TreeFarm()
         trees.add(Tree("Maple", 150, 50.23))
         trees.add(Tree("Ailanthus", 10, 104.23))
@@ -44,7 +45,7 @@ These are the trees in the tree farm:\n"""
 
     @patch('builtins.input', side_effect=[250 / math.pi])
     @patch('sys.stdout', new_callable=io.StringIO)
-    def test_harvest_some_trees_circumference_no_tress(self, mock_stdout, _):
+    def test_harvest_some_trees_harvest_no_tress(self, mock_stdout, _):
         trees = TreeFarm()
         trees.add(Tree("Maple", 150, 50.23))
         trees.add(Tree("Ailanthus", 10, 104.23))
@@ -61,4 +62,3 @@ There is a Ailanthus tree that is 10 years old.
 There is a Oak tree that is 245 years old.\n"""
         self.assertEqual(expected, actual)
         self.assertEqual(expected_print, mock_stdout.getvalue())
-
