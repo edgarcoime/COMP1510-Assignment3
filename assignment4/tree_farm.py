@@ -34,6 +34,7 @@ class TreeFarm:
         >>> tree_farm = TreeFarm()
         >>> tree1 = Tree("Oak", 245, 211)
         >>> tree_farm.add(tree1)
+        [Tree("Oak", 245, 211)]
         >>> print(tree_farm)
         [Tree("Oak", 245, 211)]
         """
@@ -55,7 +56,9 @@ class TreeFarm:
         >>> tree1 = Tree("Oak", 245, 211)
         >>> tree2 = Tree("Maple", 111, 245)
         >>> tree_farm.add(tree1)
+        [Tree("Oak", 245, 211)]
         >>> tree_farm.add(tree2)
+        [Tree("Oak", 245, 211), Tree("Maple", 111, 245)]
         >>> tree_farm.print_trees()
         These are the trees in the tree farm:
         There is a Oak tree that is 245 years old.
