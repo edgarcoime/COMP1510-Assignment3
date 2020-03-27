@@ -16,7 +16,6 @@ class TestAddTree(TestCase):
         self.assertEqual(expected, actual)
         self.assertEqual("There is a Ailanthus tree that is 10 years old.\n", mock_stdout.getvalue())
 
-
     @patch('builtins.input', side_effect=[" ", 10, 104.23])
     @patch('sys.stdout', new_callable=io.StringIO)
     def test_add_tree_invalid_input_add_empty_species(self, mock_stdout, _):
