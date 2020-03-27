@@ -38,7 +38,7 @@ class TreeFarm:
         >>> print(tree_farm)
         [Tree("Oak", 245, 211)]
         """
-        if isinstance(tree, assignment4.tree.Tree):
+        if isinstance(tree, object):
             self.__tree_farm.append(tree)
             return self.__tree_farm
         else:
