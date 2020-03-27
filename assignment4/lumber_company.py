@@ -2,7 +2,7 @@ from assignment4.tree import Tree
 from assignment4.tree_farm import TreeFarm
 
 
-def add_tree(tree_farm: object) -> object:
+def add_tree(tree_farm: object) -> None:
     """
     Ask the specific info about a tree: species, age and circumference with the blow conditions. Next, add the new tree
     object into the tree_farm list and return tree_farm. Otherwise, give an exception of ValueError and return the
@@ -24,11 +24,9 @@ def add_tree(tree_farm: object) -> object:
         print("You only can provide non-empty species, positive integer age and non-zero positive float circumference.")
     else:
         tree_farm.print_trees()
-    finally:
-        return tree_farm
 
 
-def harvest_one_tree(tree_farm: object) -> object:
+def harvest_one_tree(tree_farm: object) -> None:
     """
     Aak the diameter and accord to the value to match the first object matching the requirement. Remove the object and
     return tree_farm list.
@@ -45,13 +43,15 @@ def harvest_one_tree(tree_farm: object) -> object:
     except ValueError:
         print("Input must be of type float only!")
     else:
-        print(f"We have harvested the {removed_tree.get_species()} tree that was {removed_tree.get_age()} years old.\n")
-        tree_farm.print_trees()
-    finally:
-        return tree_farm
+        if removed_tree == None:
+            print("We found no trees with that given circumference.")
+        else:
+            print(
+                f"We have harvested the {removed_tree.get_species()} tree that was {removed_tree.get_age()} years old.\n")
+            tree_farm.print_trees()
 
 
-def harvest_some_trees(tree_farm: object) -> object:
+def harvest_some_trees(tree_farm: object) -> None:
     """
     Ask the diameter and accord to the value to match the every object which is larger than or equal to the
     circumference. Remove the objects and return tree_farm list.
@@ -74,12 +74,13 @@ def harvest_some_trees(tree_farm: object) -> object:
         for tree in removed_trees:
             print(f" - Harvested the {tree.get_species()} tree that was {tree.get_age()} years old.")
         tree_farm.print_trees()
-    finally:
-        return tree_farm
 
 
 def main():
     tree_farm = TreeFarm()
+    tree_farm.add(Tree("Maple", 150, 50.23))
+    tree_farm.add(Tree("Ailanthus", 10, 104.23))
+    tree_farm.add(Tree("Oak", 150, 211))
     while True:
         ask_options = input("""
         1. Add a Tree
@@ -88,11 +89,11 @@ def main():
         4. Quit
         """)
         if ask_options.strip() == str(1):
-            tree_farm = add_tree(tree_farm)
+            add_tree(tree_farm)
         elif ask_options.strip() == str(2):
-            tree_farm = harvest_one_tree(tree_farm)
+            harvest_one_tree(tree_farm)
         elif ask_options.strip() == str(3):
-            tree_farm = harvest_some_trees(tree_farm)
+            harvest_some_trees(tree_farm)
         elif ask_options.strip() == str(4):
             break
         else:
