@@ -39,7 +39,7 @@ def harvest_one_tree(tree_farm: object) -> object:
     :param tree_farm: must be a list containing object only
     :return: Return tree_farm anyway. If no error appears, remove one tree object and return tree_farm list.
     """
-    circumference = input("What diameter tree would you like?\n")
+    circumference = input("What Circumference tree would you like?\n")
     try:
         removed_tree = tree_farm.remove_tree(float(circumference))
     except ValueError:
@@ -64,7 +64,7 @@ def harvest_some_trees(tree_farm: object) -> object:
     :return: Return tree_farm anyway. If no error appears, remove the objects which is larger than or equal to
     the circumference and return tree_farm list.
     """
-    circumference = input("What diameter tree would you like?\n")
+    circumference = input("What Circumference tree would you like?\n")
     try:
         removed_trees = tree_farm.remove_trees(float(circumference))
     except ValueError:
