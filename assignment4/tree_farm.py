@@ -1,3 +1,4 @@
+import assignment4
 from assignment4.tree import Tree
 import doctest
 
@@ -72,7 +73,7 @@ class TreeFarm:
         >>> print(tree_farm)
         [Tree("Oak", 245, 211)]
         """
-        if isinstance(tree, Tree):
+        if isinstance(tree, assignment4.tree.Tree):
             self.__tree_farm.append(tree)
         else:
             raise TypeError("Passed 'tree' argument must be of class Tree and be an object.")
@@ -146,21 +147,6 @@ class TreeFarm:
 
 def main():
     doctest.testmod()
-    tree1 = Tree("A", 1, 20)
-    tree2 = Tree("B", 2, 40)
-    tree3 = Tree("C", 3, 10)
-    print(isinstance(tree1, Tree))
-    tree_farm1 = TreeFarm()
-    tree_farm1.add(tree1)
-    tree_farm1.add(tree2)
-    tree_farm1.add(tree3)
-    print(tree_farm1)
-    tree_farm1.print_trees()
-    print(tree_farm1.remove_trees(10))
-    print(tree_farm1)
-    # print(tree_farm1)
-    # print(tree_farm1.remove_tree(10))
-    # print(tree_farm1)
 
 
 if __name__ == '__main__':
