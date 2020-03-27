@@ -18,8 +18,8 @@ def add_tree(tree_farm: object) -> object:
     species = input("What species is the tree? ")
     age = input("What is the tree's age? ")
     circumference = input("What is the tree's circumference?\n")
-    tree = Tree(species, int(age), float(circumference))
     try:
+        tree = Tree(species, int(age), float(circumference))
         tree_farm.add(tree)
     except (ValueError, TypeError):
         print("You only can provide non-empty species, positive integer age and non-zero positive float circumference.")
