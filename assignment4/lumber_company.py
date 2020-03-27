@@ -17,19 +17,16 @@ def add_tree(tree_farm: object) -> object:
     """
     species = input("What species is the tree? ")
     age = input("What is the tree's age? ")
-    circumference = input("What is the tree's circumference? ")
+    circumference = input("What is the tree's circumference?\n")
+    tree = Tree(species, int(age), float(circumference))
     try:
-        tree = Tree(species, int(age), float(circumference))
-    except ValueError:
-        print("You only can provide non-empty species, positive integer age and non-zero positive float circumference.")
-        return tree_farm
-    except TypeError:
         tree_farm.add(tree)
-        print("The tree must be an object.")
-        return tree_farm
+    except (ValueError, TypeError):
+        print("You only can provide non-empty species, positive integer age and non-zero positive float circumference.")
     else:
         tree_farm.print_trees()
-    return tree_farm
+    finally:
+        return tree_farm
 
 
 def harvest_one_tree(tree_farm: object) -> object:
@@ -38,43 +35,50 @@ def harvest_one_tree(tree_farm: object) -> object:
     return tree_farm list.
     precondition: tree_farm must be a list containing object only
     postcondition: Except ValueError at calculating the circumference and print error message if putting wrong format of
-    circumference. Return tree_farm is list after removing the first tree object which is larger or equal to the circumference.
+    circumference. Return tree_farm is list after removing the first tree object which is larger or equal to the
+    circumference.
     :param tree_farm: must be a list containing object only
     :return: Return tree_farm anyway. If no error appears, remove one tree object and return tree_farm list.
     """
-    diameter = input("What diameter tree would you like? ")
+    diameter = input("What diameter tree would you like?\n")
     try:
         circumference = math.pi * float(diameter)
     except ValueError:
-        print("The float format only")
-        return tree_farm
+        print("Input must be of type float only!")
     else:
-        tree_farm.remove_tree(circumference)
+        removed_tree = tree_farm.remove_tree(circumference)
+        print(f"We have harvested the {removed_tree.get_species()} tree that was {removed_tree.get_age()} years old.\n")
         tree_farm.print_trees()
-    return tree_farm
+    finally:
+        return tree_farm
 
 
 def harvest_some_trees(tree_farm: object) -> object:
     """
-    Aak the diameter and accord to the value to match the every object which is larger than or equal to the circumference.
-    Remove the objects and return tree_farm list.
+    Ask the diameter and accord to the value to match the every object which is larger than or equal to the
+    circumference. Remove the objects and return tree_farm list.
+
     precondition: tree_farm must be a list containing object only
     postcondition: Except ValueError at calculating the circumference and print error message if putting wrong format of
-    circumference. Return tree_farm is list after removing the every object  which is larger than or equal to the circumference.
+    circumference. Return tree_farm is list after removing the every object  which is larger than or equal to the
+    circumference.
     :param tree_farm: must be a list containing object only
     :return: Return tree_farm anyway. If no error appears, remove the objects which is larger than or equal to
     the circumference and return tree_farm list.
     """
-    diameter = input("What diameter tree would you like? ")
+    diameter = input("What diameter tree would you like?\n")
     try:
         circumference = math.pi * float(diameter)
     except ValueError:
-        print("The float format only")
-        return tree_farm
+        print("Input must be of type float only!")
     else:
-        tree_farm.remove_trees(circumference)
+        removed_trees = tree_farm.remove_trees(circumference)
+        print("We have removed the following trees:")
+        for tree in removed_trees:
+            print(f" - Harvested the {tree.get_species()} tree that was {tree.get_age()} years old.")
         tree_farm.print_trees()
-    return tree_farm
+    finally:
+        return tree_farm
 
 
 def main():
