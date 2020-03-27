@@ -1,3 +1,6 @@
+"""
+Contains the Tree Class and the attributes and methods that are associated with it.
+"""
 import doctest
 
 
@@ -96,6 +99,56 @@ class Tree:
         50.23
         """
         return self.__circumference
+
+    def set_age(self, updated_age):
+        """Update the age of the tree with a given float or integer that will be converted to integer value.
+
+        :param updated_age: an integer that represents the updated age of the this Tree object.
+        :precondition: passed value must either be a float or integer but the stored value will always be converted into
+                       an integer.
+        :postcondition: returns nothing as it modifies the value of the this Tree's __age attribute to reflect
+                        the new age.
+        :raise TypeError: error is raised when the passed argument is not of type float or integer.
+        :return: nothing as it modifies the __age attribute of the given Tree object into something else.
+
+        >>> maple = Tree("Maple", 245, 189.34)
+        >>> maple.set_age(250)
+        >>> maple.get_age()
+        250
+        """
+        if type(updated_age) == int or type(updated_age) == float:
+            self.__age = int(updated_age)
+        else:
+            raise TypeError("The tree's age can only be an integer.")
+
+    def set_circumference(self, updated_circumference):
+        """Update the age of the tree with a given float or integer that will be converted to integer value.
+
+        :param updated_circumference: an integer that represents the updated age of the this Tree object.
+        :precondition: passed value must either be a float or integer but the stored value will always be converted into
+                       an float.
+        :postcondition: returns nothing as it modifies the value of the this Tree's __circumference attribute to reflect
+                        the new circumference.
+        :raise TypeError: error is raised when the passed argument is not of type float or integer.
+        :return: nothing as it modifies the __circumference attribute of the given Tree object into something else.
+
+        >>> maple = Tree("Maple", 245, 189.34)
+        >>> maple.set_circumference(195.52)
+        >>> print(maple.get_circumference())
+        195.52
+        """
+        if type(updated_circumference) == int or type(updated_circumference) == float:
+            self.__circumference = float(updated_circumference)
+        else:
+            raise TypeError("The Tree's circumference must be a continuous value of type float.")
+
+
+def main():
+    doctest.testmod()
+
+
+if __name__ == "__main__":
+    main()
 
 
 def main():
