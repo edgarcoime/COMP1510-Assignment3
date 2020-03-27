@@ -49,15 +49,19 @@ class TestAddTree(TestCase):
             "You only can provide non-empty species, positive integer age and non-zero positive float circumference.\n",
             mock_stdout.getvalue())
 
-
-
-    @patch('builtins.input', side_effect=["Ailanthus", 10, -10.47])
+    @patch('builtins.input', side_effect=["Ailanthus", 10, "not a number"])
     @patch('sys.stdout', new_callable=io.StringIO)
-    def test_add_tree_invalid_input_add_negative_circumference(self, mock_stdout, _):
-        test_farm = "not an object"
+    def test_add_tree_invalid_input_add_wrong_input_format(self, mock_stdout, _):
+        test_farm = TreeFarm()
         actual = str(add_tree(test_farm))
-        expected = 'not an object'
+        expected = str([])
         self.assertEqual(expected, actual)
         self.assertEqual(
             "You only can provide non-empty species, positive integer age and non-zero positive float circumference.\n",
             mock_stdout.getvalue())
+
+    @patch('builtins.input', side_effect=["Ailanthus", 10, 10.242])
+    @patch('sys.stdout', new_callable=io.StringIO)
+    def test_add_tree_invalid_input_not_an_object(self, mock_stdout, _):
+        self.assertEqual('not an object', add_tree("not an object"))
+        self.assertEqual("", mock_stdout.getvalue())
