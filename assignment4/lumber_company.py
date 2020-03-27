@@ -1,4 +1,3 @@
-import math
 from assignment4.tree import Tree
 from assignment4.tree_farm import TreeFarm
 
@@ -40,13 +39,12 @@ def harvest_one_tree(tree_farm: object) -> object:
     :param tree_farm: must be a list containing object only
     :return: Return tree_farm anyway. If no error appears, remove one tree object and return tree_farm list.
     """
-    diameter = input("What diameter tree would you like?\n")
+    circumference = input("What diameter tree would you like?\n")
     try:
-        circumference = math.pi * float(diameter)
+        removed_tree = tree_farm.remove_tree(float(circumference))
     except ValueError:
         print("Input must be of type float only!")
     else:
-        removed_tree = tree_farm.remove_tree(circumference)
         print(f"We have harvested the {removed_tree.get_species()} tree that was {removed_tree.get_age()} years old.\n")
         tree_farm.print_trees()
     finally:
@@ -66,13 +64,12 @@ def harvest_some_trees(tree_farm: object) -> object:
     :return: Return tree_farm anyway. If no error appears, remove the objects which is larger than or equal to
     the circumference and return tree_farm list.
     """
-    diameter = input("What diameter tree would you like?\n")
+    circumference = input("What diameter tree would you like?\n")
     try:
-        circumference = math.pi * float(diameter)
+        removed_trees = tree_farm.remove_trees(float(circumference))
     except ValueError:
         print("Input must be of type float only!")
     else:
-        removed_trees = tree_farm.remove_trees(circumference)
         print("We have removed the following trees:")
         for tree in removed_trees:
             print(f" - Harvested the {tree.get_species()} tree that was {tree.get_age()} years old.")

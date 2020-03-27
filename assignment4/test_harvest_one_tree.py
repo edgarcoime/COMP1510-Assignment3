@@ -8,7 +8,7 @@ import math
 
 
 class TestHarvestOneTree(TestCase):
-    @patch('builtins.input', side_effect=[100 / math.pi])
+    @patch('builtins.input', side_effect=[100])
     @patch('sys.stdout', new_callable=io.StringIO)
     def test_harvest_one_tree_100cm_Harvest_Ailanthus(self, mock_stdout, _):
         trees = TreeFarm()
@@ -21,7 +21,7 @@ class TestHarvestOneTree(TestCase):
         self.assertEqual(expected, actual)
         self.assertEqual(expected_print, mock_stdout.getvalue())
 
-    @patch('builtins.input', side_effect=[50 / math.pi])
+    @patch('builtins.input', side_effect=[50])
     @patch('sys.stdout', new_callable=io.StringIO)
     def test_harvest_one_tree_harvest_Maple(self, mock_stdout, _):
         trees = TreeFarm()
@@ -34,7 +34,7 @@ class TestHarvestOneTree(TestCase):
         self.assertEqual(expected, actual)
         self.assertEqual(expected_print, mock_stdout.getvalue())
 
-    @patch('builtins.input', side_effect=[250 / math.pi])
+    @patch('builtins.input', side_effect=[250])
     @patch('sys.stdout', new_callable=io.StringIO)
     def test_harvest_one_trees_harvest_no_tress(self, mock_stdout, _):
         trees = TreeFarm()
