@@ -6,8 +6,9 @@ from tree import Tree
 import io  # NEW
 import math
 
+
 class TestHarvestOneTree(TestCase):
-    @patch('builtins.input', side_effect=[100/math.pi])
+    @patch('builtins.input', side_effect=[100 / math.pi])
     @patch('sys.stdout', new_callable=io.StringIO)
     def test_harvest_one_tree_100cm_Harvest_Ailanthus(self, mock_stdout, _):
         trees = TreeFarm()
@@ -45,4 +46,3 @@ class TestHarvestOneTree(TestCase):
         expected_print = ""
         self.assertEqual(expected, actual)
         self.assertEqual(expected_print, mock_stdout.getvalue())
-
