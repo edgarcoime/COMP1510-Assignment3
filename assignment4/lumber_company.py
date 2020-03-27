@@ -3,7 +3,7 @@ from tree import Tree
 from tree_farm import TreeFarm
 
 
-def add_tree(tree_farm: list) -> list:
+def add_tree(tree_farm: object) -> object:
     """
     Ask the specific info about a tree: species, age and circumference with the blow conditions. Next, add the new tree
     object into the tree_farm list and return tree_farm. Otherwise, give an exception of ValueError and return the
@@ -23,18 +23,16 @@ def add_tree(tree_farm: list) -> list:
     except ValueError:
         print("You only can provide non-empty species, positive integer age and non-zero positive float circumference.")
         return tree_farm
+    except TypeError:
+        tree_farm.add(tree)
+        print("The tree must be an object.")
+        return tree_farm
     else:
-        try:
-            tree_farm.add(tree)
-        except TypeError:
-            print("The tree must be an object.")
-            return tree_farm
-        else:
-            tree_farm.print_trees()
+        tree_farm.print_trees()
     return tree_farm
 
 
-def harvest_one_tree(tree_farm: list) -> list:
+def harvest_one_tree(tree_farm: object) -> object:
     """
     Aak the diameter and accord to the value to match the first object matching the requirement. Remove the object and
     return tree_farm list.
@@ -56,7 +54,7 @@ def harvest_one_tree(tree_farm: list) -> list:
     return tree_farm
 
 
-def harvest_some_trees(tree_farm: list) -> list:
+def harvest_some_trees(tree_farm: object) -> object:
     """
     Aak the diameter and accord to the value to match the every object which is larger than or equal to the circumference.
     Remove the objects and return tree_farm list.
