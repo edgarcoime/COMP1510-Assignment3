@@ -1,6 +1,6 @@
 import math
-from tree import Tree
-from tree_farm import TreeFarm
+from assignment4.tree import Tree
+from assignment4.tree_farm import TreeFarm
 
 
 def add_tree(tree_farm: object) -> object:
