@@ -91,9 +91,11 @@ class TreeFarm:
         >>> tree_farm.add(tree1)
         >>> tree_farm.add(tree2)
         >>> tree_farm.print_trees()
+        These are the trees in the tree farm:
         There is a Oak tree that is 245 years old.
         There is a Maple tree that is 111 years old.
         """
+        print("These are the trees in the tree farm:")
         for one_tree in self.__tree_farm:
             print(f"There is a {one_tree.get_species()} tree that is {one_tree.get_age()} years old.")
 

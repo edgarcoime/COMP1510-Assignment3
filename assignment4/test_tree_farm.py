@@ -66,7 +66,8 @@ class TestTreeFarm(TestCase):
     @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
     def test_print_trees(self, mock_stdout):
         self.test_tree_farm_2_trees.print_trees()
-        expected_print = "There is a Oak tree that is 123 years old.\n" \
+        expected_print = "These are the trees in the tree farm:\n" \
+                         "There is a Oak tree that is 123 years old.\n" \
                          "There is a Maple tree that is 234 years old.\n"
         self.assertEqual(mock_stdout.getvalue(), expected_print)
 
