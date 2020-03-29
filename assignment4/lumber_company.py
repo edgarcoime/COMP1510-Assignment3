@@ -1,3 +1,4 @@
+import doctest
 from assignment4.tree import Tree
 from assignment4.tree_farm import TreeFarm
 
@@ -77,6 +78,9 @@ def harvest_some_trees(tree_farm: object) -> None:
 
 
 def main():
+    """
+    Test the module
+    """
     tree_farm = TreeFarm()
     tree_farm.add(Tree("Maple", 150, 50.23))
     tree_farm.add(Tree("Ailanthus", 10, 104.23))
@@ -98,6 +102,7 @@ def main():
             break
         else:
             print("Please only type 1, 2, 3 or 4")
+    doctest.testmod()
 
 
 if __name__ == '__main__':
